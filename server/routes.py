@@ -1,10 +1,10 @@
-from flask import send_from_directory
+from flask import send_from_directory, render_template
 from server import app
 
 
 @app.route("/")
 def splash():
-    return "Splash Page"
+    return render_template("splash.html")
 
 
 @app.route("/<path:filename>")
