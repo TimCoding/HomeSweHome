@@ -99,3 +99,5 @@ ENV/
 
 # mypy
 .mypy_cache/
+server/static/.DS_Store
+server/templates/.DS_Store
