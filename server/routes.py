@@ -20,6 +20,10 @@ def about():
     issues_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/issues")
     issues_json = issues_req.json()
 
+    if len(issues_json) == 0:
+        issues_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/issues")
+        issues_json = issues_req.json()
+
     total_issues = 0
 
     for issue in issues_json:
@@ -29,6 +33,10 @@ def about():
 
     contribs_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/stats/contributors")
     contribs_json = contribs_req.json()
+
+    if len(contribs_json) == 0:
+        contribs_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/stats/contributors")
+        contribs_json = contribs_req.json()
 
     total_commits = 0
 
@@ -47,6 +55,7 @@ def about():
     }
 
     return json.dumps(data)
+
 
 @app.route("/<path:filename>")
 def file(filename):
