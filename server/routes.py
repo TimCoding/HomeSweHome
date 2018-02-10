@@ -56,6 +56,9 @@ def about():
 
     return json.dumps(data)
 
+@app.route("/dog_details")
+def dog_details():
+    return render_template("dog_details.html")
 
 @app.route("/<path:filename>")
 def file(filename):
