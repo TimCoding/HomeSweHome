@@ -70,7 +70,11 @@ def park_models():
 
 @app.route("/shelters")
 def animalshelters_models():
-    return render_template("animalshelter_models.html")
+    return render_template("shelter_models.html")
+
+@app.route("/shelters/1")
+def animalshelter_details():
+    return render_template("shelter_details.html")    
 
 @app.route("/<path:filename>")
 def file(filename):
