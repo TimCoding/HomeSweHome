@@ -60,6 +60,18 @@ def about():
 def dog_details():
     return render_template("dog_details.html")
 
+@app.route("/dogs")
+def dog_models():
+    return render_template("dog_models.html")
+
+@app.route("/parks")
+def park_models():
+    return render_template("park_models.html")
+
+@app.route("/shelters")
+def animalshelters_models():
+    return render_template("animalshelter_models.html")
+
 @app.route("/<path:filename>")
 def file(filename):
     return send_from_directory(app.static_folder, filename)
