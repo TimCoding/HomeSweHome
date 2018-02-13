@@ -1,3 +1,10 @@
 h1 {
 	text-align: center;
 }
+
+.map img {
+	height: 400px;
+	width:auto;
+
+}
+

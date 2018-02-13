@@ -2,6 +2,123 @@
 {% block content %}
  
  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/shelter_details_style.css') }}">
+
+
  <!-- Title -->
- <h1>Park Name Goes Here</h1>
+ <h1>Adoption Shelter Name</h1>
+
+ <!-- Description Block -->
+<div class = "description container">
+	<div class="row">
+		<div class="models_title col-md-8">
+			<p> What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p>
+		</div>
+		<div class="map col-md-4">
+	 		<img src="/sample_map.png">
+	 </div>
+	</div>
+</div>
+
+<hr></hr>
+
+<!-- Recommended Parks -->
+<div class="parks container">
+	<div class="row">
+		<div class="models_title col-md-12">
+			<h2>Recommended Parks</h2>
+		</div>
+		<div class="col-md-3">
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" src="/sample_park.jpeg" alt="Card image cap">
+			  <div class="card-body">
+			    <h5 class="card-title">Park Name</h5>
+			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" src="/sample_park.jpeg" alt="Card image cap">
+			  <div class="card-body">
+			    <h5 class="card-title">Park Name</h5>
+			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" src="/sample_park.jpeg" alt="Card image cap">
+			  <div class="card-body">
+			    <h5 class="card-title">Park Name</h5>
+			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" src="/sample_park.jpeg" alt="Card image cap">
+			  <div class="card-body">
+			    <h5 class="card-title">Park Name</h5>
+			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
+	<hr></hr>
+
+<!-- Recommended Dogs -->
+<div class="dogs container">
+	<div class="row">
+		<div class="models_title col-md-12">
+			<h2>Recommended Dogs</h2>
+		</div>
+		<div class="col-md-3">
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" src="/dog1.jpg" alt="Card image cap">
+			  <div class="card-body">
+			    <h5 class="card-title">Dog Name</h5>
+			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" src="/dog1.jpg" alt="Card image cap">
+			  <div class="card-body">
+			    <h5 class="card-title">Dog Name</h5>
+			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" src="/dog1.jpg" alt="Card image cap">
+			  <div class="card-body">
+			    <h5 class="card-title">Dog Name</h5>
+			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" src="/dog1.jpg" alt="Card image cap">
+			  <div class="card-body">
+			    <h5 class="card-title">Dog Name</h5>
+			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 {% endblock %}
