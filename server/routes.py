@@ -54,7 +54,7 @@ def about():
         }
     }
 
-    return json.dumps(data)
+    return render_template("about.html", gh_data=data)
 
 @app.route("/dog_details")
 def dog_details():

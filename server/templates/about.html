@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">
+            About <span class="font-italic">HomeSweHome</span>
+        </h1>
+        <p class="lead text-muted">
+            All you need to know about this amazing project.
+        </p>
+        <p>
+            <a href="#crew" class="btn btn-primary my-2">
+                Meet the Crew
+            </a>
+            <a href="#about" class="btn btn-primary my-2">
+                About the Project
+            </a>
+        </p>
+    </div>
+</section>
+
+
+
+<div class="container" id="crew">
+    <h2 class="text-center my-4">The Crew</h2>
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="https://avatars0.githubusercontent.com/u/3261707?s=150" class="rounded-circle mx-auto d-block">
+            <h2 class="text-center mt-3">Davis Robertson</h2>
+            <div class="container mb-5">
+                <table class="table table-sm">
+                    <tr>
+                        <td colspan="2" class="border-top-0">
+                            <p>So far, I've been in charge of setting up the Flask backend and creating the dynamically updating "About" page.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Commits:</td>
+                        <td>{{gh_data["users"]["EpicDavi"]["commits"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Issues:</td>
+                        <td>{{gh_data["users"]["EpicDavi"]["issues"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Unit Tests:</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <img src="https://avatars1.githubusercontent.com/u/13396638?s=150" class="rounded-circle mx-auto d-block">
+            <h2 class="text-center mt-3">Timothy Ho</h2>
+            <div class="container mb-5">
+                <table class="table table-sm">
+                    <tr>
+                        <td colspan="2" class="border-top-0">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non sapien vitae dolor tincidunt accumsan. </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Commits:</td>
+                        <td>{{gh_data["users"]["TimCoding"]["commits"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Issues:</td>
+                        <td>{{gh_data["users"]["TimCoding"]["issues"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Unit Tests:</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <img src="https://avatars1.githubusercontent.com/u/22127552?s=150" class="rounded-circle mx-auto d-block" style="width: 150px">
+            <h2 class="text-center mt-3">Emily Kwong</h2>
+            <div class="container mb-5">
+                <table class="table table-sm">
+                    <tr>
+                        <td colspan="2" class="border-top-0">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non sapien vitae dolor tincidunt accumsan. </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Commits:</td>
+                        <td>{{gh_data["users"]["ewk298"]["commits"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Issues:</td>
+                        <td>{{gh_data["users"]["ewk298"]["issues"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Unit Tests:</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-4 offset-lg-2">
+            <img src="https://avatars3.githubusercontent.com/u/14303487?s=150" class="rounded-circle mx-auto d-block" style="width: 150px">
+            <h2 class="text-center mt-3">Rebekkah Koo</h2>
+            <div class="container mb-5">
+                <table class="table table-sm">
+                    <tr>
+                        <td colspan="2" class="border-top-0">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non sapien vitae dolor tincidunt accumsan.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Commits:</td>
+                        <td>{{gh_data["users"]["rebekkahkoo"]["commits"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Issues:</td>
+                        <td>{{gh_data["users"]["rebekkahkoo"]["issues"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Unit Tests:</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <img src="https://avatars0.githubusercontent.com/u/15114047?s=150" class="rounded-circle mx-auto d-block" style="width: 150px">
+            <h2 class="text-center mt-3">Godfrey Macasero</h2>
+            <div class="container mb-5">
+                <table class="table table-sm">
+                    <tr>
+                        <td colspan="2" class="border-top-0">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non sapien vitae dolor tincidunt accumsan.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Commits:</td>
+                        <td>{{gh_data["users"]["gmac220"]["commits"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Issues:</td>
+                        <td>{{gh_data["users"]["gmac220"]["issues"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Unit Tests:</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="about">
+    <hr class="my-5">
+    <h2 class="text-center">We all love dogs, right?</h2>
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <h4>The Overview</h4>
+            <p class="text-justify">Welcome all dog lovers! If you are looking to discover a new dog, shelter, or park,
+                you have come to the right place! <span class="font-italics">HomeSweHome</span> is the best new site to
+                find your new best friend! For any shelter in your area, you can find which little buddies are living
+                there. In addition, you can see what parks are in the area for you and your friend to have a great time!
+            </p>
+            <h4>The Data</h4>
+            <p>There are many challenges that face us when acquiring and processing this disparate data.</p>
+            <ul>
+                <li><a href="https://www.petfinder.com/developers/api-docs">PetFinder API</a>:</li>
+                <ul>
+                    <li>Main data source for finding adoptable dogs and shelters</li>
+                    <li>Most dogs listings have dog images to scrape from</li>
+                </ul>
+                <li><a href="https://www.nps.gov/subjects/digital/nps-data-api.htm">National Park Service API</a>:</li>
+                <ul>
+                    <li>Has information on parks based on a given area</li>
+                    <li>Need to pair up parks with shelters based on location</li>
+                </ul>
+                <li><a href="https://developers.google.com/places/supported_types">Google Places API</a>:</li>
+                <ul>
+                    <li>Gives Google information of a shelter or park</li>
+                    <li>Should be able to retrieve images and map data</li>
+                </ul>
+            </ul>
+            <h4>The Stats</h4>
+            <div class="container">
+                <table class="table">
+                    <tr>
+                        <td>Total Commits:</td>
+                        <td>{{gh_data["totals"]["commits"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Issues:</td>
+                        <td>{{gh_data["totals"]["issues"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Unit Tests:</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4>The Tools</h4>
+            <p>Many new tools other than the previously stated ones were used in the creation of this site. Including but not limited to:</p>
+            <ul>
+                <li>Slack:</li>
+                <ul>
+                    <li>Group collaboration and file sharing</li>
+                    <li>GitHub integration for tracking activity</li>
+                </ul>
+                <li>Amazon EC2:</li>
+                <ul>
+                    <li>Hosting of server</li>
+                    <li>Installation and custom options for running in production</li>
+                </ul>
+            </ul>
+            <h4>The Links</h4>
+            <ul>
+                <li><a href="https://github.com/TimCoding/HomeSweHome/">GitHub Project</a></li>
+                <li>GitBook:</li>
+                <ul>
+                    <li>API</li>
+                    <li>Write Up</li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
