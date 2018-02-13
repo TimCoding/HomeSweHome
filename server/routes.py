@@ -6,6 +6,9 @@ import requests
 
 from server import app
 
+import os, sys
+PATH_TO_JSON = os.path.join(os.path.dirname(os.getcwd()), os.path.basename(os.getcwd()), "json")
+sys.path.insert(0, PATH_TO_JSON)
 
 @app.route("/")
 def splash():
@@ -59,6 +62,10 @@ def about():
 
 @app.route("/dog_details")
 def dog_details():
+    dog_file = os.path.join(PATH_TO_JSON, "austin_dog.json")
+    json_data = open(dog_file).read()
+    dog_json = json.loads(json_data)
+    
     return render_template("dog_details.html")
 
 @app.route("/dogs")
