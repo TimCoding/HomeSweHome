@@ -64,6 +64,10 @@ def dog_details():
 def dog_models():
     return render_template("dog_models.html")
 
+@app.route("/park_details")
+def park_details():
+    return render_template("park_details.html")
+
 @app.route("/parks")
 def park_models():
     return render_template("park_models.html")
