@@ -17,11 +17,12 @@ def about():
     users = ["EpicDavi", "gmac220", "TimCoding", "rebekkahkoo", "ewk298"]
     attrs = {user: defaultdict(int) for user in users}
 
-    issues_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/issues")
+    issue_params = {"state": "all"}
+    issues_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/issues", params=issue_params)
     issues_json = issues_req.json()
 
     if len(issues_json) == 0:
-        issues_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/issues")
+        issues_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/issues", params=issue_params)
         issues_json = issues_req.json()
 
     total_issues = 0
