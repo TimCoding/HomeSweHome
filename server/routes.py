@@ -65,8 +65,78 @@ def dog_details():
     dog_file = os.path.join(PATH_TO_JSON, "austin_dog.json")
     json_data = open(dog_file).read()
     dog_json = json.loads(json_data)
-    
-    return render_template("dog_details.html")
+
+    options = [] # list of lists
+    status = [] 
+    contact = [] # list of dictionaries
+    age = []
+    size = []
+    photos = [] # list of list of dicts
+    # figure out how to grab only highest res photos and have photos list of lists
+    dog_id = []
+    shelter_pet_id = []
+    breed = []
+    name = []
+    sex = []
+    description = []
+    mix = []
+    shelter_id = []
+    last_update = []
+
+    for dog in dog_json["petfinder"]["pets"]["pet"]:
+        options += [dog["options"].values()]
+        status += dog["status"].values()
+        contact = dog["contact"]
+        age += dog["age"].values()
+        size += dog["size"].values()
+        photos += [dog["media"]["photos"]["photo"]]
+        dog_id += dog["id"].values()
+        shelter_pet_id += dog["shelterPetId"].values()
+        breed += dog["breeds"]["breed"]
+        name += dog["name"].values()
+        sex += dog["sex"].values()
+        description += dog["description"].values()
+        mix += dog["mix"].values()
+        shelter_id += dog["shelterId"].values()
+        last_update += dog["lastUpdate"].values()
+
+    phone = [p for p in contact["phone"].values()]
+    state = [s for s in contact["state"].values()]
+    addr2 = [addr for addr in contact["address2"].values()]
+    email = [e for e in contact["email"].values()]
+    city = [c for c in contact["city"].values()]
+    z = [zi for zi in contact["zip"].values()]
+    fax = [f for f in contact["fax"].values()]
+    addr1 = [addr for addr in contact["address1"].values()]
+
+    data = {
+               "options": options,
+               "status": status,
+               "contact": {
+                  "phone": phone,
+                  "state": state,
+                  "address2": addr2,
+                  "email": email,
+                  "city": city,
+                  "zip": z,
+                  "fax": fax,
+                  "address1": addr1
+               },
+               "age": age,
+               "size": size,
+               "media": photos,
+               "id": dog_id,
+               "shelterPetId": shelter_pet_id,
+               "breeds": breed,
+               "name": name,
+               "sex": sex,
+               "description": description,
+               "mix": mix,
+               "shelterId": shelter_id,
+               "lastUpdate": last_update,
+            }
+
+    return render_template("dog_details.html", dog_data=data)
 
 @app.route("/dogs")
 def dog_models():

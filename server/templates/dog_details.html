@@ -10,13 +10,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="dog1.jpg" style="height:30rem" alt="First slide">
+      <img class="d-block mx-auto" src="{{dog_data["media"][0][2]["$t"]}}" style="height:30rem" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="dog2.jpg" style="height:30rem" alt="Second slide">
+      <img class="d-block mx-auto" src="{{dog_data["media"][0][7]["$t"]}}" style="height:30rem" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="dog3.jpg" style="height:30rem" alt="Third slide">
+      <img class="d-block mx-auto" src="{{dog_data["media"][0][12]["$t"]}}" style="height:30rem" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -37,9 +37,7 @@
     <div class="card-header"><h5>Description</h5></div>
       <div class="card-block" style="padding-left:10px; padding-top:10px">
         <blockquote class="card-blockquote">
-        <p class="models_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut</p>
+        <p class="models_content">{{dog_data["description"][0]}}</p>
         </blockquote>
     </div>
   </div>
@@ -50,8 +48,8 @@
     <div class="card-header"><h5>Information</h5></div>
       <div class="card-block" style="padding-left:10px; padding-top:10px">
         <blockquote class="card-blockquote">
-          <p>Address</p>
-          <p>Phone Number</p>
+          <p>Address: {{dog_data["contact"]["address1"][0]}}</p>
+          <p>Phone: {{dog_data["contact"]["phone"][0]}}</p>
           <a href="/shelters/1" class="card-link">Adopt me pls</a>
         </blockquote>
     </div>
