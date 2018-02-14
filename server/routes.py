@@ -148,8 +148,21 @@ def park_details(id):
     park_file = os.path.join(PATH_TO_JSON, "texas_parks.json")
     json_data = open(park_file).read()
     park_json = json.loads(json_data)
+    
+    info = [
+            # "Alibates Flint Quarries",
+            {   "address": "37084 Alibates Rd.Potter County, TX 79036",
+                "phone" : "(806) 857-6680"
+            },
+            #"Amistad":
+            { 
+                "address": "9685 Highway 90 West Del Rio, TX 78840",
+                "phone": "(830)775-7491"
+            }
+            
+        ]
 
-    return render_template("park_details.html", park_data=park_json["data"][id])
+    return render_template("park_details.html", park_data=park_json["data"][id], park_info=info)
 
 @app.route("/parks")
 def park_models():
