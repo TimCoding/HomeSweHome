@@ -156,16 +156,16 @@ def animalshelters_models():
 
 @app.route("/shelters/<int:page_num>")
 def animalshelter_details(page_num):
-    wee_rescue_data = ["Wee Rescue", "P.O. Box 66872 Austin, TX", "512-533-9360", "info@weerescue.org"]
-    cocker_spaniel_rescue_data = ["Cocker Spaniel Rescue", "PO Box 27453 Austin, TX 78755", "512-527-9923", "woof@austincockerrescue.org"]
-    small_chance_rescue_data = ["Small Chance Rescue", "P.O. Box 10033 Austin, TX 78766", "512-699-7244 ", "info@smallchancerescue.com"]
+    friends_for_life_data = ["Friends For Life", "107 E. 22nd Street Houston, TX 77008", "713-863-9835", "adoptionmanager@adoptfriends4life.org", "4/5", "https://s3-media4.fl.yelpcdn.com/bphoto/5E9ShzNCm4zAqWoweZnFdQ/o.jpg" ]
+    austin_animal_center_data = ["Austin Animal Center", "7201 Levander Loop Austin, TX 78702", "(512)-978-0500", "animal.customerservice@austintexas.gov", "4/5", "https://s3-media1.fl.yelpcdn.com/bphoto/ovSLVz5Vzr84yUVqieCAcA/o.jpg"]
+    houston_spca_data = ["Houston SPCA", "900 Portway Drive Houston, TX 77024", "(713) 869-7722", "adoptions@houstonspca.org", "3.5/5", "https://s3-media2.fl.yelpcdn.com/bphoto/JoMkKKBhRagstFKx98jhJA/o.jpg"]
 
-    if page_num == 1:
-        return render_template("shelter_details.html", data = wee_rescue_data)
-    elif page_num == 2:
-        return render_template("shelter_details.html", data = small_chance_rescue_data)
-    elif page_num ==3:
-        return render_template("shelter_details.html", data = cocker_spaniel_rescue_data)
+    if page_num == 0:
+        return render_template("shelter_details.html", data = friends_for_life_data)
+    elif page_num == 1:
+        return render_template("shelter_details.html", data = austin_animal_center_data)
+    elif page_num ==2:
+        return render_template("shelter_details.html", data = houston_spca_data)
 
 @app.route("/<path:filename>")
 def file(filename):

@@ -12,17 +12,22 @@
  <!-- Description Block -->
 <div class = "description container">
 	<div class="row">
-		<div class="models_title col-md-8">
+		<div class="models_title col-md-4">
 			<ul>
 				<li>Address:{{data[1]}} </li>
 				<li>Phone Number:{{data[2]}}</li>
 				<li>Email:{{data[3]}}</li>
+				<li>Yelp Rating: {{data[4]}}</li>
 			</ul>
 		</div>
 		<div class="map col-md-4">
 	 		<img src="/sample_map.png">
 	 	</div>
-	</div>
+	 	<div class="dog col-md-4">
+	 		<img src={{data[5]}}>
+	 	</div>
+	</div>		
+	
 </div>
 
 <hr></hr>
@@ -41,7 +46,7 @@
 				  <div class="card-body">
 				    <h5 class="card-title">Park Name</h5>
 				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="/park_details" class="card-link">Go somewhere</a>
+				    <a href="/park_details/0" class="card-link">Go somewhere</a>
 				  </div>
 				</div>
 	
@@ -50,7 +55,7 @@
 				  <div class="card-body">
 				    <h5 class="card-title">Park Name</h5>
 				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="/park_details" class="card-link">Go somewhere</a>
+				    <a href="/park_details/1" class="card-link">Go somewhere</a>
 				  </div>
 				</div>
 			
@@ -59,16 +64,7 @@
 				  <div class="card-body">
 				    <h5 class="card-title">Park Name</h5>
 				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="/park_details" class="card-link">Go somewhere</a>
-				  </div>
-				</div>
-		
-				<div class="card" style="width: 18rem;">
-				  <img class="card-img-top" src="/sample_park.jpeg" alt="Card image cap">
-				  <div class="card-body">
-				    <h5 class="card-title">Park Name</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="/park_details" class="card-link">Go somewhere</a>
+				    <a href="/park_details/2" class="card-link">Go somewhere</a>
 				  </div>
 				</div>
 			</div>			
@@ -113,14 +109,6 @@
 				  </div>
 				</div>
 			
-				<div class="card" style="width: 18rem;">
-				  <img class="card-img-top" src="/dog1.jpg" alt="Card image cap">
-				  <div class="card-body">
-				    <h5 class="card-title">Dog Name</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				    <a href="/dog_details" class="card-link">Look at dog</a>
-				  </div>
-				</div>	
 			</div>
 		</div>
 	</div>
