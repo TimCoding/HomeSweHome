@@ -60,8 +60,8 @@ def about():
 
     return render_template("about.html", gh_data=data)
 
-@app.route("/dog_details")
-def dog_details():
+@app.route("/dog_details/<int:id>")
+def dog_details(id):
     dog_file = os.path.join(PATH_TO_JSON, "austin_dog.json")
     json_data = open(dog_file).read()
     dog_json = json.loads(json_data)
@@ -136,7 +136,8 @@ def dog_details():
                "lastUpdate": last_update,
             }
 
-    return render_template("dog_details.html", dog_data=data)
+    return render_template("dog_details.html", dog_data=data, id=id)
+
 
 @app.route("/dogs")
 def dog_models():
