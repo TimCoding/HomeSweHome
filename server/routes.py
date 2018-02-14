@@ -154,9 +154,18 @@ def park_models():
 def animalshelters_models():
     return render_template("shelter_models.html")
 
-@app.route("/shelters/1")
-def animalshelter_details():
-    return render_template("shelter_details.html")
+@app.route("/shelters/<int:page_num>")
+def animalshelter_details(page_num):
+    wee_rescue_data = ["Wee Rescue", "P.O. Box 66872 Austin, TX", "512-533-9360", "info@weerescue.org"]
+    cocker_spaniel_rescue_data = ["Cocker Spaniel Rescue", "PO Box 27453 Austin, TX 78755", "512-527-9923", "woof@austincockerrescue.org"]
+    small_chance_rescue_data = ["Small Chance Rescue", "P.O. Box 10033 Austin, TX 78766", "512-699-7244 ", "info@smallchancerescue.com"]
+
+    if page_num == 1:
+        return render_template("shelter_details.html", data = wee_rescue_data)
+    elif page_num == 2:
+        return render_template("shelter_details.html", data = small_chance_rescue_data)
+    elif page_num ==3:
+        return render_template("shelter_details.html", data = cocker_spaniel_rescue_data)
 
 @app.route("/<path:filename>")
 def file(filename):
