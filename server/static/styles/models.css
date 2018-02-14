@@ -4,11 +4,6 @@
 	border:none !important;
 } */
 
-@font-face {
-	font-family: 'FontAwesome'; /*a name to be used later*/
-  src: url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css); /*URL to font*/
-}
-
 .logo {
 	height: 400px;
 	width: 400px;
@@ -29,14 +24,4 @@
 .models_images {
 	height: 300px;
 	width: auto;
-}
-
-li.info:before {
-	font-family: 'FontAwesome';
-	content: '\f1b0';
-	margin:0 5px 0 -20px;
-}
-
-li.info {
-	list-style-type: none;
 }
