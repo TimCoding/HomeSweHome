@@ -17,9 +17,8 @@
     <div class="card-header"><h5>Description</h5></div>
       <div class="card-block" style="padding-left:10px; padding-top:10px">
         <blockquote class="card-blockquote">
-        <p>Park Description</p>
-        <p>this park is cool</p>
-        <p>very cool</p>
+        <p>{{park_data["name"]}}</p>
+        <p>{{park_data["description"]}}</p>
         </blockquote>
     </div>
   </div>
@@ -32,7 +31,7 @@
         <blockquote class="card-blockquote">
           <p>Address</p>
           <p>Phone Number</p>
-          <a href="/park_details" class="card-link">MY WEBSITE </a>
+          <a href="{{park_data["url"]}}" class="card-link">{{park_data["url"]}} </a>
         </blockquote>
     </div>
   </div>

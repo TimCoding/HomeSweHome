@@ -142,9 +142,13 @@ def dog_details():
 def dog_models():
     return render_template("dog_models.html")
 
-@app.route("/park_details")
-def park_details():
-    return render_template("park_details.html")
+@app.route("/park_details/<int:id>")
+def park_details(id):
+    park_file = os.path.join(PATH_TO_JSON, "texas_parks.json")
+    json_data = open(park_file).read()
+    park_json = json.loads(json_data)
+
+    return render_template("park_details.html", park_data=park_json["data"][id])
 
 @app.route("/parks")
 def park_models():
