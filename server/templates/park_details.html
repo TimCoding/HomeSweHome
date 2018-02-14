@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+<link rel= "stylesheet" href= "{{ url_for('static',filename='styles/park_details_style.css') }}">
 
 <!-- jumbotron -->
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1>{{park_data["name"]}}</h1>      
-    <p>Don't know if you guys want a picture here</p>
+    <h1>{{park_data["name"]}}</h1>
   </div>
 </div>
 
