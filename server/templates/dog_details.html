@@ -62,31 +62,51 @@
 <h2>PARKS FOR ME: </h2>
 </div>
 
+
+
+<style type="text/css">
+    span {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;     /** IE6+, Firefox 7+, Opera 11+, Chrome, Safari **/
+        -o-text-overflow: ellipsis;  /** Opera 9 & 10 **/
+        width: 370px; /* note that this width will have to be smaller to see the effect */
+    }
+</style>
+
+
 <!-- parks in card deck -->
 <div class="mx-auto" style="padding-top:10px; padding-bottom:40px; padding-left:40px; padding-right:40px">
-  <div class="card-deck">
-    <div class="card"">
-    <img class="card-img-top" src="/dog1.jpg" alt="Card image cap">
-      <div class="card-body">
-         <a href="/park_details/0" class="card-link"><h5>Alibates Flint Quarries</h5></a>
-      </div>
+      <div class="card-deck">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="/sample_park.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Alibates Flint Quarries</h5>
+            <p class="card-text"><span>13,000 years ago this site was already well-known by mammoth hunters as a place to get the best stone for their tools. Centuries passed but the colorful flint found right here in the Texas panhandle never lost its value and usefulness. Visit and gain a sense of how integral this site was to the survival, commerce and culture of the High Plains.</span></p>
+            <a href="/park_details/0" class="card-link">Go Here</a>
+          </div>
+        </div>
+  
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="/sample_park.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Amistad</h5>
+            <p class="card-text"><span>An oasis in the desert, Amistad National Recreation Area consists of the US portion of the International Amistad Reservoir. Amistad, whose name comes from the Spanish word meaning friendship, is best known for excellent water-based recreation, camping, hiking, rock art viewing, and its rich cultural history. Amistad is also home to a wide variety of plant and animal life above and below the water.</span></p>
+            <a href="/park_details/1" class="card-link">Go Here</a>
+          </div>
+        </div>
+      
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="/sample_park.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Big Bend</h5>
+            <p class="card-text"><span>There is a place in Far West Texas where night skies are dark as coal and rivers carve temple-like canyons in ancient limestone. Here, at the end of the road, hundreds of bird species take refuge in a solitary mountain range surrounded by weather-beaten desert. Tenacious cactus bloom in sublime southwestern sun, and diversity of species is the best in the country. This magical place is Big Bend.</span></p>
+            <a href="/park_details/2" class="card-link">Go Here</a>
+          </div>
+        </div>
+      </div>      
     </div>
-
-    <div class="card">
-      <img class="card-img-top" src="/dog2.jpg" alt="Card image cap">
-      <div class="card-body">
-        <a href="/park_details/1" class="card-link"><h5>Amistad</h5></a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img class="card-img-top" src="/dog3.jpg" alt="Card image cap">
-      <div class="card-body">
-        <a href="/park_details/2" class="card-link"><h5>Big Bend</h5></a>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 {% endblock %}
