@@ -230,16 +230,42 @@ def animalshelters_models():
 
 @app.route("/shelters/<int:page_num>")
 def animalshelter_details(page_num):
-    friends_for_life_data = ["Friends For Life", "107 E. 22nd Street Houston, TX 77008", "713-863-9835", "adoptionmanager@adoptfriends4life.org", "4/5", "https://s3-media4.fl.yelpcdn.com/bphoto/5E9ShzNCm4zAqWoweZnFdQ/o.jpg" ]
-    austin_animal_center_data = ["Austin Animal Center", "7201 Levander Loop Austin, TX 78702", "(512)-978-0500", "animal.customerservice@austintexas.gov", "4/5", "https://s3-media1.fl.yelpcdn.com/bphoto/ovSLVz5Vzr84yUVqieCAcA/o.jpg"]
-    houston_spca_data = ["Houston SPCA", "900 Portway Drive Houston, TX 77024", "(713) 869-7722", "adoptions@houstonspca.org", "3.5/5", "https://s3-media2.fl.yelpcdn.com/bphoto/JoMkKKBhRagstFKx98jhJA/o.jpg"]
+    shelter_file = os.path.join(PATH_TO_JSON, "yelp_texas_shelters_50.json")
+    json_data = open(shelter_file).read()
+    shelter_json = json.loads(json_data)
 
-    if page_num == 0:
-        return render_template("shelter_details.html", data = friends_for_life_data)
-    elif page_num == 1:
-        return render_template("shelter_details.html", data = austin_animal_center_data)
-    elif page_num ==2:
-        return render_template("shelter_details.html", data = houston_spca_data)
+    shelter_data = []
+
+    for shelter in shelter_json["businesses"]:
+        shelter_dict = {
+            "id":shelter["id"],
+            "name":shelter["name"],
+            "image_url":shelter["image_url"],
+            "url":shelter["url"],
+            "categories":[shelter["categories"]],
+            "rating":shelter["rating"],
+            "address1":shelter["location"]["address1"],
+            "city":shelter["location"]["city"],
+            "zip":shelter["location"]["zip_code"],
+            "country":shelter["location"]["country"],
+            "state":shelter["location"]["state"],
+            "display_address":shelter["location"]["display_address"],
+            "phone":shelter["display_phone"]
+        }
+        shelter_data.append(shelter_dict.copy())
+
+    return render_template("shelter_details.html", data=shelter_data[page_num])
+
+    # friends_for_life_data = ["Friends For Life", "107 E. 22nd Street Houston, TX 77008", "713-863-9835", "adoptionmanager@adoptfriends4life.org", "4/5", "https://s3-media4.fl.yelpcdn.com/bphoto/5E9ShzNCm4zAqWoweZnFdQ/o.jpg" ]
+    # austin_animal_center_data = ["Austin Animal Center", "7201 Levander Loop Austin, TX 78702", "(512)-978-0500", "animal.customerservice@austintexas.gov", "4/5", "https://s3-media1.fl.yelpcdn.com/bphoto/ovSLVz5Vzr84yUVqieCAcA/o.jpg"]
+    # houston_spca_data = ["Houston SPCA", "900 Portway Drive Houston, TX 77024", "(713) 869-7722", "adoptions@houstonspca.org", "3.5/5", "https://s3-media2.fl.yelpcdn.com/bphoto/JoMkKKBhRagstFKx98jhJA/o.jpg"]
+
+    # if page_num == 0:
+    #     return render_template("shelter_details.html", data = friends_for_life_data)
+    # elif page_num == 1:
+    #     return render_template("shelter_details.html", data = austin_animal_center_data)
+    # elif page_num ==2:
+    #     return render_template("shelter_details.html", data = houston_spca_data)
 
 @app.route("/<path:filename>")
 def file(filename):
