@@ -10,13 +10,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block mx-auto" src="{{dog_data["media"][id][2]["$t"]}}" style="height:30rem" alt="First slide">
+      <img class="d-block mx-auto" src="{{dog_data["media"][2]}}" style="height:30rem" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block mx-auto" src="{{dog_data["media"][id][7]["$t"]}}" style="height:30rem" alt="Second slide">
+      <img class="d-block mx-auto" src="{{dog_data["media"][7]}}" style="height:30rem" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block mx-auto" src="{{dog_data["media"][id][12]["$t"]}}" style="height:30rem" alt="Third slide">
+      <img class="d-block mx-auto" src="{{dog_data["media"][12]}}" style="height:30rem" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -37,7 +37,7 @@
     <div class="card-header"><h5>Description</h5></div>
       <div class="card-block" style="padding-left:10px; padding-top:10px">
         <blockquote class="card-blockquote">
-        <p class="models_content">{{dog_data["description"][id]}}</p>
+        <p class="models_content">{{dog_data["description"][0]}}</p>
         </blockquote>
     </div>
   </div>
@@ -48,8 +48,8 @@
     <div class="card-header"><h5>Information</h5></div>
       <div class="card-block" style="padding-left:10px; padding-top:10px">
         <blockquote class="card-blockquote">
-          <p>Address: {{dog_data["contact"]["address1"][id]}}</p>
-          <p>Phone: {{dog_data["contact"]["phone"][id]}}</p>
+          <p>Address: {{dog_data["contact"]["address1"]["$t"]}}</p>
+          <p>Phone: {{dog_data["contact"]["phone"]["$t"]}}</p>
           <a href="/shelters/1" class="card-link">Adopt me pls</a>
         </blockquote>
     </div>
@@ -84,7 +84,7 @@
           <div class="card-body">
             <h5 class="card-title">Alibates Flint Quarries</h5>
             <p class="card-text"><span>13,000 years ago this site was already well-known by mammoth hunters as a place to get the best stone for their tools. Centuries passed but the colorful flint found right here in the Texas panhandle never lost its value and usefulness. Visit and gain a sense of how integral this site was to the survival, commerce and culture of the High Plains.</span></p>
-            <a href="/park_details/0" class="card-link">Visit</a>
+            <a href="/park_details/0" class="card-link">Go Here</a>
           </div>
         </div>
   
@@ -93,7 +93,7 @@
           <div class="card-body">
             <h5 class="card-title">Amistad</h5>
             <p class="card-text"><span>An oasis in the desert, Amistad National Recreation Area consists of the US portion of the International Amistad Reservoir. Amistad, whose name comes from the Spanish word meaning friendship, is best known for excellent water-based recreation, camping, hiking, rock art viewing, and its rich cultural history. Amistad is also home to a wide variety of plant and animal life above and below the water.</span></p>
-            <a href="/park_details/1" class="card-link">Visit</a>
+            <a href="/park_details/1" class="card-link">Go Here</a>
           </div>
         </div>
       
@@ -102,7 +102,7 @@
           <div class="card-body">
             <h5 class="card-title">Big Bend</h5>
             <p class="card-text"><span>There is a place in Far West Texas where night skies are dark as coal and rivers carve temple-like canyons in ancient limestone. Here, at the end of the road, hundreds of bird species take refuge in a solitary mountain range surrounded by weather-beaten desert. Tenacious cactus bloom in sublime southwestern sun, and diversity of species is the best in the country. This magical place is Big Bend.</span></p>
-            <a href="/park_details/2" class="card-link">Visit</a>
+            <a href="/park_details/2" class="card-link">Go Here</a>
           </div>
         </div>
       </div>      

@@ -66,77 +66,36 @@ def dog_details(id):
     json_data = open(dog_file).read()
     dog_json = json.loads(json_data)
 
-    options = [] # list of lists
-    status = [] 
-    contact = [] # list of dictionaries
-    age = []
-    size = []
-    photos = [] # list of list of dicts
-    # figure out how to grab only highest res photos and have photos list of lists
-    dog_id = []
-    shelter_pet_id = []
-    breed = []
-    name = []
-    sex = []
-    description = []
-    mix = []
-    shelter_id = []
-    last_update = []
-
+    dog_data = []
+    data = {}
     for dog in dog_json["petfinder"]["pets"]["pet"]:
-        options += [dog["options"].values()]
-        status += dog["status"].values()
-        contact = dog["contact"]
-        age += dog["age"].values()
-        size += dog["size"].values()
-        photos += [dog["media"]["photos"]["photo"]]
-        dog_id += dog["id"].values()
-        shelter_pet_id += dog["shelterPetId"].values()
-        breed += dog["breeds"]["breed"]
-        name += dog["name"].values()
-        sex += dog["sex"].values()
-        description += dog["description"].values()
-        mix += dog["mix"].values()
-        shelter_id += dog["shelterId"].values()
-        last_update += dog["lastUpdate"].values()
-
-    phone = [p for p in contact["phone"].values()]
-    state = [s for s in contact["state"].values()]
-    addr2 = [addr for addr in contact["address2"].values()]
-    email = [e for e in contact["email"].values()]
-    city = [c for c in contact["city"].values()]
-    z = [zi for zi in contact["zip"].values()]
-    fax = [f for f in contact["fax"].values()]
-    addr1 = [addr for addr in contact["address1"].values()]
-
-    data = {
-               "options": options,
-               "status": status,
-               "contact": {
-                  "phone": phone,
-                  "state": state,
-                  "address2": addr2,
-                  "email": email,
-                  "city": city,
-                  "zip": z,
-                  "fax": fax,
-                  "address1": addr1
-               },
-               "age": age,
-               "size": size,
-               "media": photos,
-               "id": dog_id,
-               "shelterPetId": shelter_pet_id,
-               "breeds": breed,
-               "name": name,
-               "sex": sex,
-               "description": description,
-               "mix": mix,
-               "shelterId": shelter_id,
-               "lastUpdate": last_update,
+        data["options"] = list(dog["options"].values())
+        data["status"] = list(dog["status"].values())
+        data["contact"] = {
+            "phone":dog["contact"]["phone"],
+            "state": dog["contact"]["state"],
+            "address2":dog["contact"]["address2"],
+            "email":dog["contact"]["email"],
+            "city":dog["contact"]["city"],
+            "zip":dog["contact"]["zip"],
+            "fax":dog["contact"]["fax"],
+            "address1":dog["contact"]["address1"]
             }
+        data["age"] = list(dog["age"].values())
+        data["size"] = list(dog["size"].values())
+        data["media"] = [photo["$t"] for photo in dog["media"]["photos"]["photo"]]
+        data["id"] = list(dog["id"].values())
+        data["shelterPetId"] = list(dog["shelterPetId"].values())
+        data["breeds"] = dog["breeds"]["breed"]
+        data["name"] = list(dog["name"].values())
+        data["sex"] = list(dog["sex"].values())
+        data["description"] = list(dog["description"].values())
+        data["mix"] = list(dog["mix"].values())
+        data["shelterId"] = list(dog["shelterId"].values())
+        data["lastUpdate"] = list(dog["lastUpdate"].values())
+        dog_data.append(data.copy())
 
-    return render_template("dog_details.html", dog_data=data, id=id)
+    return render_template("dog_details.html", dog_data=dog_data[id])
 
 
 @app.route("/dogs")
