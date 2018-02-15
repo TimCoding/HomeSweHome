@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <link rel= "stylesheet" href= "{{ url_for('static',filename='styles/park_details_style.css') }}">
+<link rel= "stylesheet" href= "{{ url_for('static',filename='styles/models.css') }}">
+
 
 <!-- jumbotron -->
 <div class="jumbotron jumbotron-fluid">
@@ -10,12 +12,13 @@
 </div>
 
 <!-- description and info -->
-<div class="mx-auto form-inline" style="padding-top:40px; padding-bottom:40px">
+<div class="container" style="padding-top:40px;padding-bottom:40px;">
+  <div class="row">
   <!-- description -->
-  <div class="mx-auto" style="width:70%; padding-left:40px">
+  <div class="mx-auto" style="width:70%; padding-left:20px">
   <div class="card">
     <div class="card-header"><h5>Description</h5></div>
-      <div class="card-block" style="padding-left:10px; padding-top:10px">
+      <div class="card-block" style="padding-left:10px; padding-right:10px; padding-top:10px">
         <blockquote class="card-blockquote">
         <p>{{park_data["description"]}}</p>
         </blockquote>
@@ -23,10 +26,10 @@
   </div>
   </div>
   <!-- info -->
-  <div class="mx-auto" style="width:30%; padding-left:40px; padding-right:40px">
+  <div class="mx-auto" style="width:30%; padding-left:40px; padding-right:20px">
   <div class="card">
     <div class="card-header"><h5>Information</h5></div>
-      <div class="card-block" style="padding-left:10px; padding-top:10px">
+      <div class="card-block" style="padding-left:10px; padding-right:10px; padding-top:10px">
         <blockquote class="card-blockquote">
           <p>Address: {{park_info["address"]}}</p>
           <p>Phone Number: {{park_info["phone"]}}</p>
@@ -36,53 +39,85 @@
   </div>
   </div>
 </div>
-
-<!-- Dogs to adopt -->
-<div class="mx-auto" style="padding-left:40px">
-<h2>DOGS TO ADOPT: </h2>
 </div>
 
-<!-- parks in card deck -->
-<div class="mx-auto" style="padding-top:10px; padding-bottom:40px; padding-left:40px; padding-right:40px">
-  <div class="card-deck">
-    <div class="card">
-    <img class="card-img-top" src="/dog2.jpg" alt="Card image cap">
-      <div class="card-body">
-         <a href="/dog_details/0" class="card-link"><h5>Meet Astro</h5></a>
+<hr></hr>
+
+<!-- dogs -->
+<div class="container" style="padding-bottom:40px">
+  <div class="row">
+    <div class="models_title col-md-12">
+      <h2>Recommended Dogs</h2>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top models_images" src="http://photos.petfinder.com/photos/pets/32491072/1/?bust=1460483633&width=500&-x.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Astro</h5>
+          <!-- <p class="card-text">Learn more about Astro</p> -->
+          <ul class="fa-ul">
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Breed: Chihuahua</li>
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Gender: Male</li>
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Age: 4</li>
+          </ul>
+          <a href="/dog_details/0" class="card-link">Meet Astro</a>
+        </div>
       </div>
     </div>
-
-    <div class="card">
-      <img class="card-img-top" src="/dog2.jpg" alt="Card image cap">
-      <div class="card-body">
-        <a href="/dog_details/10" class="card-link"><h5>Meet Molly</h5></a>
+    <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top models_images" src="http://photos.petfinder.com/photos/pets/38739125/5/?bust=1499876332&width=300&-pn.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">McKay</h5>
+          <ul class="fa-ul">
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Breed: Mixed Breed</li>
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Gender: Male</li>
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Age: 11</li>
+          </ul>
+          <a href="/dog_details/10" class="card-link">Meet McKay</a>
+        </div>
       </div>
     </div>
-
-    <div class="card">
-      <img class="card-img-top" src="/dog2.jpg" alt="Card image cap">
-      <div class="card-body">
-        <a href="/dog_details/14" class="card-link"><h5>Meet Evergreen</h5></a>
+    <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top models_images" src="http://photos.petfinder.com/photos/pets/39566132/1/?bust=1507160469&width=500&-x.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Bob Barker</h5>
+          <ul class="fa-ul">
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Breed: Pitbull</li>
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Gender: Male</li>
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Age: 5</li>
+          </ul>
+          <a href="/dog_details/14" class="card-link">Meet Bob</a>
+        </div>
       </div>
     </div>
-
-    <div class="card">
-      <img class="card-img-top" src="/dog2.jpg" alt="Card image cap">
-      <div class="card-body">
-        <a href="/dog_details/15" class="card-link"><h5>Meet Mavis</h5></a>
+    <div class="col-md-3">
+      <div class="card">
+        <img class="card-img-top models_images" src="http://photos.petfinder.com/photos/pets/40405527/1/?bust=1513822614&width=500&-x.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Evergreen</h5>
+          <ul class="fa-ul">
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Breed: Mixed Bree</li>
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Gender: Female</li>
+            <li><span class="fa-li"><i class="fas fa-paw"></i></span>Age: 2</li>
+          </ul>
+          <a href="/dog_details/15" class="card-link">Meet Evergreen</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Dogs to adopt -->
-<div class="mx-auto" style="padding-left:40px">
-<h2>SHELTERS NEAR ME </h2>
-</div>
+<hr></hr>
 
-<!-- parks in card deck -->
-<div class="mx-auto" style="padding-top:10px; padding-bottom:40px; padding-left:40px; padding-right:40px">
-  <div class="card-deck">
+<!-- Recommended Shelters -->
+<div class="container" style="padding-bottom:40px">
+  <div class="row">
+    <div class="models_title col-md-12">
+      <h2>Recommended Shelters</h2>
+    </div>
+      <div class="card-deck">
     <div class="card">
     <img class="card-img-top" src="/dog2.jpg" alt="Card image cap">
       <div class="card-body">
@@ -104,8 +139,7 @@
       </div>
     </div>
   </div>
+  </div>
 </div>
-
-
 
 {% endblock %}
