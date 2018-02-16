@@ -3,6 +3,7 @@ from collections import defaultdict
 
 from flask import send_from_directory, render_template
 import requests
+import random
 
 from server import app
 
@@ -93,6 +94,8 @@ def dog_details(id):
         data["mix"] = list(dog["mix"].values())
         data["shelterId"] = list(dog["shelterId"].values())
         data["lastUpdate"] = list(dog["lastUpdate"].values())
+        #SHELTER ROUTING REMOVE FOR IDB2
+        data["shelterPage"] = random.randint(0, 3)
         dog_data.append(data.copy())
 
     return render_template("dog_details.html", dog_data=dog_data[id])
@@ -114,67 +117,67 @@ def park_details(id):
                 "phone" : "(806) 857-6680"
             },
             #"Amistad"
-            { 
+            {
                 "address": "9685 Highway 90 West Del Rio, TX 78840",
                 "phone": "(830)775-7491"
             },
             #"Big Bend"
-            {   "address": "Big Bend National Park, TX 79834-0129", 
-                "phone" : "(432) 477-2251" 
+            {   "address": "Big Bend National Park, TX 79834-0129",
+                "phone" : "(432) 477-2251"
             },
             #"Big Thicket"
             {   "address": "6044 FM 420 Kountze, TX 77625 ",
-                "phone": "(409) 951-6800" 
+                "phone": "(409) 951-6800"
             },
             #"Chamizal"
             {   "address": "800 South San Marcial Street El Paso, TX 79905 ",
-                "phone": "(915) 532-7273"  
+                "phone": "(915) 532-7273"
             },
-            
+
             #"El Camino Real de los Tejas"
             {   "address": "1100 Old Santa Fe Trail Santa Fe, NM 87505 ",
-                "phone": "(505) 988-6098"  
-            },         
+                "phone": "(505) 988-6098"
+            },
             #"El Camino Real de Tierra Adentro"
             {   "address": "1100 Old Santa Fe Trail Santa Fe, NM 87505 ",
-                "phone": "(505) 988-6098"  
-            },  
-            #"Fort Davis" 
+                "phone": "(505) 988-6098"
+            },
+            #"Fort Davis"
             {   "address": "101 Lt. Flipper Dr., Fort Davis, TX 79734",
-                "phone": "(432) 426-3224"  
+                "phone": "(432) 426-3224"
             },
             #"Guadalupe Mountains"
             {   "address":  "400 Pine Canyon Salt Flat, TX 79847 ",
-                "phone": "(915) 828-3251" 
+                "phone": "(915) 828-3251"
             },
             #"Lake Meredith"
             {  "address":  "419 E. Broadway Fritch, TX 79036 ",
-                "phone": "(806) 857-3151"  
+                "phone": "(806) 857-3151"
             },
             #"Lyndon B Johnson"
             {   "address":  "100 Ladybird Lane Johnson City, TX 78636 ",
-                "phone": "(830) 868-7128"  
+                "phone": "(830) 868-7128"
             },
             #"Padre Island"
             {  "address":  "20420 Park Road 22 Corpus Christi, TX 78418 ",
-                "phone": "(361) 949-8068 " 
+                "phone": "(361) 949-8068 "
             },
             #"Palo Alto Battlefield"
             {   "address":  "7200 Paredes Line Road Brownsville, TX 78526 ",
-                "phone": "(956) 541-2785" 
+                "phone": "(956) 541-2785"
             },
             #"Rio Grande"
             {   "address":  "Rio Grande Wild & Scenic River 1 Panther Junction Big Bend National Park, TX 79834 ",
-                "phone": "(432) 477-2251"   
+                "phone": "(432) 477-2251"
             },
             #"San Antonio Missions"
             {  "address":  "Visitor Center at Mission San José 6701 San Jose Drive San Antonio, TX 78214 ",
-                "phone": "(210) 932-1001"   
+                "phone": "(210) 932-1001"
             },
-            #"Waco Mammoth" 
+            #"Waco Mammoth"
             {   "address":  "6220 Steinbeck Bend Drive Waco, TX 76708 ",
-                "phone": "(254) 750-7946"   
-            }  
+                "phone": "(254) 750-7946"
+            }
         ]
 
     return render_template("park_details.html", park_data=park_json["data"][id], park_info=info[id])
