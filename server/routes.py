@@ -21,17 +21,26 @@ def about():
     users = ["EpicDavi", "gmac220", "TimCoding", "rebekkahkoo", "ewk298"]
     attrs = {user: defaultdict(int) for user in users}
 
-    issue_params = {"state": "all"}
-    issues_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/issues", params=issue_params)
-    issues_json = issues_req.json()
+    issue_params = {"state": "all", "per_page": 100}
+    issue_list = []
 
-    if len(issues_json) == 0:
-        issues_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/issues", params=issue_params)
+    issues_api_url = "https://api.github.com/repos/TimCoding/HomeSweHome/issues"
+
+    while issues_api_url is not None:
+        issues_req = requests.get(issues_api_url, params=issue_params)
         issues_json = issues_req.json()
+
+        if len(issues_json) == 0:
+            issues_req = requests.get(issues_api_url, params=issue_params)
+            issues_json = issues_req.json()
+
+        issue_list.extend(issues_json)
+        issues_api_url = issues_req.headers.get("link")
+        print(issues_api_url)
 
     total_issues = 0
 
-    for issue in issues_json:
+    for issue in issue_list:
         user = issue["user"]["login"]
         attrs[user]["issues"] = attrs[user]["issues"] + 1
         total_issues += 1
