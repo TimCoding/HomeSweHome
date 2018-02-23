@@ -36,7 +36,17 @@ def about():
 
         issue_list.extend(issues_json)
         issues_api_url = issues_req.headers.get("link")
-        print(issues_api_url)
+        if issues_api_url is not None:
+            for link_entry in issues_api_url.split(", "):
+                link, rel = link_entry.split("; ")
+                rel = rel.split('"')[1]
+                if rel == "next":
+                    link = link.split(">")[0].split("<")[1]  # get the part in between the first < >
+                    issues_api_url = link
+                    break
+            else:
+                issues_api_url = None
+
 
     total_issues = 0
 
