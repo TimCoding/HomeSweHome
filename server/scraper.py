@@ -24,6 +24,8 @@ class UniqueQueue(Queue):
 
 PETFINDER_BASE_API_URL = "http://api.petfinder.com/"
 PETFINDER_API_KEY = "581ed5592e9dd0af3bc6f9e211cecce9"
+YELP_BASE_API_URL = "http://api.yelp.com/"
+
 
 
 def fetch_shelter_info(shelter_id):
@@ -118,6 +120,40 @@ def fetch_dogs_in_zip(zipcode, shelter_queue):
         break
     return dog_list
 
+#dont know where to add key and have not tested this
+#could also make this a generalized yelp scraper but need to modify stuff
+def fetch_park_info(state, limit, offset):
+    params = {
+        "term": "park",
+        "location": state,
+        "limit": limit,
+        "offset": offset 
+    }
+
+    response = requests.get(YELP_BASE_API_URL + "v3/businesses/search", params=params)
+    response_json = response.json()
+    if "businesses" in response_json:
+        park_data = response_json["businesses"]
+        park_obj = {
+            "name": park_data["name"],
+            "rating": park_data["rating"],
+            "coordinates": {
+                "latitude": park_data["coordinates"]["latitude"],
+                "longitude": park_data["coordinates"]["longitude"]
+            },
+            "location":{
+                "city": park_data["location"]["city"],
+                "state": park_data["location"]["state"],
+                "disp_addr": park_data["location"]["display_address"]
+            }
+        }
+
+        if "address1" in park_data["location"]:
+            park_obj["location"]["address"] = park_data["location"]["address1"]
+        if "zip_code" in park_data["location"]:
+            park_obj["location"]["zip"] = park_data["location"]["zip_code"]
+        if "display_phone" in park_data["location"]:
+            park_obj["phone"] = park_data["display_phone"]
 
 if __name__ == "__main__":
     # example program
