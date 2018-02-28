@@ -31,6 +31,7 @@ class UniqueQueue(Queue):
 PETFINDER_BASE_API_URL = "http://api.petfinder.com/"
 PETFINDER_API_KEY = config["petfinder"]["key"]
 YELP_BASE_API_URL = "http://api.yelp.com/"
+YELP_API_KEY = config["yelp"]["key"]
 
 
 
@@ -136,10 +137,13 @@ def fetch_park_info(state, limit, offset):
         "offset": offset 
     }
 
-    response = requests.get(YELP_BASE_API_URL + "v3/businesses/search", params=params)
+    headers = {
+        "Authorization": "Bearer " + YELP_API_KEY
+    }
+
+    response = requests.get(YELP_BASE_API_URL + "v3/businesses/search", params=params, headers=headers)
     response_json = response.json()
-    if "businesses" in response_json:
-        park_data = response_json["businesses"]
+    for park_data in response_json["businesses"]:
         park_obj = {
             "name": park_data["name"],
             "rating": park_data["rating"],
@@ -153,19 +157,20 @@ def fetch_park_info(state, limit, offset):
                 "disp_addr": park_data["location"]["display_address"]
             }
         }
-
         if "address1" in park_data["location"]:
             park_obj["location"]["address"] = park_data["location"]["address1"]
         if "zip_code" in park_data["location"]:
             park_obj["location"]["zip"] = park_data["location"]["zip_code"]
-        if "display_phone" in park_data["location"]:
+        if "display_phone" in park_data:
             park_obj["phone"] = park_data["display_phone"]
 
+        pprint(park_obj)
 
 if __name__ == "__main__":
     zips_location = os.path.join(os.path.dirname(__file__), "../texas_zips.csv")
     zips = open(zips_location, "r")
     # example program
+    '''
     shelter_ids = UniqueQueue()
     for zc in [int(line.split(",")[0]) for line in zips.readlines()[1:21]]:
         dogs = fetch_dogs_in_zip(zc, shelter_ids)
@@ -179,3 +184,6 @@ if __name__ == "__main__":
         shelter_id = shelter_ids.get()
         print(shelter_id)
         pprint(fetch_shelter_info(shelter_id))
+    '''
+
+    fetch_park_info("TX", 2, 0)
