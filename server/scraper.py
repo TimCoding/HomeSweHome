@@ -1,6 +1,12 @@
 from queue import Queue
 from pprint import pprint
+import os
 import requests
+
+if __name__ == '__main__':
+    from config import config
+else:
+    from .config import confg
 
 
 class UniqueQueue(Queue):
@@ -23,7 +29,7 @@ class UniqueQueue(Queue):
 
 
 PETFINDER_BASE_API_URL = "http://api.petfinder.com/"
-PETFINDER_API_KEY = "581ed5592e9dd0af3bc6f9e211cecce9"
+PETFINDER_API_KEY = config["petfinder"]["key"]
 YELP_BASE_API_URL = "http://api.yelp.com/"
 
 
@@ -105,7 +111,7 @@ def fetch_dogs_in_zip(zipcode, shelter_queue):
             if "$t" in dog["contact"]["address1"]:
                     dog_obj["address"] = dog["contact"]["address1"]["$t"]
 
-            if "photo" in dog["media"]["photos"]:
+            if "photos" in dog["media"] and "photo" in dog["media"]["photos"]:
                 photos_json = dog["media"]["photos"]["photo"]
                 photos_list = [
                     photo_json["$t"] for photo_json in photos_json
@@ -155,10 +161,13 @@ def fetch_park_info(state, limit, offset):
         if "display_phone" in park_data["location"]:
             park_obj["phone"] = park_data["display_phone"]
 
+
 if __name__ == "__main__":
+    zips_location = os.path.join(os.path.dirname(__file__), "../texas_zips.csv")
+    zips = open(zips_location, "r")
     # example program
     shelter_ids = UniqueQueue()
-    for zc in [78703, 77379, 78766]:
+    for zc in [int(line.split(",")[0]) for line in zips.readlines()[1:21]]:
         dogs = fetch_dogs_in_zip(zc, shelter_ids)
         for dog in dogs:
             pprint(dog)
