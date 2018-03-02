@@ -32,7 +32,11 @@ PETFINDER_BASE_API_URL = "http://api.petfinder.com/"
 PETFINDER_API_KEY = config["petfinder"]["key"]
 YELP_BASE_API_URL = "http://api.yelp.com/"
 YELP_API_KEY = config["yelp"]["key"]
+GOOGLE_PLACES_API_URL = "https://maps.googleapis.com/"
+GOOGLE_PLACES_API_KEY = config["places"]["key"]
 
+PLACES_RADIUS = 10000
+NAME_RATIO = 0.6
 
 
 def fetch_shelter_info(shelter_id):
@@ -127,14 +131,12 @@ def fetch_dogs_in_zip(zipcode, shelter_queue):
         break
     return dog_list
 
-#dont know where to add key and have not tested this
-#could also make this a generalized yelp scraper but need to modify stuff
 def fetch_park_info(state, limit, offset):
     params = {
         "term": "park",
         "location": state,
         "limit": limit,
-        "offset": offset 
+        "offset": offset
     }
 
     headers = {
@@ -164,7 +166,49 @@ def fetch_park_info(state, limit, offset):
         if "display_phone" in park_data:
             park_obj["phone"] = park_data["display_phone"]
 
-        pprint(park_obj)
+
+def fetch_shelter_details(keyword, location):
+    params = {
+        "key":GOOGLE_PLACES_API_KEY,
+        "location":location,
+        "keyword":keyword,
+        "radius":PLACES_RADIUS
+    }
+
+    shelter_dict = {}
+
+    response = requests.get(GOOGLE_PLACES_API_URL + "maps/api/place/nearbysearch/json", params=params)
+    response_json = response.json()
+
+    if "status" in response_json:
+        if response_json["status"] == "ZERO_RESULTS":
+            return "NO RESULTS"
+
+    index = 0
+    if len(response_json["results"]) > 1:
+        temp = 0
+        max_sim = 0
+        for result in response_json["results"]:
+            name = result["name"]
+            sim = similarity(None, name, keyword)
+            if sim > max_sim:
+                max_sim = sim
+                temp += 1
+
+        if max_sim > NAME_RATIO:
+            index = temp
+
+    shelter_dict["name"] = response_json["results"][index]["name"]
+    shelter_dict["address"] = response_json["results"][index]["vicinity"]
+    shelter_dict["rating"] = response_json["results"][index]["rating"]
+    shelter_dict["place_id"] = response_json["results"][index]["place_id"]
+
+    return shelter_dict
+
+
+def similarity(a, b):
+    return SequenceMatcher(None, a, b).ratio()
+
 
 if __name__ == "__main__":
     zips_location = os.path.join(os.path.dirname(__file__), "../texas_zips.csv")
@@ -185,5 +229,5 @@ if __name__ == "__main__":
         print(shelter_id)
         pprint(fetch_shelter_info(shelter_id))
     '''
-
-    fetch_park_info("TX", 2, 0)
+    # pprint(fetch_shelter_details("Henderson County Humane", "32.1991,-95.8661"))
+    # fetch_park_info("TX", 2, 0)
