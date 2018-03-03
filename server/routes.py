@@ -52,8 +52,10 @@ def about():
 
     for issue in issue_list:
         user = issue["user"]["login"]
-        attrs[user]["issues"] = attrs[user]["issues"] + 1
         total_issues += 1
+        if user in users:
+            attrs[user]["issues"] = attrs[user]["issues"] + 1
+
 
     contribs_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/stats/contributors")
     contribs_json = contribs_req.json()
@@ -67,8 +69,9 @@ def about():
     for contributor in contribs_json:
         user = contributor["author"]["login"]
         total = contributor["total"]
-        attrs[user]["commits"] = attrs[user]["commits"] + total
         total_commits += total
+        if user in user:
+            attrs[user]["commits"] = attrs[user]["commits"] + total
 
     data = {
         "users": attrs,
