@@ -1,11 +1,9 @@
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, Sequence, Float, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
+from .database import Base
 
 class Shelter(Base):
-    __tablename__ = "shelters"
+	__tablename__ = "shelter"
 	pet_finder_id = Column(String(50), primary_key=True)
 	name = Column(String)
 	address = Column(String)
@@ -53,7 +51,7 @@ class Dog(Base):
 	shots = Column(Boolean)
 	altered = Column(Boolean)
 	#Declaring one to many relationship here between Shelter and Dogs
-	shelter_id = Column(String, ForeignKey('shelter.pet_finder_id'))
+	shelter_id = Column(Integer, ForeignKey('shelter.pet_finder_id'))
 	shelter = relationship("Shelter", back_populates="dog")
 	#Declaring one to many relationship here between Dogs and Breed
 	breed = relationship("Breed", back_populates = "dog")
@@ -64,4 +62,4 @@ class Breed(Base):
 	breed = Column(String)
 	#Declaring one to many relationship here between Dogs and breed
 	dog = relationship("Dog", back_populates = "breed")
-	dog_id = Column(String, ForeignKey('dog.id'))
+	dog_id = Column(Integer, ForeignKey('dog.id'))
