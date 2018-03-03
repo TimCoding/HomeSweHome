@@ -202,8 +202,36 @@ def fetch_shelter_details(keyword, location):
     shelter_dict["address"] = response_json["results"][index]["vicinity"]
     shelter_dict["rating"] = response_json["results"][index]["rating"]
     shelter_dict["place_id"] = response_json["results"][index]["place_id"]
+    fetch_shelter_hours_and_reviews(shelter_dict)
 
     return shelter_dict
+
+def fetch_shelter_hours_and_reviews(shelter_dict):
+    params = {
+        "key": GOOGLE_PLACES_API_KEY,
+        "placeid": shelter_dict["place_id"]
+    }
+
+    response = requests.get(GOOGLE_PLACES_API_URL + "maps/api/place/details/json", params=params)
+    response_json = response.json()
+
+    reviews = []
+
+    if "reviews" in response_json["result"]:
+
+        review_dict = {}
+
+        for review in response_json["result"]["reviews"]:
+            review_dict["author_name"] = review["author_name"]
+            review_dict["rating"] = review["rating"]
+            review_dict["text"] =  review["text"]
+            reviews.append(review_dict)
+
+        shelter_dict["reviews"] = reviews
+
+
+    if "opening_hours" in response_json["result"]:
+        shelter_dict["hours"] = response_json["result"]["opening_hours"]["weekday_text"]
 
 
 def similarity(a, b):
@@ -229,5 +257,5 @@ if __name__ == "__main__":
         print(shelter_id)
         pprint(fetch_shelter_info(shelter_id))
     '''
-    # pprint(fetch_shelter_details("Henderson County Humane", "32.1991,-95.8661"))
+    pprint(fetch_shelter_details("Henderson County Humane", "32.1991,-95.8661"))
     # fetch_park_info("TX", 2, 0)
