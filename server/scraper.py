@@ -1,7 +1,10 @@
 from queue import Queue
 from pprint import pprint
 import os
+import re
+
 import requests
+from bs4 import BeautifulSoup
 
 if __name__ == '__main__':
     from config import config
@@ -30,6 +33,7 @@ class UniqueQueue(Queue):
 
 PETFINDER_BASE_API_URL = "http://api.petfinder.com/"
 PETFINDER_API_KEY = config["petfinder"]["key"]
+PETFINDER_HTML_HACK_URL = "https://www.petfinder.com/member/us/tx/city/description-{}/"
 YELP_BASE_API_URL = "http://api.yelp.com/"
 YELP_API_KEY = config["yelp"]["key"]
 GOOGLE_PLACES_API_URL = "https://maps.googleapis.com/"
@@ -37,6 +41,66 @@ GOOGLE_PLACES_API_KEY = config["places"]["key"]
 
 PLACES_RADIUS = 10000
 NAME_RATIO = 0.6
+
+
+def fetch_shelter_html_hack(shelter_id):
+
+    response = requests.get(PETFINDER_HTML_HACK_URL.format(shelter_id))
+    # using "html5lib" instead of "html.parser" built in
+    # "html.parser" doesn't parse Angular apps very accurately
+    html = BeautifulSoup(response.text, "html5lib")
+
+    shelter_obj = {
+        "id": shelter_id.upper()
+    }
+
+    main = html.find(id="Site_Main")
+
+    if main.select_one("[data-organization-name]") is not None:
+        shelter_obj["name"] = main.select_one("[data-organization-name]").text.strip()
+
+    # the city has a ", " appended on the end for some reason
+    if main.find(itemprop="streetAddress") is not None:
+        shelter_obj["address"] = main.find(itemprop="streetAddress").text.strip()
+    if main.find(itemprop="addressLocality") is not None:
+        shelter_obj["city"] = main.find(itemprop="addressLocality").text.split(",")[0]
+    if main.find(itemprop="addressRegion") is not None:
+        shelter_obj["state"] = main.find(itemprop="addressRegion").text.strip()
+    if main.find(itemprop="postalCode") is not None:
+        shelter_obj["zip"] = int(main.find(itemprop="postalCode").text.strip())
+
+    directions_tag = main.select_one(".get-directions")
+    if directions_tag is not None:
+        shelter_obj["latitude"] = directions_tag["data-latitude"]
+        shelter_obj["longitude"] = directions_tag["data-longitude"]
+
+    if main.select_one("pf-ensighten > a[href^=mailto]") is not None:
+        shelter_obj["email"] = main.select_one("pf-ensighten > a[href^=mailto]").text.strip()
+
+    if main.select_one("pf-ensighten > a[href^=tel]") is not None:
+        shelter_obj["phone"] = main.select_one("pf-ensighten > a[href^=tel]").text.strip()
+
+    if main.find(string="Our Mission") is not None:
+        shelter_obj["mission"] = "".join(
+            str(child).strip() for child
+            in main.find(string="Our Mission").parent.parent.find("p").children
+        )
+
+    if main.find(string=re.compile("Adoption Policy")) is not None:
+        shelter_obj["adoption_policy"] = "".join(
+            str(child).strip() for child
+            in main.find(string=re.compile("Our Mission")).parent.parent.find("p").children
+        )
+
+    if main.select_one("[data-website-url]") is not None:
+        shelter_obj["website"] = main.select_one("[data-website-url]").text.strip()
+
+    shelter_obj["images"] = [
+        img["src"] for img
+        in main.select("img[pfdc-pet-carousel-slide]")
+    ]
+
+    return shelter_obj
 
 
 def fetch_shelter_info(shelter_id):
