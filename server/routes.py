@@ -26,6 +26,17 @@ def about():
 
     issues_api_url = "https://api.github.com/repos/TimCoding/HomeSweHome/issues"
 
+    def get_next_url(link_header):
+        if link_header is None:
+            return None
+        for link_entry in link_header.split(", "):
+            link, rel = link_entry.split("; ")
+            rel = rel.split('"')[1]
+            if rel == "next":
+                link = link.split(">")[0].split("<")[1]  # get the part in between the first < >
+                return link
+        return None
+
     while issues_api_url is not None:
         issues_req = requests.get(issues_api_url, params=issue_params)
         issues_json = issues_req.json()
@@ -35,18 +46,7 @@ def about():
             issues_json = issues_req.json()
 
         issue_list.extend(issues_json)
-        issues_api_url = issues_req.headers.get("link")
-        if issues_api_url is not None:
-            for link_entry in issues_api_url.split(", "):
-                link, rel = link_entry.split("; ")
-                rel = rel.split('"')[1]
-                if rel == "next":
-                    link = link.split(">")[0].split("<")[1]  # get the part in between the first < >
-                    issues_api_url = link
-                    break
-            else:
-                issues_api_url = None
-
+        issues_api_url = get_next_url(issues_req.headers.get("link"))
 
     total_issues = 0
 
@@ -56,22 +56,25 @@ def about():
         if user in users:
             attrs[user]["issues"] = attrs[user]["issues"] + 1
 
-
-    contribs_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/stats/contributors")
-    contribs_json = contribs_req.json()
-
-    if len(contribs_json) == 0:
-        contribs_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/stats/contributors")
-        contribs_json = contribs_req.json()
+    commit_api_url = "https://api.github.com/repos/TimCoding/HomeSweHome/commits"
 
     total_commits = 0
 
-    for contributor in contribs_json:
-        user = contributor["author"]["login"]
-        total = contributor["total"]
-        total_commits += total
-        if user in user:
-            attrs[user]["commits"] = attrs[user]["commits"] + total
+    while commit_api_url is not None:
+        commit_req = requests.get(commit_api_url)
+        commit_json = commit_req.json()
+
+        if len(commit_json) == 0:
+            commit_req = requests.get(commit_api_url)
+            commit_json = commit_req.json()
+
+        for commit in commit_json:
+            user = commit["author"]["login"]
+            total_commits += 1
+            if user in user:
+                attrs[user]["commits"] = attrs[user]["commits"] + 1
+
+        commit_api_url = get_next_url(commit_req.headers.get("link"))
 
     data = {
         "users": attrs,
