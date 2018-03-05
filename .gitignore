@@ -1,5 +1,5 @@
 auth.json
-
+node_modules/
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
