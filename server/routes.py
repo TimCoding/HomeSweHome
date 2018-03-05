@@ -16,6 +16,11 @@ def splash():
     return render_template("splash.html")
 
 
+@app.route("/react_test/")
+def react_test():
+    return render_template("react_test.html")
+
+
 @app.route("/about/")
 def about():
     users = ["EpicDavi", "gmac220", "TimCoding", "rebekkahkoo", "ewk298"]
@@ -253,7 +258,3 @@ def animalshelter_details(page_num):
     #     return render_template("shelter_details.html", data = austin_animal_center_data)
     # elif page_num ==2:
     #     return render_template("shelter_details.html", data = houston_spca_data)
-
-@app.route("/<path:filename>")
-def file(filename):
-    return send_from_directory(app.static_folder, filename)
