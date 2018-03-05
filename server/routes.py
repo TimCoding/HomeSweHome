@@ -8,8 +8,21 @@ import random
 from server import app
 
 import os, sys
+
 PATH_TO_JSON = os.path.join(os.path.dirname(os.getcwd()), os.path.basename(os.getcwd()), "json")
 sys.path.insert(0, PATH_TO_JSON)
+
+
+@app.url_defaults
+def cache_bust_static(endpoint, values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                     endpoint, filename)
+            # lu stands for last updated
+            values["lu"] = int(os.stat(file_path).st_mtime)
+
 
 @app.route("/")
 def splash():
