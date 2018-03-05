@@ -23,7 +23,7 @@ def react_test():
 
 @app.route("/about/")
 def about():
-    users = ["EpicDavi", "gmac220", "TimCoding", "rebekkahkoo", "ewk298"]
+    users = ["dav-s", "gmac220", "TimCoding", "rebekkahkoo", "ewk298"]
     attrs = {user: defaultdict(int) for user in users}
 
     issue_params = {"state": "all", "per_page": 100}
