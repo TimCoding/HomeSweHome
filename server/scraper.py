@@ -211,6 +211,7 @@ def fetch_park_info(state, limit, offset):
     response_json = response.json()
     for park_data in response_json["businesses"]:
         park_obj = {
+            "id": park_data["id"],
             "name": park_data["name"],
             "rating": park_data["rating"],
             "coordinates": {
@@ -229,6 +230,41 @@ def fetch_park_info(state, limit, offset):
             park_obj["location"]["zip"] = park_data["location"]["zip_code"]
         if "display_phone" in park_data:
             park_obj["phone"] = park_data["display_phone"]
+        park_obj["photos"] = fetch_park_photos(park_obj["id"])
+        park_obj["reviews"] = fetch_park_reviews(park_obj["id"])
+        
+    return park_obj
+
+def fetch_park_reviews(id):
+    headers = {
+        "Authorization": "Bearer " + YELP_API_KEY
+    }
+
+    response = requests.get(YELP_BASE_API_URL + "v3/businesses/" + id + "/reviews", headers=headers)
+    response_json = response.json()
+    reviews = []
+    for review in response_json["reviews"]:
+        park_rvw = {
+            "text": review["text"],
+            "user_rating": review["rating"],
+            "author_name": review["user"]["name"]
+        }
+        reviews.append(park_rvw)
+
+    return reviews
+
+def fetch_park_photos(id):
+    headers = {
+        "Authorization": "Bearer " + YELP_API_KEY
+    }
+
+    response = requests.get(YELP_BASE_API_URL + "v3/businesses/" + id, headers=headers)
+    response_json = response.json()
+    photos = []
+    for photo in response_json["photos"]:
+        photos.append(photo)
+
+    return photos
 
 
 def fetch_shelter_details(keyword, location):
@@ -321,5 +357,5 @@ if __name__ == "__main__":
         print(shelter_id)
         pprint(fetch_shelter_info(shelter_id))
     '''
-    pprint(fetch_shelter_details("Henderson County Humane", "32.1991,-95.8661"))
-    # fetch_park_info("TX", 2, 0)
+    #pprint(fetch_shelter_details("Henderson County Humane", "32.1991,-95.8661"))
+    fetch_park_info("TX", 2, 0)
