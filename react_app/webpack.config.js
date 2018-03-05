@@ -3,25 +3,18 @@ const config = {
     entry:  __dirname + '/js/index.jsx',
     output: {
         path: __dirname + '/../server/static/',
-        filename: 'bundle.js',
+        filename: 'bundle.js'
     },
     resolve: {
         extensions: ['.js', '.jsx', '.css']
     },
     module: {
-        loaders: [
+        rules: [
         { 
             test: /\.jsx?$/,         // Match both .js and .jsx files
-            exclude: /node_modules/, 
-            loader: "babel-loader", 
-            query:
-              {
-                presets:['react']
-              }
-        }
-
-
-        ]
-    },
+            exclude: /node_modules/,
+            use: "babel-loader"
+        }]
+    }
 };
 module.exports = config;
