@@ -356,6 +356,7 @@ if __name__ == "__main__":
         shelter_id = shelter_ids.get()
         print(shelter_id)
         pprint(fetch_shelter_info(shelter_id))
+        fetch_shelter_detail(shelter_id)
     '''
     #pprint(fetch_shelter_details("Henderson County Humane", "32.1991,-95.8661"))
     fetch_park_info("TX", 2, 0)
