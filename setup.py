@@ -3,5 +3,8 @@ from setuptools import setup
 setup(name="HomeSweHome",
       install_requires=[
           "flask",
-          "requests"
+          "requests",
+          "sqlalchemy",
+          "beautifulsoup4",
+          "html5lib"
       ])

@@ -8,23 +8,52 @@ import random
 from server import app
 
 import os, sys
+
 PATH_TO_JSON = os.path.join(os.path.dirname(os.getcwd()), os.path.basename(os.getcwd()), "json")
 sys.path.insert(0, PATH_TO_JSON)
+
+
+@app.url_defaults
+def cache_bust_static(endpoint, values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                     endpoint, filename)
+            # lu stands for last updated
+            values["lu"] = int(os.stat(file_path).st_mtime)
+
 
 @app.route("/")
 def splash():
     return render_template("splash.html")
 
 
+@app.route("/react_test/")
+def react_test():
+    return render_template("react_test.html")
+
+
 @app.route("/about/")
 def about():
-    users = ["EpicDavi", "gmac220", "TimCoding", "rebekkahkoo", "ewk298"]
+    users = ["dav-s", "gmac220", "TimCoding", "rebekkahkoo", "ewk298"]
     attrs = {user: defaultdict(int) for user in users}
 
     issue_params = {"state": "all", "per_page": 100}
     issue_list = []
 
     issues_api_url = "https://api.github.com/repos/TimCoding/HomeSweHome/issues"
+
+    def get_next_url(link_header):
+        if link_header is None:
+            return None
+        for link_entry in link_header.split(", "):
+            link, rel = link_entry.split("; ")
+            rel = rel.split('"')[1]
+            if rel == "next":
+                link = link.split(">")[0].split("<")[1]  # get the part in between the first < >
+                return link
+        return None
 
     while issues_api_url is not None:
         issues_req = requests.get(issues_api_url, params=issue_params)
@@ -35,30 +64,35 @@ def about():
             issues_json = issues_req.json()
 
         issue_list.extend(issues_json)
-        issues_api_url = issues_req.headers.get("link")
-        print(issues_api_url)
+        issues_api_url = get_next_url(issues_req.headers.get("link"))
 
     total_issues = 0
 
     for issue in issue_list:
         user = issue["user"]["login"]
-        attrs[user]["issues"] = attrs[user]["issues"] + 1
         total_issues += 1
+        if user in users:
+            attrs[user]["issues"] = attrs[user]["issues"] + 1
 
-    contribs_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/stats/contributors")
-    contribs_json = contribs_req.json()
-
-    if len(contribs_json) == 0:
-        contribs_req = requests.get("https://api.github.com/repos/TimCoding/HomeSweHome/stats/contributors")
-        contribs_json = contribs_req.json()
+    commit_api_url = "https://api.github.com/repos/TimCoding/HomeSweHome/commits"
 
     total_commits = 0
 
-    for contributor in contribs_json:
-        user = contributor["author"]["login"]
-        total = contributor["total"]
-        attrs[user]["commits"] = attrs[user]["commits"] + total
-        total_commits += total
+    while commit_api_url is not None:
+        commit_req = requests.get(commit_api_url)
+        commit_json = commit_req.json()
+
+        if len(commit_json) == 0:
+            commit_req = requests.get(commit_api_url)
+            commit_json = commit_req.json()
+
+        for commit in commit_json:
+            user = commit["author"]["login"]
+            total_commits += 1
+            if user in user:
+                attrs[user]["commits"] = attrs[user]["commits"] + 1
+
+        commit_api_url = get_next_url(commit_req.headers.get("link"))
 
     data = {
         "users": attrs,
@@ -237,7 +271,3 @@ def animalshelter_details(page_num):
     #     return render_template("shelter_details.html", data = austin_animal_center_data)
     # elif page_num ==2:
     #     return render_template("shelter_details.html", data = houston_spca_data)
-
-@app.route("/<path:filename>")
-def file(filename):
-    return send_from_directory(app.static_folder, filename)
