@@ -87,10 +87,11 @@ def about():
             commit_json = commit_req.json()
 
         for commit in commit_json:
-            user = commit["author"]["login"]
             total_commits += 1
-            if user in user:
-                attrs[user]["commits"] = attrs[user]["commits"] + 1
+            if commit["author"] and "login" in commit["author"]:
+                user = commit["author"]["login"]
+                if user in user:
+                    attrs[user]["commits"] = attrs[user]["commits"] + 1
 
         commit_api_url = get_next_url(commit_req.headers.get("link"))
 
