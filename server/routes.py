@@ -6,6 +6,7 @@ import requests
 import random
 
 from server import app
+from server import api
 
 import os, sys
 
