@@ -2,10 +2,7 @@ from queue import Queue
 from pprint import pprint
 import os
 import re
-<<<<<<< HEAD
 from difflib import SequenceMatcher
-=======
->>>>>>> 4204d25d9238285faaafe065e399f8d3c6d01569
 
 import requests
 from bs4 import BeautifulSoup
@@ -236,11 +233,7 @@ def fetch_park_info(state, limit, offset):
             park_obj["phone"] = park_data["display_phone"]
         park_obj["photos"] = fetch_park_photos(park_obj["id"])
         park_obj["reviews"] = fetch_park_reviews(park_obj["id"])
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 4204d25d9238285faaafe065e399f8d3c6d01569
     return park_obj
 
 def fetch_park_reviews(id):
@@ -298,7 +291,7 @@ def fetch_shelter_details(keyword, location):
         max_sim = 0
         for result in response_json["results"]:
             name = result["name"]
-            sim = similarity(None, name, keyword)
+            sim = similarity(name, keyword)
             if sim > max_sim:
                 max_sim = sim
                 temp += 1
