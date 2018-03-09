@@ -27,10 +27,10 @@ def cache_bust_static(endpoint, values):
 
 @app.route("/")
 def splash():
-    return render_template("splash.html")
+    return render_template("render_component.html", component_name="Splash")
 
 @app.route("/test/")
-def navbar():
+def test():
     return render_template("render_component.html", component_name="ControlledCarousel")
     # return render_template("render_component.html", component_name="NavBar")
 
@@ -40,6 +40,9 @@ def react_test():
         "text": "lmao"
     }))
 
+@app.route("/react_model/")
+def react_model():
+	return render_template("render_component.html", component_name="ModelPage")
 
 @app.route("/description_test")
 def desc_test():

@@ -4,6 +4,9 @@ import './navbar.jsx'
 import './carousel.jsx'
 import './description.jsx'
 // import './splash.jsx'
+import './splash.jsx'
+import './modelpage.jsx'
+
 
 class App extends Component {
   render() {
