@@ -40,13 +40,12 @@ def react_test():
         "text": "lmao"
     }))
 
-<<<<<<< HEAD
+
 @app.route("description_test")
 def desc_test():
     return render_template("render_component.html", component_name="Description", props=json.dumps({"text":"hello"}))
 
-=======
->>>>>>> 08f46af5ecca48bcabe2ddb0c65d4ab63061daff
+
 @app.route("/about/")
 def about():
     users = ["dav-s", "gmac220", "TimCoding", "rebekkahkoo", "ewk298"]
