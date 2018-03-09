@@ -30,7 +30,7 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="faded" light expand="md">
+        <Navbar className="form-inline ml-auto" color="faded" light expand="md">
           <NavbarBrand href="/"><img src="/../static/img/homeswehomelogo.png" width="30" height="30"/>HomeSweHome</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -51,7 +51,7 @@ export default class NavBar extends React.Component {
           </Collapse>
           <FormGroup className="form-inline ml-auto" light expand="md">
             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button className="btn btn-outline-success" type="submit">Search</button>
           </FormGroup>
         </Navbar>
       </div>
