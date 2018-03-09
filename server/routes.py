@@ -32,7 +32,9 @@ def splash():
 
 @app.route("/react_test/")
 def react_test():
-    return render_template("react_test.html")
+    return render_template("render_component.html", component_name="Lmao", props=json.dumps({
+        "text": "lmao"
+    }))
 
 
 @app.route("/about/")

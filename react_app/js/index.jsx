@@ -20,9 +20,23 @@ class App extends Component {
 window.App = App;
 
 
+class Lmao extends Component {
+    render() {
+        return (
+            <div className="Lmao">
+                <h1>aiosdjfoaijsdjfoiajsodf {this.props.text}</h1>
+            </div>
+        );
+    }
+}
+
+window.Lmao = Lmao;
+
+
+
 // Only need to have this once, here. Uses closures
-window.render = function(component) {
-    ReactDOM.render(React.createElement(component), document.getElementById("content"))
+window.render = function(component, props) {
+    ReactDOM.render(React.createElement(component, props), document.getElementById("content"))
 };
 
 export default App;
