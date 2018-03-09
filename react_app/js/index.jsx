@@ -1,5 +1,3 @@
-window.components = {}
-
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -20,7 +18,7 @@ class App extends Component {
 }
 
 // For each top-level component (ie. DogPage, About, etc)
-window.components["App"] = App;
+window._App = App;
 
 
 class Lmao extends Component {
@@ -33,7 +31,7 @@ class Lmao extends Component {
     }
 }
 
-window.components["Lmao"] = Lmao;
+window._Lmao = Lmao;
 
 
 

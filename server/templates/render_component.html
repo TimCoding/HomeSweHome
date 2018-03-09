@@ -21,7 +21,7 @@
 <script src="{{ url_for('static', filename='js/bundle.js') }}" type="text/javascript"></script>
 <script>
 window.onload = function (ev) {
-    dom_render(components["{{ component_name }}"]
+    dom_render(_{{ component_name }}
     {% if props %}, {{props|safe}}{% endif %}
     );
 }
