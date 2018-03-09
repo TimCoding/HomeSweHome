@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {ControlledCarousel} from './carousel.jsx'
-import NavBar from './navbar.jsx';
+import React, { Component } from 'react';
+import { ControlledCarousel } from './carousel.jsx'
+import { NavBar } from './navbar.jsx';
 
 
 // const items = [
