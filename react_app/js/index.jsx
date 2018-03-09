@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './navbar.jsx'
 import './carousel.jsx'
-import './description.jsx'
 // import './splash.jsx'
 import './splash.jsx'
 import './modelpage.jsx'

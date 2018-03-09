@@ -16,12 +16,8 @@ export default class ModelPage extends Component {
 							<h3 className="models_content">Quote Here</h3>
 						</Col>
 						<Col md="4">
-							<img className="logo" src="/../static/img/homeswehomelogo.png"/>
+							<img className="logo" src="/static/img/homeswehomelogo.png"/>
 						</Col>
-					</Row>
-					<hr/>
-					<Row className="models_top">
-						//Insert cards here
 					</Row>
 				</Container>
 			</div>
