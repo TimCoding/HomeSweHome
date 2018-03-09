@@ -5,6 +5,7 @@ setup(name="HomeSweHome",
           "flask",
           "requests",
           "sqlalchemy",
+          "psycopg2",
           "beautifulsoup4",
           "html5lib"
       ])
