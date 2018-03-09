@@ -29,13 +29,16 @@ def cache_bust_static(endpoint, values):
 def splash():
     return render_template("splash.html")
 
+@app.route("/test/")
+def navbar():
+    return render_template("render_component.html", component_name="ControlledCarousel")
+    # return render_template("render_component.html", component_name="NavBar")
 
 @app.route("/react_test/")
 def react_test():
     return render_template("render_component.html", component_name="Lmao", props=json.dumps({
         "text": "lmao"
     }))
-
 
 @app.route("/about/")
 def about():
