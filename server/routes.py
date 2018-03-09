@@ -40,6 +40,9 @@ def react_test():
         "text": "lmao"
     }))
 
+@app.route("/react_model/")
+def react_model():
+	return render_template("render_component.html", component_name="ModelPage")
 
 @app.route("/description_test")
 def desc_test():

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './navbar.jsx'
 import './carousel.jsx'
 import './splash.jsx'
+import './modelpage.jsx'
 
 class App extends Component {
   render() {
