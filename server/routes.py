@@ -31,7 +31,8 @@ def splash():
 
 @app.route("/test/")
 def test():
-    return render_template("render_component.html", component_name="ControlledCarousel")
+    return render_template("render_component.html", component_name="DogCard")
+    # return render_template("render_component.html", component_name="ControlledCarousel")
     # return render_template("render_component.html", component_name="NavBar")
 
 @app.route("/react_test/")

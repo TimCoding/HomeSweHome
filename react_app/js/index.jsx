@@ -5,6 +5,7 @@ import './carousel.jsx'
 // import './splash.jsx'
 import './splash.jsx'
 import './modelpage.jsx'
+import './dogcards.jsx'
 
 
 class App extends Component {
