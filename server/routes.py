@@ -41,10 +41,9 @@ def react_test():
     }))
 
 
-@app.route("description_test")
+@app.route("/description_test")
 def desc_test():
     return render_template("render_component.html", component_name="Description", props=json.dumps({"text":"hello"}))
-
 
 @app.route("/about/")
 def about():
