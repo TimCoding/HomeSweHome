@@ -1,5 +1,8 @@
+window.components = {}
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
 
 class App extends Component {
   render() {
@@ -17,7 +20,7 @@ class App extends Component {
 }
 
 // For each top-level component (ie. DogPage, About, etc)
-window.App = App;
+window.components["App"] = App;
 
 
 class Lmao extends Component {
@@ -30,12 +33,12 @@ class Lmao extends Component {
     }
 }
 
-window.Lmao = Lmao;
+window.components["Lmao"] = Lmao;
 
 
 
 // Only need to have this once, here. Uses closures
-window.render = function(component, props) {
+window.dom_render = function(component, props) {
     ReactDOM.render(React.createElement(component, props), document.getElementById("content"))
 };
 

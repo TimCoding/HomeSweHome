@@ -20,9 +20,11 @@
 <div id="content"></div>
 <script src="{{ url_for('static', filename='js/bundle.js') }}" type="text/javascript"></script>
 <script>
-    render({{ component_name }}
+window.onload = function (ev) {
+    dom_render(components["{{ component_name }}"]
     {% if props %}, {{props|safe}}{% endif %}
     );
+}
 </script>
 
 </body>
