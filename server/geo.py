@@ -18,9 +18,11 @@ with open(zips_location, "r") as file:
         zip_locs[zipcode] = (latitude, longitude)
 
 
-def get_zip_distance(zip1, zip2):
-    lat1, lon1 = zip_locs[zip1]
-    lat2, lon2 = zip_locs[zip2]
+def haversine(loc1, loc2):
+    # used this as reference:
+    # https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
+    lat1, lon1 = loc1
+    lat2, lon2 = loc2
     radius = 6371  # km radius of earth
 
     dlat = math.radians(lat2 - lat1)
@@ -32,6 +34,13 @@ def get_zip_distance(zip1, zip2):
     d = radius * c
 
     return d
+
+
+def get_zip_distance(zip1, zip2):
+    return haversine(
+        zip_locs[zip1],
+        zip_locs[zip2]
+    )
 
 
 def get_zip_distance_comparator(source):
@@ -47,6 +56,17 @@ def order_zips(source):
     return sorted(zip_locs.keys(), key=cmp_to_key(get_zip_distance_comparator(source)))
 
 
+def zips_in_radius(source, km):
+    in_radius = (zip_loc for zip_loc in zip_locs.keys() if get_zip_distance(source, zip_loc) <= km)
+    return sorted(in_radius, key=cmp_to_key(get_zip_distance_comparator(source)))
+
+
+def get_closest_zip(location):
+    return min(
+        ((zipcode, haversine(location, zip_locs[zipcode])) for zipcode in zip_locs.keys()),
+        key=lambda x: x[1]
+    )[0]
+
+
 if __name__ == "__main__":
-    a = order_zips(77379)
-    print(a[:10])
+    print(zips_in_radius(77379, 10))
