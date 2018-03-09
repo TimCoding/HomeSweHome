@@ -16,6 +16,13 @@ class App extends Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("content"));
+// For each top-level component (ie. DogPage, About, etc)
+window.App = App;
+
+
+// Only need to have this once, here. Uses closures
+window.render = function(component) {
+    ReactDOM.render(React.createElement(component), document.getElementById("content"))
+};
 
 export default App;
