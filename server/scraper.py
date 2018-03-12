@@ -7,10 +7,12 @@ from difflib import SequenceMatcher
 import requests
 from bs4 import BeautifulSoup
 
-if __name__ == '__main__':
-    from config import config
-else:
-    from .config import confg
+if __name__ == '__main__' and __package__ is None:
+    from os import sys, path
+    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+
+from server.config import config
+from server.models import Dog, Breed, Shelter, Park
 
 
 class UniqueQueue(Queue):
@@ -45,7 +47,6 @@ NAME_RATIO = 0.6
 
 
 def fetch_shelter_html_hack(shelter_id):
-
     response = requests.get(PETFINDER_HTML_HACK_URL.format(shelter_id))
     # using "html5lib" instead of "html.parser" built in
     # "html.parser" doesn't parse Angular apps very accurately
@@ -68,12 +69,12 @@ def fetch_shelter_html_hack(shelter_id):
     if main.find(itemprop="addressRegion") is not None:
         shelter_obj["state"] = main.find(itemprop="addressRegion").text.strip()
     if main.find(itemprop="postalCode") is not None:
-        shelter_obj["zip"] = int(main.find(itemprop="postalCode").text.strip())
+        shelter_obj["zipcode"] = int(main.find(itemprop="postalCode").text.strip())
 
     directions_tag = main.select_one(".get-directions")
     if directions_tag is not None:
-        shelter_obj["latitude"] = directions_tag["data-latitude"]
-        shelter_obj["longitude"] = directions_tag["data-longitude"]
+        shelter_obj["latitude"] = float(directions_tag["data-latitude"])
+        shelter_obj["longitude"] = float(directions_tag["data-longitude"])
 
     if main.select_one("pf-ensighten > a[href^=mailto]") is not None:
         shelter_obj["email"] = main.select_one("pf-ensighten > a[href^=mailto]").text.strip()
@@ -135,6 +136,26 @@ def fetch_shelter_info(shelter_id):
     return None
 
 
+def make_shelter(shelter_json):
+    shelter = Shelter(
+        petfinder_id=shelter_json["id"],
+        name=shelter_json.get("name"),
+        address=shelter_json.get("address"),
+        city=shelter_json.get("city"),
+        state=shelter_json.get("state"),
+        longitude=shelter_json.get("longitude"),
+        latitude=shelter_json.get("latitude"),
+        phone_number=shelter_json.get("phone"),
+        mission=shelter_json.get("mission"),
+        adoption_policy=shelter_json.get("adoption_policy"),
+        email=shelter_json.get("email"),
+        zipcode=shelter_json.get("zipcode"),
+        image_urls="|".join(shelter_json["images"])
+    )
+
+    return shelter
+
+
 def fetch_dogs_in_zip(zipcode, shelter_queue):
     """Returns a list of dog JSONs from PetFinder in a specified zip
 
@@ -151,6 +172,7 @@ def fetch_dogs_in_zip(zipcode, shelter_queue):
     }
 
     dog_list = []
+    dog_id_set = set()
 
     while True:
         response = requests.get(PETFINDER_BASE_API_URL + "pet.find", params=params)
@@ -163,9 +185,18 @@ def fetch_dogs_in_zip(zipcode, shelter_queue):
                 # find out if I should break or return or what
                 break
             shelter_id = dog["shelterId"]["$t"]
+
+            if not shelter_id.upper().startswith("TX"):
+                continue
+
+            dog_id = int(dog["id"]["$t"])
+            if dog_id in dog_id_set:
+                continue
+            dog_id_set.add(dog_id)
+
             shelter_queue.put(shelter_id)
             dog_obj = {
-                "id": dog["id"]["$t"],
+                "id": dog_id,
                 "name": dog["name"]["$t"],
                 "shelter_id": shelter_id,
                 "zipcode": dog_zipcode
@@ -179,7 +210,7 @@ def fetch_dogs_in_zip(zipcode, shelter_queue):
             if "$t" in dog["contact"]["phone"]:
                 dog_obj["phone"] = dog["contact"]["phone"]["$t"]
             if "$t" in dog["contact"]["address1"]:
-                    dog_obj["address"] = dog["contact"]["address1"]["$t"]
+                dog_obj["address"] = dog["contact"]["address1"]["$t"]
 
             if "photos" in dog["media"] and "photo" in dog["media"]["photos"]:
                 photos_json = dog["media"]["photos"]["photo"]
@@ -189,12 +220,59 @@ def fetch_dogs_in_zip(zipcode, shelter_queue):
                 ]
                 dog_obj["photos"] = photos_list
 
+            if isinstance(dog["breeds"]["breed"], list):
+                dog_obj["breeds"] = [breed["$t"] for breed in dog["breeds"]["breed"]]
+            else:
+                dog_obj["breeds"] = [dog["breeds"]["breed"]["$t"]]
+
+            if "option" in dog["options"]:
+                if isinstance(dog["options"]["option"], list):
+                    options = [option["$t"] for option in dog["options"]["option"]]
+                else:
+                    options = [dog["options"]["option"]["$t"]]
+                dog_obj["house_trained"] = "houstrained" in options
+                dog_obj["shots"] = "hasShots" in options
+                dog_obj["altered"] = "altered" in options
+                dog_obj["special_needs"] = "specialNeeds" in options
+                dog_obj["friendly"] = not (
+                    "noCats" in options or
+                    "noKids" in options or
+                    "noDogs" in options
+                )
+
             dog_list.append(dog_obj)
         else:
             params["offset"] = response_json["petfinder"]["lastOffset"]["$t"]
             continue
         break
     return dog_list
+
+
+def make_dog_and_breeds(dog_json):
+    dog = Dog(
+        petfinder_id=dog_json.get("id"),
+        shelter_id=dog_json.get("shelter_id"),
+        name=dog_json.get("name"),
+        phone_number=dog_json.get("phone"),
+        address=dog_json.get("address"),
+        city=dog_json.get("city"),
+        state=dog_json.get("state"),
+        description=dog_json.get("description"),
+        zipcode=dog_json.get("zipcode"),
+        image_urls="|".join(dog_json.get("photos", [])),
+        friendly=dog_json.get("friendly", True),
+        housetrained=dog_json.get("house_trained", False),
+        shots=dog_json.get("shots", False),
+        altered=dog_json.get("altered", False),
+        special_needs=dog_json.get("special_needs", False)
+    )
+
+    dog.breeds = [
+        Breed(breed=dog_breed) for dog_breed in dog_json["breeds"]
+    ]
+
+    return dog
+
 
 def fetch_park_info(state, limit, offset):
     params = {
@@ -219,10 +297,10 @@ def fetch_park_info(state, limit, offset):
                 "latitude": park_data["coordinates"]["latitude"],
                 "longitude": park_data["coordinates"]["longitude"]
             },
-            "location":{
+            "location": {
                 "city": park_data["location"]["city"],
                 "state": park_data["location"]["state"],
-                "disp_addr": park_data["location"]["display_address"]
+                "address": park_data["location"]["display_address"]
             }
         }
         if "address1" in park_data["location"]:
@@ -235,6 +313,7 @@ def fetch_park_info(state, limit, offset):
         park_obj["reviews"] = fetch_park_reviews(park_obj["id"])
 
     return park_obj
+
 
 def fetch_park_reviews(id):
     headers = {
@@ -254,6 +333,7 @@ def fetch_park_reviews(id):
 
     return reviews
 
+
 def fetch_park_photos(id):
     headers = {
         "Authorization": "Bearer " + YELP_API_KEY
@@ -270,10 +350,10 @@ def fetch_park_photos(id):
 
 def fetch_shelter_details(keyword, location):
     params = {
-        "key":GOOGLE_PLACES_API_KEY,
-        "location":location,
-        "keyword":keyword,
-        "radius":PLACES_RADIUS
+        "key": GOOGLE_PLACES_API_KEY,
+        "location": location,
+        "keyword": keyword,
+        "radius": PLACES_RADIUS
     }
 
     shelter_dict = {}
@@ -307,6 +387,7 @@ def fetch_shelter_details(keyword, location):
 
     return shelter_dict
 
+
 def fetch_shelter_hours_and_reviews(shelter_dict):
     params = {
         "key": GOOGLE_PLACES_API_KEY,
@@ -325,11 +406,10 @@ def fetch_shelter_hours_and_reviews(shelter_dict):
         for review in response_json["result"]["reviews"]:
             review_dict["author_name"] = review["author_name"]
             review_dict["rating"] = review["rating"]
-            review_dict["text"] =  review["text"]
+            review_dict["text"] = review["text"]
             reviews.append(review_dict)
 
         shelter_dict["reviews"] = reviews
-
 
     if "opening_hours" in response_json["result"]:
         shelter_dict["hours"] = response_json["result"]["opening_hours"]["weekday_text"]
@@ -339,25 +419,44 @@ def similarity(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
 
-if __name__ == "__main__":
-    zips_location = os.path.join(os.path.dirname(__file__), "../texas_zips.csv")
-    zips = open(zips_location, "r")
-    # example program
-    '''
-    shelter_ids = UniqueQueue()
-    for zc in [int(line.split(",")[0]) for line in zips.readlines()[1:21]]:
-        dogs = fetch_dogs_in_zip(zc, shelter_ids)
-        for dog in dogs:
-            pprint(dog)
-            print()
-    print()
-    print("SHELTERS:")
-    print()
+def scrape_and_commit_zip(zipcode, shelter_ids):
+    from server.database import db_session
+    dog_jsons = fetch_dogs_in_zip(zipcode, shelter_ids)
+
     while not shelter_ids.empty():
         shelter_id = shelter_ids.get()
         print(shelter_id)
-        pprint(fetch_shelter_info(shelter_id))
-        fetch_shelter_detail(shelter_id)
-    '''
-    #pprint(fetch_shelter_details("Henderson County Humane", "32.1991,-95.8661"))
-    fetch_park_info("TX", 2, 0)
+        shelter_json = fetch_shelter_html_hack(shelter_id)
+        if shelter_json.get("zipcode") is None:
+            api_shelter_json = fetch_shelter_info(shelter_id)
+            if api_shelter_json is not None:
+                shelter_json["zipcode"] = int(api_shelter_json["zipcode"])
+        shelter = make_shelter(shelter_json)
+        db_session.add(shelter)
+
+    db_session.add_all([
+        make_dog_and_breeds(dog_json) for dog_json in dog_jsons
+    ])
+
+    db_session.commit()
+
+    for dog_json in dog_jsons:
+        print("{id}: {name}".format(**dog_json))
+
+
+if __name__ == "__main__":
+    from server.database import db_session, init_db
+    from server.geo import zips
+    start_zip = 75001
+    end_zip = 75009
+    try:
+        init_db()
+        shelter_ids = UniqueQueue()
+        for zipcode in zips[zips.index(start_zip):zips.index(end_zip) + 1]:
+            scrape_and_commit_zip(zipcode, shelter_ids)
+    except Exception as e:
+        db_session.remove()
+        raise e
+    db_session.remove()
+    # pprint(fetch_shelter_details("Henderson County Humane", "32.1991,-95.8661"))
+    # fetch_park_info("TX", 2, 0)

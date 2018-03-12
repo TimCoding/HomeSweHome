@@ -7,6 +7,7 @@ import random
 
 from server import app
 from server import api
+from server import database
 
 import os, sys
 
@@ -23,6 +24,11 @@ def cache_bust_static(endpoint, values):
                                      endpoint, filename)
             # lu stands for last updated
             values["lu"] = int(os.stat(file_path).st_mtime)
+
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    database.db_session.remove()
 
 
 @app.route("/")

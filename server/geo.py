@@ -3,6 +3,7 @@ import os
 import math
 
 zip_locs = {}
+zips = []
 
 # do all file processing at module load time
 zips_location = os.path.join(os.path.dirname(__file__), "data/texas_zips.csv")
@@ -16,6 +17,7 @@ with open(zips_location, "r") as file:
         latitude = float(latitude)
         longitude = float(longitude)
         zip_locs[zipcode] = (latitude, longitude)
+        zips.append(zipcode)
 
 
 def haversine(loc1, loc2):
