@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { ControlledCarousel } from './carousel.jsx'
 import { NavBar } from './navbar.jsx';
 import DogCard from './dogcards';
+import ShelterCard from './sheltercards'
+import { CardDeck } from 'reactstrap';
 
 
 // const items = [
@@ -34,7 +36,14 @@ export class Splash extends Component {
       <div>
         <NavBar/>
         <ControlledCarousel/>
-        <DogCard/>
+        <CardDeck>
+          <DogCard/>
+        </CardDeck>
+        <CardDeck>
+          <ShelterCard/>
+        </CardDeck>
+
+           
       </div>
     );
   }
