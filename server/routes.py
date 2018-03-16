@@ -7,6 +7,7 @@ import random
 
 from server import app
 from server import api
+from server import database
 
 import os, sys
 
@@ -25,13 +26,19 @@ def cache_bust_static(endpoint, values):
             values["lu"] = int(os.stat(file_path).st_mtime)
 
 
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    database.db_session.remove()
+
+
 @app.route("/")
 def splash():
     return render_template("render_component.html", component_name="Splash")
 
 @app.route("/test/")
 def test():
-    return render_template("render_component.html", component_name="ControlledCarousel")
+    return render_template("render_component.html", component_name="DogCard")
+    # return render_template("render_component.html", component_name="ControlledCarousel")
     # return render_template("render_component.html", component_name="NavBar")
 
 @app.route("/react_test/")

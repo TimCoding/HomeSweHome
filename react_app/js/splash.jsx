@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ControlledCarousel } from './carousel.jsx'
 import { NavBar } from './navbar.jsx';
+import DogCard from './dogcards';
 
 
 // const items = [
@@ -33,6 +34,7 @@ export class Splash extends Component {
       <div>
         <NavBar/>
         <ControlledCarousel/>
+        <DogCard/>
       </div>
     );
   }
