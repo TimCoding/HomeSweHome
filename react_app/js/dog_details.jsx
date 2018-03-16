@@ -1,9 +1,14 @@
 import React from 'react';
-import './navbar.jsx'
+import ReactDOM from 'react-dom';
+import NavBar from './navbar.jsx';
 
-export default class DescriptionBox extends React.Component {
+export default class DogDetails extends React.Component {
 
 	render() {
-		return 
+		return {
+			<NavBar/>;
+		}
 	}
 }
+
+window._dog_details = DogDetails;
