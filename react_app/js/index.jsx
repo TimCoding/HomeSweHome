@@ -6,7 +6,7 @@ import './carousel.jsx'
 import './splash.jsx'
 import './modelpage.jsx'
 import './dogcards.jsx'
-import './dog_details.jsx'
+import './dogdetails.jsx'
 import './infocard.jsx'
 
 

@@ -12,7 +12,7 @@ const ParkCard = (props) => {
                 <CardBody>
                     <CardTitle>Park Name{/*this.props.name*/}</CardTitle>
                     <CardText>
-											<ul class="fa-ul">
+											<ul className="fa-ul">
 	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>rating {/*this.props.rating*/}</li>
 	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>phone {/*this.props.phone*/}</li>
 	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>hours {/*this.props.hours*/}</li>
