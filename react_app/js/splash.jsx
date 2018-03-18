@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { ControlledCarousel } from './carousel.jsx'
 import { NavBar } from './navbar.jsx';
 import DogCard from './dogcards';
-import ShelterCard from './sheltercards'
+import ShelterCard from './sheltercards';
+import ParkCard from './parkcards';
 import { CardDeck } from 'reactstrap';
 
 
@@ -42,8 +43,9 @@ export class Splash extends Component {
         <CardDeck>
           <ShelterCard/>
         </CardDeck>
-
-           
+				<CardDeck>
+					<ParkCard/>
+				</CardDeck>
       </div>
     );
   }
