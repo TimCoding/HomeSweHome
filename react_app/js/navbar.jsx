@@ -54,6 +54,12 @@ export class NavBar extends React.Component {
             <button className="btn btn-outline-success" type="submit">Search</button>
           </FormGroup>
         </Navbar>
+
+        <footer class="footer">
+          <div class="container text-center">
+            <span class="text-muted">&copy; 2018 - HomeSweHome <i class="fas fa-paw"></i></span>
+          </div>
+        </footer>
       </div>
     );
   }

@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './navbar.jsx'
 import './carousel.jsx'
-// import './splash.jsx'
 import './splash.jsx'
 import './modelpage.jsx'
-import './dogcards.jsx'
 import './dogdetails.jsx'
-import './infocard.jsx'
+import './shelterdetails.jsx'
 
 
 class App extends Component {
