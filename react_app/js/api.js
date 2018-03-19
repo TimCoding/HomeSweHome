@@ -19,47 +19,40 @@ function parameterize(params) {
 }
 
 
-function fetchDog(dogID, responseCallback, errorCallback) {
-    fetch(BASE_API_URL + "dog/" + dogID + "/")
-        .then(response => responseCallback(response.json()))
-        .catch(error => errorCallback(error));
+export function fetchDog(dogID) {
+    return fetch(BASE_API_URL + "dog/" + dogID + "/")
+        .then(response => response.json())
 }
 
-function fetchDogs(limit, offset, responseCallback, errorCallback) {
-    fetch(BASE_API_URL + "dogs/" + parameterize({
+export function fetchDogs(limit, offset) {
+    return fetch(BASE_API_URL + "dogs/" + parameterize({
         "start": offset || 0,
         "limit": limit  || 10
     }))
-        .then(response => responseCallback(response.json()))
-        .catch(error => errorCallback(error));
+        .then(response => response.json())
 }
 
-function fetchShelter(shelterID, responseCallback, errorCallback) {
-    fetch(BASE_API_URL + "shelter/" + shelterID + "/")
-        .then(response => responseCallback(response.json()))
-        .catch(error => errorCallback(error));
+export function fetchShelter(shelterID) {
+    return fetch(BASE_API_URL + "shelter/" + shelterID + "/")
+        .then(response => response.json())
 }
 
-function fetchShelters(limit, offset, responseCallback, errorCallback) {
-    fetch(BASE_API_URL + "shelters/" + parameterize({
+export function fetchShelters(limit, offset) {
+    return fetch(BASE_API_URL + "shelters/" + parameterize({
         "start": offset || 0,
         "limit": limit  || 10
     }))
-        .then(response => responseCallback(response.json()))
-        .catch(error => errorCallback(error));
 }
 
-function fetchPark(parkID, responseCallback, errorCallback) {
-    fetch(BASE_API_URL + "park/" + parkID + "/")
-        .then(response => responseCallback(response.json()))
-        .catch(error => errorCallback(error));
+export function fetchPark(parkID) {
+    return fetch(BASE_API_URL + "park/" + parkID + "/")
+        .then(response => response.json())
 }
 
-function fetchParks(limit, offset, responseCallback, errorCallback) {
-    fetch(BASE_API_URL + "parks/" + parameterize({
+export function fetchParks(limit, offset) {
+    return fetch(BASE_API_URL + "parks/" + parameterize({
         "start": offset || 0,
         "limit": limit  || 10
     }))
-        .then(response => responseCallback(response.json()))
-        .catch(error => errorCallback(error));
+        .then(response => response.json())
 }
