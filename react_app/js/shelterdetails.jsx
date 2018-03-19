@@ -17,7 +17,8 @@ export class ShelterDetails extends Component {
         super(props);
 
         this.state = {
-            shelterJSON: null
+            shelterJSON: null,
+            error: null
         }
     }
 
@@ -25,11 +26,23 @@ export class ShelterDetails extends Component {
         api.fetchShelter(this.props.shelterID)
             .then(shelterJSON => this.setState({
                 shelterJSON: shelterJSON
+            }))
+            .catch(error => this.setState({
+                error: "DAMN"
             }));
     }
 
     render() {
-
+        if(!(this.state.error == null)){
+            return (
+                <div>
+                    <NavBar/>
+                    <Container>
+                        <h1 className="text-center text-danger">{this.state.error}</h1>
+                    </Container>
+                </div>
+            );
+        }
         if(this.state.shelterJSON == null) {
             return (
                 <div>
