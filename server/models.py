@@ -42,7 +42,7 @@ class Shelter(Base):
             "adoption_policy": self.adoption_policy,
             "email": self.email,
             "zipcode": self.zipcode,
-            "images_urls": self.image_urls.split("|"),
+            "image_urls": self.image_urls.split("|"),
             "google_id": self.google_id,
             "google_rating": self.google_rating
         }

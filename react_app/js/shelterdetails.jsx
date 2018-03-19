@@ -1,7 +1,7 @@
-import { NavBar } from './navbar.jsx';
-import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { CardDeck } from 'reactstrap';
+import {NavBar} from './navbar.jsx';
+import React, {Component} from 'react';
+import {Container, Row, Col} from 'reactstrap';
+import {CardDeck} from 'reactstrap';
 import ShelterInfo from './shelterinfo.jsx';
 import Map from './map.jsx';
 import ShelterHours from './shelterhours.jsx';
@@ -9,38 +9,66 @@ import Reviews from './reviews.jsx';
 import ParkCard from './parkcards.jsx';
 import DogCard from './dogcards.jsx';
 
+import * as api from './api.js';
+
 
 export class ShelterDetails extends Component {
-	render() {
-		return (
-  		<div>
-  			<NavBar/>
-  			<br/>
+    constructor(props) {
+        super(props);
 
-				<ShelterInfo/>
+        this.state = {
+            shelterJSON: null
+        }
+    }
 
-        <Container>
-          <Row>
-            <Col xs="8">
-              <Map/>
-            </Col>
-            <Col xs="4">
-							<ShelterHours/>
-            </Col>
-          </Row>
-        </Container>
-				<br/>
+    componentDidMount() {
+        api.fetchShelter(this.props.shelterID)
+            .then(shelterJSON => this.setState({
+                shelterJSON: shelterJSON
+            }));
+    }
 
-				<Container>
-					<Row>
-						<Col>
-							<Reviews/>
-						</Col>
-					</Row>
-				</Container>
-				<br/>
+    render() {
 
-				<hr></hr>
+        if(this.state.shelterJSON == null) {
+            return (
+                <div>
+                    <NavBar/>
+                    <Container>
+                        <h1 className="text-center">Loading...</h1>
+                    </Container>
+                </div>
+            );
+        }
+        return (
+            <div>
+                <NavBar/>
+                <br/>
+                <ShelterInfo shelterJSON={this.state.shelterJSON}/>
+                {/*<ShelterInfo/>*/}
+
+                <Container>
+                    <Row>
+                        <Col xs="8">
+                            <Map/>
+                        </Col>
+                        <Col xs="4">
+                            <ShelterHours/>
+                        </Col>
+                    </Row>
+                </Container>
+                <br/>
+
+                <Container>
+                    <Row>
+                        <Col>
+                            <Reviews/>
+                        </Col>
+                    </Row>
+                </Container>
+                <br/>
+
+                <hr></hr>
 
 				<Container>
 					<h2>Recommended Dogs</h2>
@@ -52,7 +80,7 @@ export class ShelterDetails extends Component {
 				</Container>
 				<br/>
 
-				<hr></hr>
+                <hr></hr>
 
 				<Container>
 					<h2>Recommended Parks</h2>

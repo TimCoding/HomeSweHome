@@ -55,9 +55,9 @@ export class NavBar extends React.Component {
           </FormGroup>
         </Navbar>
 
-        <footer class="footer">
-          <div class="container text-center">
-            <span class="text-muted">&copy; 2018 - HomeSweHome <i class="fas fa-paw"></i></span>
+        <footer className="footer">
+          <div className="container text-center">
+            <span className="text-muted">&copy; 2018 - HomeSweHome <i className="fas fa-paw"></i></span>
           </div>
         </footer>
       </div>
