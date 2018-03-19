@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { CardDeck } from 'reactstrap';
 import ShelterInfo from './shelterinfo.jsx';
-import ShelterMap from './sheltermap.jsx';
+import Map from './map.jsx';
 import ShelterHours from './shelterhours.jsx';
-import ShelterReviews from './shelterreviews.jsx';
+import Reviews from './reviews.jsx';
 import ParkCard from './parkcards.jsx';
 import DogCard from './dogcards.jsx';
 
@@ -22,7 +22,7 @@ export class ShelterDetails extends Component {
         <Container>
           <Row>
             <Col xs="8">
-              <ShelterMap/>
+              <Map/>
             </Col>
             <Col xs="4">
 							<ShelterHours/>
@@ -34,7 +34,7 @@ export class ShelterDetails extends Component {
 				<Container>
 					<Row>
 						<Col>
-							<ShelterReviews/>
+							<Reviews/>
 						</Col>
 					</Row>
 				</Container>

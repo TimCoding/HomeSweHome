@@ -15,7 +15,7 @@ const ParkCard = (props) => {
 											<ul className="fa-ul">
 	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>rating {/*this.props.rating*/}</li>
 	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>phone {/*this.props.phone*/}</li>
-	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>hours {/*this.props.hours*/}</li>
+	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>location {/*this.props.location*/}</li>
 											</ul>
                     </CardText>
                     <Button>Visit</Button>

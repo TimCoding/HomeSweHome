@@ -3,7 +3,7 @@ import { Card,
          CardBody,
          CardTitle } from 'reactstrap';
 
-const ShelterReviews = (props) => {
+const Reviews = (props) => {
  return (
    <div>
      <Card>
@@ -18,6 +18,6 @@ const ShelterReviews = (props) => {
  );
 };
 
-export default ShelterReviews;
+export default Reviews;
 
-window._ShelterReviews = ShelterReviews
+window._Reviews = Reviews

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const ShelterMap = (props) => {
+const Map = (props) => {
   return (
     <div>
       <img src="/../static/img/sample_map.png" width="100%" height="100%"/>
@@ -8,6 +8,6 @@ const ShelterMap = (props) => {
   );
 };
 
-export default ShelterMap;
+export default Map;
 
-window._ShelterMap = ShelterMap
+window._Map = Map

@@ -6,6 +6,7 @@ import './splash.jsx'
 import './modelpage.jsx'
 import './dogdetails.jsx'
 import './shelterdetails.jsx'
+import './parkdetails.jsx'
 
 
 class App extends Component {
