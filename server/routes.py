@@ -51,7 +51,11 @@ def react_test():
 def react_model():
 	return render_template("render_component.html", component_name="ModelPage")
 
+<<<<<<< HEAD
 @app.route("/dog_details/<dogID>/")
+=======
+@app.route("/dog_details_test/")
+>>>>>>> 7f49cdbe446146fd30665ae2aa30bbaf0c75162e
 def desc_test():
     return render_template("render_component.html", component_name="DogDetails", props=json.dumps({"dogID" : dogID}))
 
@@ -67,9 +71,11 @@ def shelter_details_test_with_id(shelterID):
     }))
 
 
-@app.route("/shelter_details_test/")
-def shelter_details_test():
-    return render_template("render_component.html", component_name="ShelterDetails")
+@app.route("/shelter_details_test/<shelterID>/")
+def shelter_details_test(shelterID):
+    return render_template("render_component.html", component_name="ShelterDetails", props=json.dumps({
+        "shelterID": shelterID
+    }))
 
 
 
