@@ -51,9 +51,9 @@ def react_test():
 def react_model():
 	return render_template("render_component.html", component_name="ModelPage")
 
-@app.route("/dog_details_test")
+@app.route("/dog_details/<dogID>/")
 def desc_test():
-    return render_template("render_component.html", component_name="DogDetails", props=json.dumps({"text":"hello"}))
+    return render_template("render_component.html", component_name="DogDetails", props=json.dumps({"dogID" : dogID}))
 
 @app.route("/park_details_test/")
 def park_details_test():

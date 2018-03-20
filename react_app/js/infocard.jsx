@@ -5,14 +5,14 @@ import {
 } from 'reactstrap';
 
 const InfoCard = (props) => {
+
     return (
         <div>
             <Card>
-             
                 <CardBody>
                     <CardTitle>Information</CardTitle>
-                    <CardText>Address: </CardText>
-                    <CardText>Phone Number: </CardText>
+                    <CardText>Address: {props.address}</CardText>
+                    <CardText>Phone Number: {props.phone_number}</CardText>
                     <Button>Adopt Me Please</Button>
                 </CardBody>
             </Card>
