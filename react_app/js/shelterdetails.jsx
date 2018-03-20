@@ -53,6 +53,14 @@ export class ShelterDetails extends Component {
                 </div>
             );
         }
+        let dogList = this.state.shelterJSON.dogs.map(dogi => {
+            return (
+                // <CardDeck>
+                <Col>
+                    <DogCard dogData={dogi}/>
+                </Col>
+            );
+        })
         return (
             <div>
                 <NavBar/>
@@ -83,27 +91,25 @@ export class ShelterDetails extends Component {
 
                 <hr></hr>
 
-								<Container>
-									<h2>Recommended Dogs</h2>
-									<CardDeck>
-										<Row>
-											<DogCard dogData={this.state.shelterJSON.dogs[0]}/>
-										</Row>
-									</CardDeck>
-								</Container>
-								<br/>
+                <Container>
+                    <h2>Recommended Dogs</h2>
+                        <Row>
+                            {dogList}
+                        </Row>
+                </Container>
+                <br/>
 
-								<hr></hr>
+                <hr></hr>
 
-								<Container>
-									<h2>Recommended Parks</h2>
-									<CardDeck>
-										<Row>
-												<ParkCard/>
-										</Row>
-									</CardDeck>
-								</Container>
-								<br/>
+                <Container>
+                    <h2>Recommended Parks</h2>
+                    <CardDeck>
+                        <Row>
+                                <ParkCard/>
+                        </Row>
+                    </CardDeck>
+                </Container>
+                <br/>
 			</div>
 		)
 	}

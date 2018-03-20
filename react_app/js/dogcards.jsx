@@ -8,7 +8,7 @@ const DogCard = (props) => {
     return (
         <div>
             <Card>
-                <CardImg top src={props.dogData.image_urls} alt="Card image cap" />
+                <CardImg top height="10%" src={props.dogData.image_urls} alt="Dog image" />
                 <CardBody>
                     {/* don't know if these props work properly need data to test */}
                     <CardTitle>{props.dogData.name}</CardTitle>
