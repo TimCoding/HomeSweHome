@@ -7,6 +7,6 @@ env = os.environ.get("FLASK_ENV", "dev")
 
 if __name__ == "__main__":
     if env == "dev":
-        app.run(debug=True)
+        app.run(debug=True, threaded=True)
     elif env == "prod":
-        app.run(host="0.0.0.0", port=80)
+        app.run(host="0.0.0.0", port=80, threaded=True)

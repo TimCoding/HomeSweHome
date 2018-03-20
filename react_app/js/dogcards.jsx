@@ -15,8 +15,8 @@ const DogCard = (props) => {
                     <CardText>
                         <ul class="fa-ul">
                         <li><span className="fa-li"><i className="fas fa-paw"></i></span>Breed: {props.dogData.breeds}</li>
-                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>Housetrained: {props.dogData.housetrained}</li>
-                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>Friendly: {props.dogData.friendly}</li>
+                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>Housetrained: {props.dogData.housetrained === true ? "Yes" : "No"}</li>
+                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>Friendly: {props.dogData.friendly === true ? "Yes" : "No"}</li>
                         </ul>
                     </CardText>
                     <Button>Meet {props.dogData.name}</Button>

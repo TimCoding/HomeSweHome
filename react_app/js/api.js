@@ -42,6 +42,7 @@ export function fetchShelters(limit, offset) {
         "start": offset || 0,
         "limit": limit  || 10
     }))
+        .then(response => response.json())
 }
 
 export function fetchPark(parkID) {
