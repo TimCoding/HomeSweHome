@@ -32,7 +32,6 @@ export default class DogDetails extends Component {
     }
 
 	render() {
-
 		if(!(this.state.error == null)){
             return (
                 <div>
@@ -54,20 +53,40 @@ export default class DogDetails extends Component {
                 </div>
             );
         }
+        
+        
+        const items = [
+		  {
+		    src: this.state.dogJSON.image_urls[0],
+		    altText: 'Slide 1',
+		    caption: 'Slide 1'
+		  },
+		  {
+		    src: this.state.dogJSON.image_urls[1],
+		    altText: 'Slide 2',
+		    caption: 'Slide 2'
+		  },
+		  {
+		    src: this.state.dogJSON.image_urls[2],
+		    altText: 'Slide 3',
+		    caption: 'Slide 3'
+		  }
+		];
+
 		return (
 			<div>
 				<NavBar/>
 				<br/>
-				<ControlledCarousel/>
+				<ControlledCarousel items={items} />
 				<br/>
 				<Container>
 					<Row className="description_box">
 						<Col md="8">
 							<h5>Description</h5>
-							<p className="description_content">description goes here</p>
+							<p className="description_content">{this.state.dogJSON.description}</p>
 						</Col>
 						<Col md="4">
-							<InfoCard address = {this.state.dogJSON.address} city = {this.state.dogJSON.shelter.city} phone = {this.state.dogJSON.phone} />
+							<InfoCard address={this.state.dogJSON.address} city={this.state.dogJSON.shelter.city} phone={this.state.dogJSON.phone} />
 						</Col>
 					</Row>
 				</Container>
