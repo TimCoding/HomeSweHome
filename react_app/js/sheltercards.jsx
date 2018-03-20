@@ -12,11 +12,11 @@ const ShelterCard = (props) => {
                 <CardBody>
                     <CardTitle>Shelter Name{/*this.props.name*/}</CardTitle>
                     <CardText>
-											<ul class="fa-ul">
-													<li><span className="fa-li"><i className="fas fa-paw"></i></span>rating {/*this.props.rating*/}</li>
-													<li><span className="fa-li"><i className="fas fa-paw"></i></span>phone {/*this.props.phone*/}</li>
-													<li><span className="fa-li"><i className="fas fa-paw"></i></span>hours {/*this.props.hours*/}</li>
-											</ul>
+                        <ul class="fa-ul">
+                                <li><span className="fa-li"><i className="fas fa-paw"></i></span>rating {/*this.props.rating*/}</li>
+                                <li><span className="fa-li"><i className="fas fa-paw"></i></span>phone {/*this.props.phone*/}</li>
+                                <li><span className="fa-li"><i className="fas fa-paw"></i></span>hours {/*this.props.hours*/}</li>
+                        </ul>
                     </CardText>
                     <Button>Adopt</Button>
                 </CardBody>

@@ -83,27 +83,27 @@ export class ShelterDetails extends Component {
 
                 <hr></hr>
 
-				<Container>
-					<h2>Recommended Dogs</h2>
-					<CardDeck>
-						<DogCard/>
-						<DogCard/>
-						<DogCard/>
-					</CardDeck>
-				</Container>
-				<br/>
+								<Container>
+									<h2>Recommended Dogs</h2>
+									<CardDeck>
+										<Row>
+											<DogCard dogData={this.state.shelterJSON.dogs[0]}/>
+										</Row>
+									</CardDeck>
+								</Container>
+								<br/>
 
-                <hr></hr>
+								<hr></hr>
 
-				<Container>
-					<h2>Recommended Parks</h2>
-					<CardDeck>
-						<ParkCard/>
-						<ParkCard/>
-						<ParkCard/>
-					</CardDeck>
-				</Container>
-				<br/>
+								<Container>
+									<h2>Recommended Parks</h2>
+									<CardDeck>
+										<Row>
+												<ParkCard/>
+										</Row>
+									</CardDeck>
+								</Container>
+								<br/>
 			</div>
 		)
 	}
