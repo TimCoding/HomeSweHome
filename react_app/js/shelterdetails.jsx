@@ -8,6 +8,7 @@ import ShelterHours from './shelterhours.jsx';
 import Reviews from './reviews.jsx';
 import ParkCard from './parkcards.jsx';
 import DogCard from './dogcards.jsx';
+import {PawSpinner} from './spinner.jsx';
 
 import * as api from './api.js';
 
@@ -48,7 +49,7 @@ export class ShelterDetails extends Component {
                 <div>
                     <NavBar/>
                     <Container>
-                        <h1 className="text-center">Loading...</h1>
+                        <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
                     </Container>
                 </div>
             );
