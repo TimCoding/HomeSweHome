@@ -6,16 +6,56 @@ import InfoCard from './infocard.jsx';
 import { ControlledCarousel } from './carousel.jsx';
 import ParkCard from './parkcards.jsx';
 import {CardDeck} from 'reactstrap';
-import {fetchDog} from './api.js';
+import * as api from './api.js';
 
 export default class DogDetails extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+            dogJSON: null,
+            shelterJSON: null,
+            parkJSON: null,
+            error: null
+        }
+	}
+
+	componentDidMount() {
+        api.fetchDog(this.props.dogID)
+            .then(dogJSON => this.setState({
+                dogJSON: dogJSON
+            }))
+            .catch(error => this.setState({
+                error: "DAMN"
+            }));
+
+    }
+
 	render() {
 
-		const data =[{"name":"test1"},{"name":"test2"}];
-		const listItems = data.map((d) => <li key={d.name}>{d.name}</li>);
-		let address = "test address";
-		let phone_number = "111 111 1111";
-		
+		if(!(this.state.error == null)){
+            return (
+                <div>
+                    <NavBar/>
+                    <Container>
+                        <h1 className="text-center text-danger">{this.state.error}</h1>
+                    </Container>
+                </div>
+             );
+         }
+
+         if(this.state.shelterJSON == null) {
+            return (
+                <div>
+                    <NavBar/>
+                    <Container>
+                        <h1 className="text-center">Loading...</h1>
+                    </Container>
+                </div>
+            );
+        }
+        
+        
 		return (
 			<div>
 				<NavBar/>
@@ -28,7 +68,7 @@ export default class DogDetails extends Component {
 							<p className="description_content">description goes here</p>
 						</Col>
 						<Col md="4">
-							<InfoCard address={address} phone_number = {phone_number}/>
+							<InfoCard address = {this.state.dogJSON.address} city = {this.state.dogJSON.shelter.city} phone = {this.state.dogJSON.phone} />
 						</Col>
 					</Row>
 				</Container>
@@ -43,6 +83,7 @@ export default class DogDetails extends Component {
 				</Container>
 			</div>
 		);
+		
 	}
 }
 

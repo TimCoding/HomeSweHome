@@ -5,14 +5,19 @@ import {
 } from 'reactstrap';
 
 const InfoCard = (props) => {
-
+    var address;
+    if (props.address == null) {
+        address = props.city;
+    } else {
+        address = props.address;
+    }
     return (
         <div>
             <Card>
                 <CardBody>
                     <CardTitle>Information</CardTitle>
-                    <CardText>Address: {props.address}</CardText>
-                    <CardText>Phone Number: {props.phone_number}</CardText>
+                    <CardText>Address: {address}</CardText>
+                    <CardText>Phone Number: {props.phone} </CardText>
                     <Button>Adopt Me Please</Button>
                 </CardBody>
             </Card>
