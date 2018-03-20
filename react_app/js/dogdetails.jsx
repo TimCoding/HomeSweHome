@@ -44,7 +44,7 @@ export default class DogDetails extends Component {
              );
          }
 
-         if(this.state.shelterJSON == null) {
+         if(this.state.dogJSON == null) {
             return (
                 <div>
                     <NavBar/>
@@ -54,13 +54,12 @@ export default class DogDetails extends Component {
                 </div>
             );
         }
-        
-        
 		return (
 			<div>
 				<NavBar/>
 				<br/>
 				<ControlledCarousel/>
+				<br/>
 				<Container>
 					<Row className="description_box">
 						<Col md="8">
@@ -83,7 +82,6 @@ export default class DogDetails extends Component {
 				</Container>
 			</div>
 		);
-		
 	}
 }
 
