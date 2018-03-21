@@ -63,7 +63,7 @@ export class ShelterDetails extends Component {
         }
         let dogList = this.state.shelterJSON.dogs.map(dogi => {
             return (
-                <Col md="3">>
+                <Col md="3">
                     <DogCard dogData={dogi}/>
                 </Col>
             );
