@@ -39,7 +39,7 @@ export default class ModelPage extends Component {
             }));
 		} else if (this.props.model == 'shelters') {
 			api.fetchShelters()
-            .then(dogsJSON => this.setState({
+            .then(sheltersJSON => this.setState({
                 sheltersJSON: sheltersJSON
             }))
             .catch(error => this.setState({
