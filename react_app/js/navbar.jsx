@@ -10,6 +10,7 @@ import {
   FormGroup,
   input,
   button} from 'reactstrap';
+import * as urls from './urls.js';
 
 
 export class NavBar extends React.Component {
@@ -30,26 +31,26 @@ export class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar className="form-inline ml-auto" color="faded" light expand="md">
-          <NavbarBrand href="/"><img src="/../static/img/homeswehomelogo.png" width="30" height="30"/>HomeSweHome</NavbarBrand>
+        <Navbar className="form-inline ml-auto bg-light" light color="faded" expand="md">
+          <NavbarBrand href="/"><img src="/static/img/homeswehomelogo.png" width="30" height="30"/>HomeSweHome</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem>
-                <NavLink href="/dogs">Dogs</NavLink>
+                <NavLink href={urls.dogsURL()}>Dogs</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/parks">Parks</NavLink>
+                <NavLink href={urls.parksURL()}>Parks</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/shelters">Shelters</NavLink>
+                <NavLink href={urls.sheltersURL()}>Shelters</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/about">About</NavLink>
+                <NavLink href={urls.aboutURL()}>About</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
-          <FormGroup className="form-inline ml-auto" light expand="md">
+          <FormGroup className="form-inline ml-auto" expand="md">
             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
             <button className="btn btn-outline-success" type="submit">Search</button>
           </FormGroup>
