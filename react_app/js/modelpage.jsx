@@ -5,6 +5,7 @@ import {NavBar} from './navbar.jsx';
 import * as api from './api.js';
 import {PawSpinner} from './spinner.jsx';
 import DogCard from './dogcards.jsx';
+import ParkCard from './parkcards.jsx';
 
 export default class ModelPage extends Component {
 	constructor(props) {
@@ -105,9 +106,9 @@ export default class ModelPage extends Component {
 		} 
 
 		if (this.props.model == 'parks') {
-			return (
-				<div>
-				<NavBar/>
+			const staticContent = (
+        		<div>
+        		<NavBar/>
 				<Container>
 					<Row className="models_top">
 						<Col md="8">
@@ -125,6 +126,18 @@ export default class ModelPage extends Component {
 						</Col>
 					</Row>
 				</Container>
+				</div>
+        	);
+			return (
+				<div>
+				{staticContent}
+				<hr></hr>
+				<Container>
+                    <h2>Parks</h2>
+                    <Row>
+                        <ParkCard/>
+                    </Row>
+                </Container>
 			</div>
 			);
 		}
