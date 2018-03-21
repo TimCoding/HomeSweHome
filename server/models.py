@@ -55,12 +55,16 @@ class Park(Base):
     address = Column(String)
     city = Column(String(80))
     state = Column(String(50))
+    longitude = Column(Float)
+    latitude = Column(Float)
     phone_number = Column(String(30))
     description = Column(String)
     zipcode = Column(Integer)
     image_urls = Column(String)
     google_rating = Column(Float)
     google_id = Column(String)
+    yelp_rating = Column(Float)
+    yelp_id = Column(String)
 
     def __repr__(self):
         return "<Park(id={}, name=\"{}\", zip={})>".format(self.id, self.name, self.zipcode)
@@ -77,7 +81,11 @@ class Park(Base):
             "zip": self.zipcode,
             "image_urls": self.image_urls.split("|"),
             "google_id": self.google_id,
-            "google_rating": self.google_rating
+            "google_rating": self.google_rating,
+            "yelp_id": self.yelp_id,
+            "yelp_rating": self.yelp_rating,
+            "latitude": self.latitude,
+            "longitude": self.longitude
         }
 
 

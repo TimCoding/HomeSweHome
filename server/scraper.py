@@ -91,7 +91,7 @@ def fetch_shelter_html_hack(shelter_id):
     if main.find(string=re.compile("Adoption Policy")) is not None:
         shelter_obj["adoption_policy"] = "".join(
             str(child).strip() for child
-            in main.find(string=re.compile("Our Mission")).parent.parent.find("p").children
+            in main.find(string=re.compile("Adoption Policy")).parent.parent.find("p").children
         )
 
     if main.select_one("[data-website-url]") is not None:
@@ -274,6 +274,49 @@ def make_dog_and_breeds(dog_json):
     return dog
 
 
+def fetch_parks_in_zip(zipcode):
+    params = {
+        "term": "park",
+        "location": zipcode,
+        # "limit": 50,
+        "sort_by": "distance"
+    }
+
+    headers = {
+        "Authorization": "Bearer " + YELP_API_KEY
+    }
+
+    parks = []
+
+    response = requests.get(YELP_BASE_API_URL + "v3/businesses/search", params=params, headers=headers)
+    response_json = response.json()
+    for park_data in response_json["businesses"]:
+        # pprint(park_data)
+        try:
+            if int(park_data["location"]["zip_code"]) != zipcode:
+                continue
+        except:
+            continue
+        current_park = Park(
+            # id=int(park_data.get("id")),
+            name=park_data.get("name"),
+            address=park_data["location"].get("address1"),
+            city=park_data["location"].get("city"),
+            state=park_data["location"].get("state"),
+            latitude=park_data["coordinates"].get("latitude", 0),
+            longitude=park_data["coordinates"].get("longitude", 0),
+            phone_number=park_data.get("phone"),
+            # description="",
+            zipcode=int(park_data["location"].get("zip_code")),
+            image_urls=park_data.get("image_url"),
+            yelp_rating=park_data.get("rating", 0),
+            yelp_id=park_data.get("id")
+        )
+        parks.append(current_park)
+
+    return parks
+
+
 def fetch_park_info(state, limit, offset):
     params = {
         "term": "park",
@@ -443,6 +486,13 @@ def scrape_and_commit_zip(zipcode, shelter_ids):
     for dog_json in dog_jsons:
         print("{id}: {name}".format(**dog_json))
 
+    parks = fetch_parks_in_zip(zipcode)
+    db_session.add_all(parks)
+    db_session.commit()
+
+    for park in parks:
+        print(park)
+
 
 if __name__ == "__main__":
     from server.database import db_session, init_db
@@ -453,7 +503,9 @@ if __name__ == "__main__":
         init_db()
         shelter_ids = UniqueQueue()
         for zipcode in zips[zips.index(start_zip):zips.index(end_zip) + 1]:
+            print(zipcode)
             scrape_and_commit_zip(zipcode, shelter_ids)
+            print()
     except Exception as e:
         db_session.remove()
         raise e

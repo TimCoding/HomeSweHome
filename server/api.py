@@ -81,38 +81,15 @@ def get_shelters():
     })
 
 
-@app.route("/api/park/<int:park_id>/")
+@app.route("/api/park/<park_id>/")
 def get_park(park_id):
-    return jsonify({
-        "id": 215234,
-        "name": "Bark Park",
-        "address": "Highway 284",
-        "city": "Austin",
-        "state": "Texas",
-        "phone": "(555) 555 5555",
-        "description": "A pleasant park",
-        "zip": 78705,
-        "images": [],
-        "google_rating": 4.0,
-        "google_id": "48eq89d",
-        "nearby_shelters": [
-            {
-                "id": "TX155",
-                "name": "Doggers R US",
-                "address": "99 Wag Lane",
-                "phone": "(555) 555 5555",
-                "email": "lmao@doggers.org",
-                "zip": 78705,
-                "city": "Austin",
-                "state": "Texas",
-                "longitude": -30.5,
-                "latitude": 100.0,
-                "images": [],
-                "google_rating": 3.0,
-                "google_id": "4235312"
-            }
-        ]
-    })
+    park = db_session.query(Shelter).get(park_id)
+    if park is None:
+        # TODO: Handle this case
+        return 404
+    park_json = park.jsonify()
+    park_json["nearby_shelters"] = []
+    return jsonify(park_json)
 
 
 @app.route("/api/parks/")
@@ -125,21 +102,14 @@ def get_parks():
     if limit <= 0:
         # TODO: Handle this
         return 404
+    base_query = db_session.query(Park)
+    count = base_query.count()
+    parks = base_query.offset(start).limit(limit).all()
     return jsonify({
         "start": start,
         "limit": limit,
-        "total": 1,
-        "results": [{
-            "id": 215234,
-            "name": "Bark Park",
-            "address": "Highway 284",
-            "city": "Austin",
-            "state": "Texas",
-            "phone": "(555) 555 5555",
-            "description": "A pleasant park",
-            "zip": 78705,
-            "images": [],
-            "google_rating": 4.0,
-            "google_id": "48eq89d"
-        }]
+        "total": count,
+        "results": [
+            park.jsonify() for park in parks
+        ]
     })
