@@ -3,6 +3,7 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
 } from 'reactstrap';
+import * as urls from './urls.js';
 
 const ShelterCard = (props) => {
     let img = "";
@@ -11,6 +12,7 @@ const ShelterCard = (props) => {
     } else {
         img = props.shelterData.image_urls[0]
     }
+
     return (
         <div className="cards">
             <Card>
@@ -20,10 +22,10 @@ const ShelterCard = (props) => {
                     <CardText>
                         <ul className="fa-ul">
                                 <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Email:</b> {props.shelterData.email}</li>
-                                <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone:</b>s {props.shelterData.phone}</li>
+                                <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone:</b>s {props.shelterData.phone == null ? "" : props.shelterData.phone}</li>
                         </ul>
                     </CardText>
-                    <Button>Adopt</Button>
+                    <a className="btn btn-primary" href={urls.shelterURL(props.shelterData.id)}>Visit</a>
                 </CardBody>
             </Card>
         </div>

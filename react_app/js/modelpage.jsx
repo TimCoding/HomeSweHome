@@ -218,10 +218,12 @@ export default class ModelPage extends Component {
 			return (
 				<div>
 					{staticContent}
-					<h2>Shelters</h2>
-	                 <Row>
-	         	       {shelterList}
-	                </Row>
+					<Container>
+						<h2>Shelters</h2>
+		                 <Row>
+		         	       {shelterList}
+		                </Row>
+		            </Container>
 				</div>
 			);
 		}
