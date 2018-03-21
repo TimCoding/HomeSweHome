@@ -7,26 +7,6 @@ import {
   CarouselCaption
 } from 'reactstrap';
 
-// just for splash page right now, need to change this
-// to make it usable for dog_details page as well
-// const items = [
-//   {
-//     src: "/../static/img/dog1.jpg",
-//     altText: 'Slide 1',
-//     caption: 'Slide 1'
-//   },
-//   {
-//     src: "/../static/img/dog2.jpg",
-//     altText: 'Slide 2',
-//     caption: 'Slide 2'
-//   },
-//   {
-//     src: "/../static/img/dog3.jpg",
-//     altText: 'Slide 3',
-//     caption: 'Slide 3'
-//   }
-// ];
-
 export class ControlledCarousel extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +17,8 @@ export class ControlledCarousel extends Component {
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
     this.items = props.items;
+    this.size = props.size;
+    this.style = props.style;
   }
 
   onExiting() {
@@ -74,15 +56,14 @@ export class ControlledCarousel extends Component {
           onExited={this.onExited}
           key={item.src}
         >
-          <img className="w-100" src={item.src} alt={item.altText} />
-          <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+          <img className={this.size} style={this.style} src={item.src} alt={item.altText} />
         </CarouselItem>
       );
     });
 
     return (
       <Carousel
-        className="w-100 mx-auto"
+        className="mx-auto"
         activeIndex={activeIndex}
         next={this.next}
         previous={this.previous}

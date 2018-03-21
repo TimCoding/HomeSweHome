@@ -53,23 +53,17 @@ export default class DogDetails extends Component {
                 </div>
             );
         }
-        
-        
+
+
         const items = [
 		  {
 		    src: this.state.dogJSON.image_urls[0],
-		    altText: 'Slide 1',
-		    caption: 'Slide 1'
 		  },
 		  {
 		    src: this.state.dogJSON.image_urls[1],
-		    altText: 'Slide 2',
-		    caption: 'Slide 2'
 		  },
 		  {
 		    src: this.state.dogJSON.image_urls[2],
-		    altText: 'Slide 3',
-		    caption: 'Slide 3'
 		  }
 		];
 
@@ -77,7 +71,7 @@ export default class DogDetails extends Component {
 			<div>
 				<NavBar/>
 				<br/>
-				<ControlledCarousel items={items} />
+				<ControlledCarousel items={items} size={"d-block mx-auto"} style={{height:500}}/>
 				<br/>
 				<Container>
 					<Row className="description_box">
