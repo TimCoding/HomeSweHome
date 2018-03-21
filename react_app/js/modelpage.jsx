@@ -35,7 +35,23 @@ export default class ModelPage extends Component {
     }
 
 	render(){
-		const staticContent = (
+		
+
+
+		if(!(this.state.error == null)){
+            return (
+                <div>
+                    <NavBar/>
+                    <Container>
+                        <h1 className="text-center text-danger">{this.state.error}</h1>
+                    </Container>
+                </div>
+            );
+        }
+
+
+		if (this.props.model == 'dogs') {
+			const staticContent = (
         		<div>
         		<NavBar/>
 				<Container>
@@ -56,20 +72,6 @@ export default class ModelPage extends Component {
 				</div>
         	);
 
-
-		if(!(this.state.error == null)){
-            return (
-                <div>
-                    <NavBar/>
-                    <Container>
-                        <h1 className="text-center text-danger">{this.state.error}</h1>
-                    </Container>
-                </div>
-            );
-        }
-
-
-		if (this.props.model == 'dogs') {
 			if(this.state.dogsJSON == null) {
 	            return (
 	                <div>
@@ -88,8 +90,6 @@ export default class ModelPage extends Component {
 	                </Col>
 	            );
         	})
-
-        	
 
 			return (
 				<div>
