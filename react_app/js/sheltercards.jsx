@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 
 const ShelterCard = (props) => {
+    
     return (
         <div className="cards">
             <Card>

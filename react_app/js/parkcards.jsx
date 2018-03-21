@@ -14,9 +14,11 @@ const ParkCard = (props) => {
                     <CardTitle>{props.parkData.name}</CardTitle>
                     <CardText>
 							<ul className="fa-ul">
-    	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>Rating: {props.parkData.yelp_rating}</li>
+    	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>Yelp Rating: {props.parkData.yelp_rating}</li>
     	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>Phone: {props.parkData.phone}</li>
-    	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>Location: {props.parkData.address}</li>
+    	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>
+                                    Location: {props.parkData.address} {props.parkData.city}, {props.parkData.state} {props.parkData.zip}
+                                </li>
 							</ul>
                     </CardText>
                     <Button>Visit</Button>
