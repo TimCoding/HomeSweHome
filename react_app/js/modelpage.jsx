@@ -22,7 +22,7 @@ export default class ModelPage extends Component {
 
 	componentDidMount() {
 		if (this.props.model == 'dogs') {
-			api.fetchDogs()
+			api.fetchDogs(12)
             .then(dogsJSON => this.setState({
                 dogsJSON: dogsJSON
             }))
@@ -30,7 +30,7 @@ export default class ModelPage extends Component {
                 error: "fetch dog api error"
             }));
 		} else if (this.props.model == 'parks') {
-			api.fetchParks()
+			api.fetchParks(12)
             .then(parksJSON => this.setState({
                 parksJSON: parksJSON
             }))
@@ -38,7 +38,7 @@ export default class ModelPage extends Component {
                 error: "fetch parks api error"
             }));
 		} else if (this.props.model == 'shelters') {
-			api.fetchShelters()
+			api.fetchShelters(12)
             .then(sheltersJSON => this.setState({
                 sheltersJSON: sheltersJSON
             }))
