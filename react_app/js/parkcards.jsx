@@ -9,7 +9,6 @@ const ParkCard = (props) => {
     return (
         <div className="cards">
             <Card>
-
                 <CardImg top width="100%" src={props.parkData.image_urls[0]} alt="Park image" />
                 <CardBody>
                     <CardTitle>{props.parkData.name}</CardTitle>
@@ -22,7 +21,7 @@ const ParkCard = (props) => {
                                 </li>
 							</ul>
                     </CardText>
-                    <Button>Visit</Button>
+                    <a className="btn btn-primary" href={urls.parkURL(props.parkData.id)}>Visit</a>
                 </CardBody>
             </Card>
         </div>

@@ -30,7 +30,7 @@ export function sheltersURL() {
 }
 
 export function parkURL(parksID) {
-    return BASE_URL + "parks/" + parksID + "/";
+    return BASE_URL + "park/" + parksID + "/";
 }
 
 export function parksURL() {
