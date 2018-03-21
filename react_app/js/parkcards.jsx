@@ -3,13 +3,14 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
 } from 'reactstrap';
+import * as urls from './urls.js';
 
 const ParkCard = (props) => {
     return (
         <div className="cards">
             <Card>
 
-                <CardImg top width="100%" col-md-3 src={props.parkData.image_urls[0]} alt="Park image" />
+                <CardImg top width="100%" src={props.parkData.image_urls[0]} alt="Park image" />
                 <CardBody>
                     <CardTitle>{props.parkData.name}</CardTitle>
                     <CardText>
