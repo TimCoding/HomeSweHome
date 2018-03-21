@@ -7,7 +7,7 @@ import {
 const InfoCard = (props) => {
     var address;
     if (props.address == null) {
-        address = props.city;
+        address = props.city + ", " + props.state + " " + props.zip;
     } else {
         address = props.address;
     }
