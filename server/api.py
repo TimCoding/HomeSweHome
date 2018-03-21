@@ -36,7 +36,7 @@ def get_dog_nearby(dog_id):
     if dog is None:
         return raise_error("A dog with that ID was not found.", 404)
     zipcode = dog.zipcode
-    nearby_zips = order_zips(zipcode)[1:11]
+    nearby_zips = order_zips(zipcode)[0:10]
     parks = db_session.query(Park).filter(Park.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
     shelters = db_session.query(Shelter).filter(Shelter.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
     return jsonify({
@@ -89,7 +89,7 @@ def get_shelter_nearby(shelter_id):
     if shelter is None:
         return raise_error("A shelter with that ID was not found.")
     zipcode = shelter.zipcode
-    nearby_zips = order_zips(zipcode)[1:11]
+    nearby_zips = order_zips(zipcode)[0:10]
     parks = db_session.query(Park).filter(Park.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
     dogs = db_session.query(Dog).filter(Dog.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
     return jsonify({
@@ -138,7 +138,7 @@ def get_park_nearby(park_id):
     if park is None:
         return raise_error("A park with that ID was not found.", 404)
     zipcode = park.zipcode
-    nearby_zips = order_zips(zipcode)[1:11]
+    nearby_zips = order_zips(zipcode)[0:10]
     shelters = db_session.query(Shelter).filter(Shelter.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
     dogs = db_session.query(Dog).filter(Dog.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
     return jsonify({
