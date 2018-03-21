@@ -3,6 +3,7 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
 } from 'reactstrap';
+import * as urls from './urls.js';
 
 const DogCard = (props) => {
     let dogBreed = props.dogData.breeds.map(type => {
@@ -27,7 +28,7 @@ const DogCard = (props) => {
                         <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Friendly:</b> {props.dogData.friendly === true ? "Yes" : "No"}</li>
                         </ul>
                     </CardText>
-                    <Button>Meet {props.dogData.name}</Button>
+                    <a className="btn btn-primary" href={urls.dogURL(props.dogData.id)}>Meet {props.dogData.name}</a>
                 </CardBody>
             </Card>
         </div>
