@@ -2,14 +2,42 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import ReactDOM from 'react-dom';
 import {NavBar} from './navbar.jsx';
+import * as api from './api.js';
+import {PawSpinner} from './spinner.jsx';
+import DogCard from './dogcards.jsx';
 
 export default class ModelPage extends Component {
-	render(){
-		//Use prop here to determine what type of data model page it should be
+	constructor(props) {
+        super(props);
+
+        this.state = {
+            dogsJSON: null,
+            error: null
+        }
+    }
+
+	componentDidMount() {
 		if (this.props.model == 'dogs') {
-			return (
-				<div>
-				<NavBar/>
+			api.fetchDogs()
+            .then(dogsJSON => this.setState({
+                dogsJSON: dogsJSON
+            }))
+            .catch(error => this.setState({
+                error: "DAMN"
+            }));
+		} else if (this.props.model == 'parks') {
+		} else if (this.props.model == 'shelters') {
+
+		} else {
+			this.setState({error: "INVALID MODEL PROP"});
+		}
+        
+    }
+
+	render(){
+		const staticContent = (
+        		<div>
+        		<NavBar/>
 				<Container>
 					<Row className="models_top">
 						<Col md="8">
@@ -25,6 +53,53 @@ export default class ModelPage extends Component {
 						</Col>
 					</Row>
 				</Container>
+				</div>
+        	);
+
+
+		if(!(this.state.error == null)){
+            return (
+                <div>
+                    <NavBar/>
+                    <Container>
+                        <h1 className="text-center text-danger">{this.state.error}</h1>
+                    </Container>
+                </div>
+            );
+        }
+
+
+		if (this.props.model == 'dogs') {
+			if(this.state.dogsJSON == null) {
+	            return (
+	                <div>
+	                    {staticContent}
+	                    <Container>
+	                        <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
+	                    </Container>
+	                </div>
+	            );
+        	}
+
+        	let dogList = this.state.dogsJSON.results.map(dog => {
+	            return (
+	                <Col>
+	                    <DogCard dogData={dog}/>
+	                </Col>
+	            );
+        	})
+
+        	
+
+			return (
+				<div>
+				{staticContent}
+				<Container>
+                    <h2>Dogs</h2>
+                        <Row>
+                            {dogList}
+                        </Row>
+                </Container>
 			</div>
 			);
 		} 
@@ -61,7 +136,7 @@ export default class ModelPage extends Component {
 				<Container>
 					<Row className="models_top">
 						<Col md="8">
-							<p className="models_content">Here you can browse a variety of adoption centers or animal shelters around Texas.</p>
+							<p className="models_content">Here you can browse a variety of adoption centers or animal shelters around Texas. Take a look around, your new best friend is waiting!</p>
 							<h3 className="models_content">"Dogs are great. Why stop at one? Get two, or three, or four. Just get the whole damn 
 								shelter. Wouldn't you agree?" -Timothy Ho
 							</h3>

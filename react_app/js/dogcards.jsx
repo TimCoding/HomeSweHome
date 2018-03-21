@@ -22,7 +22,7 @@ const DogCard = (props) => {
                     {/* don't know if these props work properly need data to test */}
                     <CardTitle>{props.dogData.name}</CardTitle>
                     <CardText>
-                        <ul class="fa-ul">
+                        <ul className="fa-ul">
                         <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Breed:</b> {dogBreed}</li>
                         <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Housetrained:</b> {props.dogData.housetrained === true ? "Yes" : "No"}</li>
                         <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Friendly:</b> {props.dogData.friendly === true ? "Yes" : "No"}</li>
