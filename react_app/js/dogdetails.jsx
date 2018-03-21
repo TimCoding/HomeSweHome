@@ -82,17 +82,18 @@ export default class DogDetails extends Component {
 		  }
 		];
 
-		// const logo = [
-		// 	{
-		// 		src: "/../../static/img/homeswehomelogo.svg"
-		// 	}
-		// ];
+		const logo = [
+			{
+				src: "/../../static/img/homeswehomelogo.svg"
+			}
+		];
 
 		return (
 			<div>
 				<NavBar/>
 				<br/>
-				<ControlledCarousel items={items} size={"d-block mx-auto"} style={{height:500}}/>
+				{/* might need to change this in controlled carousel */}
+				<ControlledCarousel items={this.state.dogJSON.image_urls[0].length != 0 ? items : logo} size={"d-block mx-auto"} style={{height:500}}/>
 				<br/>
 				<Container>
 					<Row className="description_box">
