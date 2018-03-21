@@ -12,5 +12,3 @@ import './parkdetails.jsx'
 window.dom_render = function(component, props) {
     ReactDOM.render(React.createElement(component, props), document.getElementById("content"))
 };
-
-export default App;
