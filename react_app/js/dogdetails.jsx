@@ -27,7 +27,13 @@ export default class DogDetails extends Component {
             .catch(error => this.setState({
                 error: "DAMN"
             }));
-
+		api.fetchDogNearby(this.props.dogID)
+            .then(nearbyJSON => this.setState({
+                parkJSON: nearbyJSON["parks"]
+            }))
+            .catch(error => this.setState({
+                error: "DAMN"
+            }));
     }
 
 	render() {
@@ -53,7 +59,17 @@ export default class DogDetails extends Component {
             );
         }
 
-
+		let parkList = (
+            <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
+        );
+        if(!(this.state.parkJSON == null)){
+         parkList = this.state.parkJSON.map(park => {
+            return (
+                <Col>
+                    <ParkCard parkData={park}/>
+                </Col>
+            );
+        })}
         const items = [
 		  {
 		    src: this.state.dogJSON.image_urls[0],
@@ -93,7 +109,7 @@ export default class DogDetails extends Component {
 				<h2>Recommended Parks</h2>
 					<CardDeck>
 						<Row>
-							
+							{parkList}
 						</Row>
 					</CardDeck>
 				</Container>
