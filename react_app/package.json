@@ -5,7 +5,7 @@
   "scripts": {
     "build": "webpack -p --progress --config webpack.config.js",
     "dev-build": "webpack --progress -d --config webpack.config.js",
-    "test": "mocha --compilers js:babel-core/register --require ./test/helpers/testSetup.js --recursive \"test/*.spec.js\"",
+    "test": "mocha --compilers js:babel-core/register --require ./test/helpers/testSetup.js \"test/*.js\"",
     "watch": "webpack --progress -d --config webpack.config.js --watch"
   },
   "babel": {
