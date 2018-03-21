@@ -6,6 +6,7 @@ import * as api from './api.js';
 import {PawSpinner} from './spinner.jsx';
 import DogCard from './dogcards.jsx';
 import ShelterCard from './sheltercards.jsx'
+import ParkCard from './parkcards.jsx';
 
 export default class ModelPage extends Component {
 	constructor(props) {
@@ -14,7 +15,8 @@ export default class ModelPage extends Component {
         this.state = {
             dogsJSON: null,
             error: null,
-            shelterJSON: null
+            sheltersJSON: null,
+            parksJSON: null
         }
     }
 
@@ -28,11 +30,17 @@ export default class ModelPage extends Component {
                 error: "fetch dog api error"
             }));
 		} else if (this.props.model == 'parks') {
-
+			api.fetchParks()
+            .then(parksJSON => this.setState({
+                parksJSON: parksJSON
+            }))
+            .catch(error => this.setState({
+                error: "fetch parks api error"
+            }));
 		} else if (this.props.model == 'shelters') {
 			api.fetchShelters()
             .then(dogsJSON => this.setState({
-                shelterJSON: shelterJSON
+                sheltersJSON: sheltersJSON
             }))
             .catch(error => this.setState({
                 error: "fetch shelter api error"
@@ -112,9 +120,9 @@ export default class ModelPage extends Component {
 		} 
 
 		if (this.props.model == 'parks') {
-			return (
-				<div>
-				<NavBar/>
+			const staticContent = (
+        		<div>
+        		<NavBar/>
 				<Container>
 					<Row className="models_top">
 						<Col md="8">
@@ -132,6 +140,38 @@ export default class ModelPage extends Component {
 						</Col>
 					</Row>
 				</Container>
+				</div>
+        	);
+
+        	if(this.state.parksJSON == null) {
+	            return (
+	                <div>
+	                    {staticContent}
+	                    <Container>
+	                        <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
+	                    </Container>
+	                </div>
+	            );
+        	}
+
+        	let parkList = this.state.parksJSON.results.map(park => {
+	            return (
+	                <Col>
+	                    <ParkCard parkData={park}/>
+	                </Col>
+	            );
+        	})
+
+			return (
+				<div>
+				{staticContent}
+				<hr></hr>
+				<Container>
+                    <h2>Parks</h2>
+                    <Row>
+                        {parkList}
+                    </Row>
+                </Container>
 			</div>
 			);
 		}
@@ -156,7 +196,7 @@ export default class ModelPage extends Component {
 				</div>
 			);
 
-			if(this.state.shelterJSON == null) {
+			if(this.state.sheltersJSON == null) {
 	            return (
 	                <div>
 	                    {staticContent}
@@ -167,7 +207,7 @@ export default class ModelPage extends Component {
 	            );
         	}
 
-        	let shelterList = this.state.shelterJSON.results.map(shelter => {
+        	let shelterList = this.state.sheltersJSON.results.map(shelter => {
 	            return (
 	                <Col>
 	                    <ShelterCard shelterData={shelter}/>
