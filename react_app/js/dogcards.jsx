@@ -17,7 +17,7 @@ const DogCard = (props) => {
         <div className="cards">
             <Card>
                 {/*style={{width:"10%", height:"10%"}}*/}
-                <CardImg src={props.dogData.image_urls} alt="Dog image" />
+                <CardImg src={props.dogData.image_urls != "" ? props.dogData.image_urls : "/static/img/homeswehomelogo.svg"} alt="Dog image" />
                 <CardBody>
                     {/* don't know if these props work properly need data to test */}
                     <CardTitle>{props.dogData.name}</CardTitle>
