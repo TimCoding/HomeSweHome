@@ -5,6 +5,7 @@ import {NavBar} from './navbar.jsx';
 import * as api from './api.js';
 import {PawSpinner} from './spinner.jsx';
 import DogCard from './dogcards.jsx';
+import ShelterCard from './sheltercards.jsx'
 
 export default class ModelPage extends Component {
 	constructor(props) {
@@ -12,7 +13,8 @@ export default class ModelPage extends Component {
 
         this.state = {
             dogsJSON: null,
-            error: null
+            error: null,
+            shelterJSON: null
         }
     }
 
@@ -23,11 +25,18 @@ export default class ModelPage extends Component {
                 dogsJSON: dogsJSON
             }))
             .catch(error => this.setState({
-                error: "DAMN"
+                error: "fetch dog api error"
             }));
 		} else if (this.props.model == 'parks') {
-		} else if (this.props.model == 'shelters') {
 
+		} else if (this.props.model == 'shelters') {
+			api.fetchShelters()
+            .then(dogsJSON => this.setState({
+                shelterJSON: shelterJSON
+            }))
+            .catch(error => this.setState({
+                error: "fetch shelter api error"
+            }));
 		} else {
 			this.setState({error: "INVALID MODEL PROP"});
 		}
@@ -36,8 +45,6 @@ export default class ModelPage extends Component {
 
 	render(){
 		
-
-
 		if(!(this.state.error == null)){
             return (
                 <div>
@@ -93,14 +100,14 @@ export default class ModelPage extends Component {
 
 			return (
 				<div>
-				{staticContent}
-				<Container>
-                    <h2>Dogs</h2>
-                        <Row>
-                            {dogList}
-                        </Row>
-                </Container>
-			</div>
+					{staticContent}
+					<Container>
+	                    <h2>Dogs</h2>
+	                    <Row>
+	            	        {dogList}
+	                    </Row>
+	                </Container>
+				</div>
 			);
 		} 
 
@@ -130,7 +137,7 @@ export default class ModelPage extends Component {
 		}
 
 		if (this.props.model == 'shelters') {
-			return (
+			const staticContent = (
 				<div>
 				<NavBar/>
 				<Container>
@@ -146,7 +153,36 @@ export default class ModelPage extends Component {
 						</Col>
 					</Row>
 				</Container>
-			</div>
+				</div>
+			);
+
+			if(this.state.shelterJSON == null) {
+	            return (
+	                <div>
+	                    {staticContent}
+	                    <Container>
+	                        <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
+	                    </Container>
+	                </div>
+	            );
+        	}
+
+        	let shelterList = this.state.shelterJSON.results.map(shelter => {
+	            return (
+	                <Col>
+	                    <ShelterCard shelterData={shelter}/>
+	                </Col>
+	            );
+        	})
+
+			return (
+				<div>
+					{staticContent}
+					<h2>Shelters</h2>
+	                 <Row>
+	         	       {shelterList}
+	                </Row>
+				</div>
 			);
 		}
 
