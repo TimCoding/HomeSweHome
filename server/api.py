@@ -8,6 +8,13 @@ from server.geo import order_zips
 NEARBY_LIMIT = 5
 
 
+def raise_error(message, code=400):
+    return jsonify({
+        "message": message,
+        "code": code
+    }), code
+
+
 @app.route("/api/")
 def api_root():
     return "See https://epicdavi.gitbooks.io/api/ for more information"
@@ -17,8 +24,7 @@ def api_root():
 def get_dog(dog_id):
     dog = db_session.query(Dog).get(dog_id)
     if dog is None:
-        # TODO: Handle this case
-        return 404
+        return raise_error("A dog with that ID was not found.", 404)
     dog_json = dog.jsonify()
     dog_json["shelter"] = dog.shelter.jsonify()
     return jsonify(dog_json)
@@ -28,8 +34,7 @@ def get_dog(dog_id):
 def get_dog_nearby(dog_id):
     dog = db_session.query(Dog).get(dog_id)
     if dog is None:
-        # TODO: Handle this case
-        return 404
+        return raise_error("A dog with that ID was not found.", 404)
     zipcode = dog.zipcode
     nearby_zips = order_zips(zipcode)[1:11]
     parks = db_session.query(Park).filter(Park.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
@@ -49,11 +54,9 @@ def get_dogs():
     start = int(request.args.get("start", 0))
     limit = int(request.args.get("limit", 10))
     if start < 0:
-        # TODO: Handle this
-        return 404
+        return raise_error("The start parameter must be non-negative.")
     if limit <= 0:
-        # TODO: Handle this
-        return 404
+        return raise_error("The limit parameter must be greater than 0.")
     base_query = db_session.query(Dog)
     count = base_query.count()
     dogs = base_query.offset(start).limit(limit).all()
@@ -71,8 +74,7 @@ def get_dogs():
 def get_shelter(shelter_id):
     shelter = db_session.query(Shelter).get(shelter_id)
     if shelter is None:
-        # TODO: Handle this case
-        return 404
+        return raise_error("A shelter with that ID was not found.")
     shelter_json = shelter.jsonify()
     shelter_json["dogs"] = [
         dog.jsonify() for dog in shelter.dogs
@@ -85,8 +87,7 @@ def get_shelter(shelter_id):
 def get_shelter_nearby(shelter_id):
     shelter = db_session.query(Shelter).get(shelter_id)
     if shelter is None:
-        # TODO: Handle this case
-        return 404
+        return raise_error("A shelter with that ID was not found.")
     zipcode = shelter.zipcode
     nearby_zips = order_zips(zipcode)[1:11]
     parks = db_session.query(Park).filter(Park.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
@@ -106,11 +107,9 @@ def get_shelters():
     start = int(request.args.get("start", 0))
     limit = int(request.args.get("limit", 10))
     if start < 0:
-        # TODO: Handle this
-        return 404
+        return raise_error("The start parameter must be non-negative.")
     if limit <= 0:
-        # TODO: Handle this
-        return 404
+        return raise_error("The limit parameter must be greater than 0.")
     base_query = db_session.query(Shelter)
     count = base_query.count()
     shelters = base_query.offset(start).limit(limit).all()
@@ -128,8 +127,7 @@ def get_shelters():
 def get_park(park_id):
     park = db_session.query(Park).get(park_id)
     if park is None:
-        # TODO: Handle this case
-        return 404
+        return raise_error("A park with that ID was not found.", 404)
     park_json = park.jsonify()
     return jsonify(park_json)
 
@@ -138,8 +136,7 @@ def get_park(park_id):
 def get_park_nearby(park_id):
     park = db_session.query(Park).get(park_id)
     if park is None:
-        # TODO: Handle this case
-        return 404
+        return raise_error("A park with that ID was not found.", 404)
     zipcode = park.zipcode
     nearby_zips = order_zips(zipcode)[1:11]
     shelters = db_session.query(Shelter).filter(Shelter.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
@@ -159,11 +156,9 @@ def get_parks():
     start = int(request.args.get("start", 0))
     limit = int(request.args.get("limit", 10))
     if start < 0:
-        # TODO: Handle this
-        return 404
+        return raise_error("The start parameter must be non-negative.")
     if limit <= 0:
-        # TODO: Handle this
-        return 404
+        return raise_error("The limit parameter must be greater than 0.")
     base_query = db_session.query(Park)
     count = base_query.count()
     parks = base_query.offset(start).limit(limit).all()
