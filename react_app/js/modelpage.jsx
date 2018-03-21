@@ -100,7 +100,7 @@ export default class ModelPage extends Component {
 
         	let dogList = this.state.dogsJSON.results.map(dog => {
 	            return (
-	                <Col md="3">>
+	                <Col md="3">
 	                    <DogCard dogData={dog}/>
 	                </Col>
 	            );
@@ -156,7 +156,7 @@ export default class ModelPage extends Component {
 
         	let parkList = this.state.parksJSON.results.map(park => {
 	            return (
-	                <Col md="3">>
+	                <Col md="3">
 	                    <ParkCard parkData={park}/>
 	                </Col>
 	            );
