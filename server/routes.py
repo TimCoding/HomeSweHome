@@ -27,12 +27,6 @@ def cache_bust_static(endpoint, values):
 def shutdown_session(exception=None):
     database.db_session.remove()
 
-@app.route("/park_details/<parkID>")
-def test(parkID):
-    return render_template("render_component.html", component_name="ParkDetails", props=json.dumps({
-        "parkID": parkID
-    }))
-
 @app.route("/")
 def splash():
     return render_template("render_component.html", component_name="Splash")
