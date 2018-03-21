@@ -75,7 +75,7 @@ export default class DogDetails extends Component {
 				<Container>
 					<Row className="description_box">
 						<Col md="8">
-							<h5>Description</h5>
+							<h5>{this.state.dogJSON.name}'s Description</h5>
 							<p className="description_content">{this.state.dogJSON.description}</p>
 						</Col>
 						<Col md="4">
