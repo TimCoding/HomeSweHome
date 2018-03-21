@@ -79,7 +79,7 @@ export class ShelterDetails extends Component {
                               mapElement={<div style={{ height: `100%` }} />}/>
                         </Col>
                         <Col xs="4">
-                            <ShelterHours/>
+                            {/* <ShelterHours/> */}
                         </Col>
                     </Row>
                 </Container>
@@ -88,7 +88,7 @@ export class ShelterDetails extends Component {
                 <Container>
                     <Row>
                         <Col>
-                            <Reviews/>
+                            <Reviews desc={this.state.shelterJSON}/>
                         </Col>
                     </Row>
                 </Container>

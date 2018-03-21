@@ -8,10 +8,12 @@ const Reviews = (props) => {
    <div>
      <Card>
        <CardBody>
-         <CardTitle>Customer Reviews</CardTitle>
-         <span>Name: </span><br/>
-         <span>Rating: </span><br/>
-         <span>review goes here</span><br/>
+         {/* <CardTitle>Customer Reviews</CardTitle> */}
+         <CardTitle>About: </CardTitle>
+         <span><b>Adoption Policy:</b> {props.desc.adoption_policy}</span><br/>
+         <span><b>Mission:</b> {props.desc.mission} </span><br/>
+         <span><b>Email:</b> {props.desc.email} </span><br/>
+         {/* <span>review goes here</span><br/> */}
        </CardBody>
      </Card>
    </div>
