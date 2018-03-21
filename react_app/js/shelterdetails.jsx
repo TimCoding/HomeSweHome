@@ -31,6 +31,13 @@ export class ShelterDetails extends Component {
             .catch(error => this.setState({
                 error: "DAMN"
             }));
+        api.fetchShelterNearby(this.props.shelterID)
+            .then(nearbyJSON => this.setState({
+                parkJSON: nearbyJSON["parks"]
+            }))
+            .catch(error => this.setState({
+                error: "DAMN"
+            }));
     }
 
     render() {
@@ -62,6 +69,18 @@ export class ShelterDetails extends Component {
                 </Col>
             );
         })
+        let parkList = (
+            <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
+        );
+        if(!(this.state.parkJSON == null)){
+         parkList = this.state.parkJSON.map(park => {
+            return (
+                <Col>
+                    <ParkCard parkData={park}/>
+                </Col>
+            );
+        })
+         }
         return (
             <div>
                 <NavBar/>
@@ -110,7 +129,7 @@ export class ShelterDetails extends Component {
                     <h2>Recommended Parks</h2>
                     <CardDeck>
                         <Row>
-                                <ParkCard/>
+                            {parkList}
                         </Row>
                     </CardDeck>
                 </Container>
