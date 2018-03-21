@@ -9,7 +9,7 @@ const ParkCard = (props) => {
         <div className="cards">
             <Card>
 
-                <CardImg top width="100%" src={props.parkData.image_urls[0]} alt="Card image cap" />
+                <CardImg top width="100%" src={props.parkData.image_urls[0]} alt="Park image" />
                 <CardBody>
                     <CardTitle>{props.parkData.name}</CardTitle>
                     <CardText>

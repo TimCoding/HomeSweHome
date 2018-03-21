@@ -66,6 +66,12 @@ export default class DogDetails extends Component {
 		  }
 		];
 
+		// const logo = [
+		// 	{
+		// 		src: "/../../static/img/homeswehomelogo.svg"
+		// 	}
+		// ];
+
 		return (
 			<div>
 				<NavBar/>
@@ -87,8 +93,7 @@ export default class DogDetails extends Component {
 				<h2>Recommended Parks</h2>
 					<CardDeck>
 						<Row>
-							<ParkCard/>
-							<ParkCard/>
+							
 						</Row>
 					</CardDeck>
 				</Container>

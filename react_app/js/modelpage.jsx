@@ -80,7 +80,7 @@ export default class ModelPage extends Component {
 							<h3 className="models_content">"Dogs are not our whole life, but they make our lives whole." -Roger Caras</h3>
 						</Col>
 						<Col md="4">
-							<img className="logo" src="/static/img/homeswehomelogo.png"/>
+							<img className="logo" src="/static/img/homeswehomelogo.svg"/>
 						</Col>
 					</Row>
 				</Container>
@@ -136,7 +136,7 @@ export default class ModelPage extends Component {
 							</h3>
 						</Col>
 						<Col md="4">
-							<img className="logo" src="/static/img/homeswehomelogo.png"/>
+							<img className="logo" src="/static/img/homeswehomelogo.svg"/>
 						</Col>
 					</Row>
 				</Container>
@@ -189,7 +189,7 @@ export default class ModelPage extends Component {
 							</h3>
 						</Col>
 						<Col md="4">
-							<img className="logo" src="/static/img/homeswehomelogo.png"/>
+							<img className="logo" src="/static/img/homeswehomelogo.svg"/>
 						</Col>
 					</Row>
 				</Container>
