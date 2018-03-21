@@ -24,6 +24,11 @@ export function fetchDog(dogID) {
         .then(response => response.json())
 }
 
+export function fetchDogNearby(dogID) {
+    return fetch(BASE_API_URL + "dog/" + dogID + "/nearby/")
+        .then(response => response.json())
+}
+
 export function fetchDogs(limit, offset) {
     return fetch(BASE_API_URL + "dogs/" + parameterize({
         "start": offset || 0,
@@ -37,6 +42,11 @@ export function fetchShelter(shelterID) {
         .then(response => response.json())
 }
 
+export function fetchShelterNearby(shelterID) {
+    return fetch(BASE_API_URL + "shelter/" + shelterID + "/nearby/")
+        .then(response => response.json())
+}
+
 export function fetchShelters(limit, offset) {
     return fetch(BASE_API_URL + "shelters/" + parameterize({
         "start": offset || 0,
@@ -47,6 +57,11 @@ export function fetchShelters(limit, offset) {
 
 export function fetchPark(parkID) {
     return fetch(BASE_API_URL + "park/" + parkID + "/")
+        .then(response => response.json())
+}
+
+export function fetchParkNearby(parkID) {
+    return fetch(BASE_API_URL + "park/" + parkID + "/nearby/")
         .then(response => response.json())
 }
 
