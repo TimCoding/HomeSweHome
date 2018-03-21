@@ -3,6 +3,7 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
 } from 'reactstrap';
+import * as urls from './urls.js';
 
 const InfoCard = (props) => {
     var address;
@@ -11,14 +12,16 @@ const InfoCard = (props) => {
     } else {
         address = props.address;
     }
+
     return (
         <div>
             <Card>
                 <CardBody>
-                    <CardTitle>Information</CardTitle>
+                    <CardTitle>{props.center}</CardTitle>
                     <CardText>Address: {address}</CardText>
                     <CardText>Phone Number: {props.phone} </CardText>
-                    <Button>Adopt Me Please</Button>
+                    <a className="btn btn-primary" href={urls.shelterURL(props.id)}>Adopt Me Please</a>
+                   
                 </CardBody>
             </Card>
         </div>
