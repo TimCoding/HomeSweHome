@@ -20,8 +20,8 @@ const ParkCard = (props) => {
                                 <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone:</b>
                                     <p className="parkCardPhone"> {props.parkData.phone}</p>
                                 </li>
-    	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>
-                                    <p className="parkCardLocation"><b>Location: </b> 
+    	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Location: </b> 
+                                    <p className="parkCardLocation">
                                     {props.parkData.address} {props.parkData.city}, {props.parkData.state} {props.parkData.zip} 
                                     </p>
                                 </li>
