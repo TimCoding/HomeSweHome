@@ -11,15 +11,15 @@ const ParkCard = (props) => {
             <Card>
                 <CardImg top width="100%" src={props.parkData.image_urls[0]} alt="Park image" />
                 <CardBody>
-                    <CardTitle>{props.parkData.name}</CardTitle>
+                    <CardTitle><p className="parkCardTitle">{props.parkData.name}</p></CardTitle>
                     <CardText>
 							<ul className="fa-ul">
     	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Yelp Rating:</b>
                                     <p className="parkCardRating"> {props.parkData.yelp_rating}</p>
-                                    </li>
+                                </li>
                                 <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone:</b>
                                     <p className="parkCardPhone"> {props.parkData.phone}</p>
-                                    </li>
+                                </li>
     	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span>
                                     <p className="parkCardLocation"><b>Location: </b> 
                                     {props.parkData.address} {props.parkData.city}, {props.parkData.state} {props.parkData.zip} 
