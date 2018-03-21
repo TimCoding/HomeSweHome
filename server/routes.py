@@ -36,7 +36,7 @@ def splash():
 @app.route("/dogs/")
 def dog_model():
     return render_template("render_component.html", component_name="ModelPage", props=json.dumps({
-        "model": "dog"
+        "model": "dogs"
     }))
 
 
@@ -50,7 +50,7 @@ def dog_details(dogID):
 @app.route("/parks/")
 def park_model():
     return render_template("render_component.html", component_name="ModelPage", props=json.dumps({
-        "model": "park"
+        "model": "parks"
     }))
 
 
@@ -64,7 +64,7 @@ def park_details(parkID):
 @app.route("/shelters/")
 def shelter_model():
     return render_template("render_component.html", component_name="ModelPage", props=json.dumps({
-        "model": "shelter"
+        "model": "shelters"
     }))
 
 
