@@ -79,7 +79,6 @@ def get_shelter(shelter_id):
     shelter_json["dogs"] = [
         dog.jsonify() for dog in shelter.dogs
     ]
-    shelter_json["nearby_parks"] = []
     return jsonify(shelter_json)
 
 
