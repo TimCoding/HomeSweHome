@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import ReactDOM from 'react-dom';
-import NavBar from './navbar.jsx';
+import {NavBar} from './navbar.jsx';
 
 export default class ModelPage extends Component {
 	render(){
