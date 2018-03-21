@@ -17,15 +17,21 @@ const DogCard = (props) => {
         <div className="cards">
             <Card>
                 {/*style={{width:"10%", height:"10%"}}*/}
-                <CardImg src={props.dogData.image_urls != "" ? props.dogData.image_urls : "/static/img/homeswehomelogo.svg"} alt="Dog image" />
+                <CardImg className="dogCardImg" src={props.dogData.image_urls != "" ? props.dogData.image_urls : "/static/img/homeswehomelogo.svg"} alt="Dog image" />
                 <CardBody>
                     {/* don't know if these props work properly need data to test */}
-                    <CardTitle>{props.dogData.name}</CardTitle>
+                    <CardTitle className="dogCardTitle">{props.dogData.name}</CardTitle>
                     <CardText>
                         <ul className="fa-ul">
-                        <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Breed:</b> {dogBreed}</li>
-                        <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Housetrained:</b> {props.dogData.housetrained === true ? "Yes" : "No"}</li>
-                        <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Friendly:</b> {props.dogData.friendly === true ? "Yes" : "No"}</li>
+                            <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Breed:</b> 
+                                <p className="dogCardBreed">{dogBreed} </p>
+                                </li>
+                            <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Housetrained:</b>
+                                <p className="dogCardHouseTraiend"> {props.dogData.housetrained === true ? "Yes" : "No"}</p>
+                                </li>
+                            <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Friendly:</b> 
+                                <p className="dogCardFriendly"> {props.dogData.friendly === true ? "Yes" : "No"} </p>
+                                </li>
                         </ul>
                     </CardText>
                     <a className="btn btn-primary" href={urls.dogURL(props.dogData.id)}>Meet {props.dogData.name}</a>
