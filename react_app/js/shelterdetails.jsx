@@ -72,7 +72,11 @@ export class ShelterDetails extends Component {
                 <Container>
                     <Row>
                         <Col xs="8">
-                            <Map/>
+                            <Map isMarkerShown
+                              googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                              loadingElement={<div style={{ height: `100%` }} />}
+                              containerElement={<div style={{ height: `400px` }} />}
+                              mapElement={<div style={{ height: `100%` }} />}/>
                         </Col>
                         <Col xs="4">
                             <ShelterHours/>

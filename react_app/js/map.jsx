@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
-const Map = (props) => {
+const Map = withScriptjs(withGoogleMap((props) => {
   return (
-    <div>
-      <img src="/../static/img/sample_map.png" width="100%" height="100%"/>
-    </div>
-  );
-};
+    <GoogleMap
+      defaultZoom={12}
+      defaultCenter={{ lat: -34.397, lng: 150.644 }}
+    >
+      {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
+    </GoogleMap>
+  )
+}
+))
 
 export default Map;
 
-window._Map = Map
+window._Map = Map;

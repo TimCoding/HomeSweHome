@@ -15,8 +15,6 @@ const items = [
   }
 ];
 
-// const format = "w-75 mx-auto"
-
 export class Splash extends Component {
   constructor(props) {
     super(props);
