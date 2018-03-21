@@ -68,7 +68,7 @@ export default class ParkDetails extends Component{
 
 
 		let shelterList = (
-			<h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
+			<h1 className="text-center" style={{fontSize: '5em'}}><PawSpinner /></h1>
 		);
 		if(!(this.state.shelterJSON == null)){
 			shelterList = this.state.shelterJSON.map(shelter => {
@@ -81,7 +81,7 @@ export default class ParkDetails extends Component{
 		}
 
 		let dogList = (
-			<h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
+			<h1 className="text-center" style={{fontSize: '5em'}}><PawSpinner /></h1>
 		);
 		if(!(this.state.dogJSON == null)) {
 			dogList = this.state.dogJSON.map(dog => {
@@ -96,9 +96,10 @@ export default class ParkDetails extends Component{
 	return (
 		<div>
 			<NavBar/>
-			<Jumbotron fluid style={{
+			<Jumbotron style={{
 					backgroundImage: 'url("' + this.state.parkJSON.image_urls[0] + '")',
-					backgroundSize: "cover"
+					backgroundSize: "cover",
+					minHeight:"400px"
 				}}>
 				<h1 className="text-center" style={{
 						color: "white",
