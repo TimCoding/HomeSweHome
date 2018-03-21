@@ -7,7 +7,7 @@ const ShelterInfo = (props) => {
      <Container>
        <Row>
          <Col md="auto">
-           <img className="rounded-circle" width="200" height="200" src={props.shelterJSON.image_urls[0]}/>
+           <img className="rounded-circle" width="200" height="200" src={props.shelterJSON.image_urls[0] != 0 ? props.shelterJSON.image_urls[0] : "/static/img/homeswehomelogo.svg"}/>
          </Col>
          <Col>
            <h1>{props.shelterJSON.name}</h1>

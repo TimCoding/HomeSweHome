@@ -65,7 +65,7 @@ export default class DogDetails extends Component {
         if(!(this.state.parkJSON == null)){
          parkList = this.state.parkJSON.map(park => {
             return (
-                <Col>
+                <Col md="4">
                     <ParkCard parkData={park}/>
                 </Col>
             );
