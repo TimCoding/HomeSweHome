@@ -11,7 +11,7 @@ const ShelterInfo = (props) => {
          </Col>
          <Col>
            <h1>{props.shelterJSON.name}</h1>
-           <span className="text-muted">Address: {props.shelterJSON.address}</span>
+           <span className="text-muted">Address: {props.shelterJSON.address != null ? props.shelterJSON.address : props.shelterJSON.city +", "+ props.shelterJSON.state}</span>
            <br/>
            <span className="text-muted">Phone: {props.shelterJSON.phone}</span>
            <br/>
