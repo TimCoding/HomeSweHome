@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 
-const ShelterInfo = (props) => {
+const ShelterContact = (props) => {
  return (
    <div>
      <Container>
@@ -24,6 +24,6 @@ const ShelterInfo = (props) => {
  );
 };
 
-export default ShelterInfo;
+export default ShelterContact;
 
-window._ShelterInfo = ShelterInfo;
+window._ShelterContact = ShelterContact;

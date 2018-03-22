@@ -93,3 +93,5 @@ describe('ShelterCard Component', () => {
 
 
 // Rebekkah: spinner, shelterdetails, map
+// Godfrey: shelterinfo, reviews, DogDetails
+// Emily: carousel, parkdetails
