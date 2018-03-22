@@ -10,11 +10,16 @@ const config = {
     },
     module: {
         rules: [
-        { 
+        {
             test: /\.jsx?$/,         // Match both .js and .jsx files
             exclude: /node_modules/,
             use: "babel-loader"
         }]
-    }
+    },
+		externals: {
+			'react/addons': true,
+			'react/lib/ExecutionEnvironment': true,
+			'react/lib/ReactContext': true
+		}
 };
 module.exports = config;

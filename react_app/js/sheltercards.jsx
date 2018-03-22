@@ -17,13 +17,17 @@ const ShelterCard = (props) => {
     return (
         <div className="cards">
                 <Card>
-                    <CardImg top width="100%" src={img} alt="Card image cap" />
+                    <CardImg className="shelterCardImg" top width="100%" src={img} alt="Card image cap" />
                     <CardBody>
-                        <CardTitle>{props.shelterData.name}</CardTitle>
+                        <CardTitle className="shelterCardsTitle">{props.shelterData.name}</CardTitle>
                         <CardText>
                             <ul className="fa-ul">
-                                    <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Email:</b> {props.shelterData.email}</li>
-                                    <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone:</b>s {props.shelterData.phone == null ? "" : props.shelterData.phone}</li>
+                                    <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Email:</b>
+                                        <p className="shelterCardEmail"> {props.shelterData.email} </p>
+                                    </li> 
+                                    <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone:</b>
+                                        <p className="shelterCardPhone">{props.shelterData.phone == null ? "" : props.shelterData.phone} </p>
+                                    </li>
                             </ul>
                         </CardText>
                         <a className="btn btn-primary" href={urls.shelterURL(props.shelterData.id)}>Visit</a>
