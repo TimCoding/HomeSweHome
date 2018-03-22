@@ -3,14 +3,15 @@ import { Jumbotron,
 				 Container, Col, Row,
 				 Card, CardDeck, CardTitle, CardBody } from 'reactstrap';
 import { NavBar } from './navbar.jsx';
-import Map from './map.jsx';
+import GoogleMap from './map.jsx';
 import ParkInfo from './parkinfo.jsx';
 import * as api from './api.js';
 import {PawSpinner} from './spinner.jsx';
 import DogCard from './dogcards.jsx';
 import ShelterCard from './sheltercards.jsx';
+import {GoogleApiWrapper} from 'google-maps-react';
 
-export default class ParkDetails extends Component{
+export class ParkDetails extends Component{
 	constructor(props) {
 		super(props);
 
@@ -108,21 +109,21 @@ export default class ParkDetails extends Component{
 				</Jumbotron>
 				<Container>
 					<Row>
-						<Col md="8">
-							<Map isMarkerShown
-								googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-								loadingElement={<div style={{ height: `100%` }} />}
-								containerElement={<div style={{ height: `400px` }} />}
-								mapElement={<div style={{ height: `100%` }} />}
-								position={{lat: this.state.parkJSON.latitude, lng: this.state.parkJSON.longitude}}
-								/>
+						<Col md="8"
+							style={{width: '100%', minHeight: '400px'}}>
+							<GoogleMap
+								initialCenter={{lat: this.state.parkJSON.latitude, lng: this.state.parkJSON.longitude}}
+								marker={{lat: this.state.parkJSON.latitude, lng: this.state.parkJSON.longitude}}
+          			zoom={17}
+
+							/>
 						</Col>
-						<Col md="4">
+						<Col>
 							<ParkInfo parkJSON={this.state.parkJSON}/>
 						</Col>
 					</Row>
+					<br/>
 				</Container>
-				<br/>
 
 				<hr></hr>
 
@@ -131,8 +132,8 @@ export default class ParkDetails extends Component{
 					<Row>
 						{shelterList}
 					</Row>
+					<br/>
 				</Container>
-				<br/>
 
 				<hr></hr>
 
@@ -142,9 +143,12 @@ export default class ParkDetails extends Component{
 						{dogList}
 					</Row>
 				</Container>
+
+				<br/>
 			</div>
 		)
 	}
 }
+
 
 window._ParkDetails = ParkDetails;

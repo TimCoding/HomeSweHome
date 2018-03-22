@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {Container, Row, Col} from 'reactstrap';
 import {CardDeck} from 'reactstrap';
 import ShelterInfo from './shelterinfo.jsx';
-import Map from './map.jsx';
+import GoogleMap from './map.jsx';
 import ShelterHours from './shelterhours.jsx';
 import Reviews from './reviews.jsx';
 import ParkCard from './parkcards.jsx';
@@ -89,14 +89,16 @@ export class ShelterDetails extends Component {
 
         <Container>
           <Row>
-            <Col xs="8">
-              <Map isMarkerShown
-                googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `400px` }} />}
-                mapElement={<div style={{ height: `100%` }} />}/>
-            </Col>
-            <Col xs="4">
+
+            <Col md="8"
+							>
+							<GoogleMap
+								initialCenter={{lat: this.state.shelterJSON.latitude, lng: this.state.shelterJSON.longitude}}
+								marker={{lat: this.state.shelterJSON.latitude, lng: this.state.shelterJSON.longitude}}
+          			zoom={17}
+							/>
+						</Col>
+            <Col md="4">
               {/* <ShelterHours/> */}
             </Col>
           </Row>

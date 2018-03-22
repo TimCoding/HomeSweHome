@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
+var auth = require('../../auth.json');
 
+export class GoogleMap extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-const Map = withScriptjs(withGoogleMap((props) => {
-  let defaultPosition = new google.maps.LatLng(30.2849, -97.7341);
-  return (
-    <GoogleMap
-      defaultZoom={17}
-      defaultCenter={ props.position == null ? defaultPosition : props.position }
-    >
-      {props.isMarkerShown && <Marker position={ props.position } />}
-    </GoogleMap>
-  )
-}
-))
+  render() {
+    return (
+      <Map
+        initialCenter={ this.props.initialCenter }
+        google={ this.props.google }
+        zoom={ this.props.zoom }
+        >
+        <Marker position={ this.props.marker } />
+      </Map>
+    )
+  }
+};
 
-export default Map;
+window._GoogleMap = GoogleMap
 
-window._Map = Map;
+export default GoogleApiWrapper({
+  apiKey: auth["maps"]["key"],
+  libraries: ['places']
+}) (GoogleMap)

@@ -5,15 +5,22 @@ import { Card,
 
 const ParkInfo = (props) => {
   return (
-    <div>
+    <div style={{paddingLeft:"40px"}}>
       <Card>
         <CardBody>
-          <CardTitle>Park Info</CardTitle>
-          <ul className="fa-ul">
-            <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Address:</b> {props.parkJSON.address} {props.parkJSON.city}, {props.parkJSON.state} {props.parkJSON.zip}</li>
-            <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone:</b> Phone: {props.parkJSON.phone}</li>
-            <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Yelp Rating:</b> {props.parkJSON.yelp_rating}</li>
-          </ul>
+          <CardTitle><i className="fas fa-paw"/> Park Info <i className="fas fa-paw"/></CardTitle>
+            <span >
+              <b>Address:</b> {props.parkJSON.address}
+            </span><br/>
+            <span style={{marginLeft:"4em"}}>
+               {props.parkJSON.city}, {props.parkJSON.state} {props.parkJSON.zip}
+            </span><br/>
+            <span >
+              <b>Phone:</b> {props.parkJSON.phone}
+            </span><br/>
+            <span >
+              <b>Yelp Rating:</b> {props.parkJSON.yelp_rating}
+            </span><br/>
         </CardBody>
       </Card>
     </div>
