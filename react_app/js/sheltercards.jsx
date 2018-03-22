@@ -19,14 +19,14 @@ const ShelterCard = (props) => {
                 <Card>
                     <CardImg top width="100%" src={img} alt="Card image cap" />
                     <CardBody>
-                        <CardTitle className="shelterCardsTitle">{props.shelterData.name}</CardTitle>
+                        <CardTitle><p className="shelterCardsTitle">{props.shelterData.name}</p></CardTitle>
                         <CardText>
                             <ul className="fa-ul">
                                     <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Email: </b>
-                                        <p className="shelterCardEmail">{props.shelterData.email} </p>
+                                        <p className="shelterCardEmail">{props.shelterData.email}</p>
                                     </li> 
                                     <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone: </b>
-                                        <p className="shelterCardPhone">{props.shelterData.phone == null ? "" : props.shelterData.phone} </p>
+                                        <p className="shelterCardPhone">{props.shelterData.phone == null ? "" : props.shelterData.phone}</p>
                                     </li>
                             </ul>
                         </CardText>

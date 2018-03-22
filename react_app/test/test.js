@@ -12,23 +12,29 @@ import ParkCard from '../js/parkcards.jsx'
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const splashWrapper = shallow(<Splash/>)
-const modelWrapper = shallow(<ModelPage/>)
+
+
 const navbarWrapper = shallow(<NavBar/>)
 const jsonReviews = { adoption_policy:"test", mission:"test" }
 const reviewsWrapper = shallow(<Reviews desc = {jsonReviews} />)
 
 
-describe('Splash Component', () => {
+describe('Splash Page', () => {
+	const splashWrapper = shallow(<Splash/>)
+
 	it('render splash', () => {
 		expect(splashWrapper).to.have.length(1)
+		
 	})
 })
 
-describe('Model Component', () => {
+describe('Model Page', () => {
+	const modelWrapper = shallow(<ModelPage/>)
+
 	it('render component', () => {
 		expect(modelWrapper).to.have.length(1)
 	})
+
 })
 
 describe('Navbar Component', () => {
@@ -66,10 +72,21 @@ describe('ParkCard Component', () => {
 				state:"state", zip:"zip"}
 	const parkCardWrapper = shallow(<ParkCard parkData={parkJSON}/>)
 
-	it ('render dogcard', () => {
+	it ('render parkcard', () => {
 		expect(parkCardWrapper.find('.parkCardTitle').text()).to.equal("Park Name")
 		expect(parkCardWrapper.find('.parkCardRating').text()).to.equal("3")
 		expect(parkCardWrapper.find('.parkCardPhone').text()).to.equal("123-345-5678")
 		expect(parkCardWrapper.find('.parkCardLocation').text()).to.equal("address city, state zip")
+	})
+})
+
+describe('ShelterCard Component', () => {
+	const shelterJSON = {image_urls:["src"], name:"Shelter Name", email:"email", phone:null}
+	const shelterCardWrapper = shallow(<ShelterCard shelterData={shelterJSON}/>)
+
+	it ('render sheltercard', () => {
+		expect(shelterCardWrapper.find('.shelterCardsTitle').text()).to.equal("Shelter Name")
+		expect(shelterCardWrapper.find('.shelterCardEmail').text()).to.equal("email")
+		expect(shelterCardWrapper.find('.shelterCardPhone').text()).to.equal("")
 	})
 })
