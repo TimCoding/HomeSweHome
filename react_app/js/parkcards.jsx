@@ -14,15 +14,15 @@ const ParkCard = (props) => {
                     <CardTitle><p className="parkCardTitle">{props.parkData.name}</p></CardTitle>
                     <CardText>
 							<ul className="fa-ul">
-    	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Yelp Rating:</b>
-                                    <p className="parkCardRating"> {props.parkData.yelp_rating}</p>
+    	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Yelp Rating: </b>
+                                    <p className="parkCardRating">{props.parkData.yelp_rating}</p>
                                 </li>
-                                <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone:</b>
-                                    <p className="parkCardPhone"> {props.parkData.phone}</p>
+                                <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone: </b>
+                                    <p className="parkCardPhone">{props.parkData.phone}</p>
                                 </li>
     	                        <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Location: </b> 
                                     <p className="parkCardLocation">
-                                    {props.parkData.address} {props.parkData.city}, {props.parkData.state} {props.parkData.zip} 
+                                        {props.parkData.address} {props.parkData.city}, {props.parkData.state} {props.parkData.zip} 
                                     </p>
                                 </li>
 							</ul>
