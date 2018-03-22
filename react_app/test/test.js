@@ -24,7 +24,7 @@ describe('Splash Component', () => {
 
 	it('render splash', () => {
 		expect(splashWrapper).to.have.length(1)
-		
+
 	})
 })
 
@@ -68,7 +68,7 @@ describe('DogCard Component', () => {
 })
 
 describe('ParkCard Component', () => {
-	const parkJSON = {name:"Park Name", image_urls:["src"], yelp_rating:"3", phone:"123-345-5678", address:"address", city:"city", 
+	const parkJSON = {name:"Park Name", image_urls:["src"], yelp_rating:"3", phone:"123-345-5678", address:"address", city:"city",
 				state:"state", zip:"zip"}
 	const parkCardWrapper = shallow(<ParkCard parkData={parkJSON}/>)
 
@@ -90,3 +90,6 @@ describe('ShelterCard Component', () => {
 		expect(shelterCardWrapper.find('.shelterCardPhone').text()).to.equal("")
 	})
 })
+
+
+// Rebekkah: spinner, shelterdetails, map
