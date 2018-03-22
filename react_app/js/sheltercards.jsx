@@ -17,15 +17,15 @@ const ShelterCard = (props) => {
     return (
         <div className="cards">
                 <Card>
-                    <CardImg className="shelterCardImg" top width="100%" src={img} alt="Card image cap" />
+                    <CardImg top width="100%" src={img} alt="Card image cap" />
                     <CardBody>
                         <CardTitle className="shelterCardsTitle">{props.shelterData.name}</CardTitle>
                         <CardText>
                             <ul className="fa-ul">
-                                    <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Email:</b>
-                                        <p className="shelterCardEmail"> {props.shelterData.email} </p>
+                                    <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Email: </b>
+                                        <p className="shelterCardEmail">{props.shelterData.email} </p>
                                     </li> 
-                                    <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone:</b>
+                                    <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Phone: </b>
                                         <p className="shelterCardPhone">{props.shelterData.phone == null ? "" : props.shelterData.phone} </p>
                                     </li>
                             </ul>

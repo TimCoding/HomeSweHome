@@ -7,6 +7,8 @@ import { NavBar } from '../js/navbar.jsx'
 import Reviews from '../js/reviews.jsx'
 import Adapter from 'enzyme-adapter-react-16';
 import DogCard from '../js/dogcards.jsx'
+import ShelterCard from '../js/sheltercards.jsx'
+import ParkCard from '../js/parkcards.jsx'
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -56,5 +58,18 @@ describe('DogCard Component', () => {
 		expect(dogCardWrapper.find('.dogCardBreed').text()).to.equal("Pit Bull Terrier")
 		expect(dogCardWrapper.find('.dogCardHouseTrained').text()).to.equal("No")
 		expect(dogCardWrapper.find('.dogCardFriendly').text()).to.equal("Yes")
+	})
+})
+
+describe('ParkCard Component', () => {
+	const parkJSON = {name:"Park Name", image_urls:["src"], yelp_rating:"3", phone:"123-345-5678", address:"address", city:"city", 
+				state:"state", zip:"zip"}
+	const parkCardWrapper = shallow(<ParkCard parkData={parkJSON}/>)
+
+	it ('render dogcard', () => {
+		expect(parkCardWrapper.find('.parkCardTitle').text()).to.equal("Park Name")
+		expect(parkCardWrapper.find('.parkCardRating').text()).to.equal("3")
+		expect(parkCardWrapper.find('.parkCardPhone').text()).to.equal("123-345-5678")
+		expect(parkCardWrapper.find('.parkCardLocation').text()).to.equal("address city, state zip")
 	})
 })
