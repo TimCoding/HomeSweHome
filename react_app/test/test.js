@@ -13,7 +13,7 @@ import ShelterContact from '../js/sheltercontact.jsx'
 import {ControlledCarousel} from '../js/carousel.jsx'
 import {ParkDetails} from '../js/parkdetails.jsx'
 import {CarouselItem} from 'reactstrap';
-
+import InfoCard from '../js/infocard.jsx'
 Enzyme.configure({ adapter: new Adapter() });
 
 
@@ -37,7 +37,6 @@ describe('Model Component', () => {
 	it('render component', () => {
 		expect(modelWrapper).to.have.length(1)
 	})
-
 })
 
 describe('Navbar Component', () => {
@@ -55,6 +54,16 @@ describe('ShelterInfo Component', () => {
 		// expect(shelterInfoWrapper.find('.shelterAdoptionPolicy').text()).to.equal("Adoption Policy")
 		// expect(shelterInfoWrapper.find('.shelterMission').text()).to.equal("Mission")
 		expect(shelterInfoWrapper.find('.shelterEmail').text()).to.equal("email")
+	})
+})
+
+describe('InfoCard Component', () => {
+	const infoCardWrapper = shallow(<InfoCard center={"Adoption Center"} address={"address"} phone={"123"} />)
+	
+	it('render shelterinfo', () => {
+		expect(infoCardWrapper.find('.infoCardTitle').text()).to.equal("Adoption Center")
+		expect(infoCardWrapper.find('.infoCardAddress').text()).to.equal("address")
+		expect(infoCardWrapper.find('.infoCardPhone').text()).to.equal("123")
 	})
 })
 
@@ -117,7 +126,7 @@ describe('Carousel Component', () => {
 // describe('ParkDetails Component', () => {
 // 	const parkDetailsWrapper = shallow(<ParkDetails parkID={1}/>)
 
-// 	it('displays a loading spinner when no reps present', () => {
+// 	it('render spinner', () => {
 //     expect(parkDetailsWrapper.find('.PawSpinner')).to.have.length(1)
 //   })
 // })
