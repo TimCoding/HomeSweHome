@@ -20,17 +20,17 @@ const DogCard = (props) => {
                 <CardImg src={props.dogData.image_urls != "" ? props.dogData.image_urls : "/static/img/homeswehomelogo.svg"} alt="Dog image" />
                 <CardBody>
                     {/* don't know if these props work properly need data to test */}
-                    <CardTitle className="dogCardTitle">{props.dogData.name}</CardTitle>
+                    <CardTitle><p className="dogCardName">{props.dogData.name}</p></CardTitle>
                     <CardText>
                         <ul className="fa-ul">
                             <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Breed:</b> 
-                                <p className="dogCardBreed">{dogBreed} </p>
+                                <p className="dogCardBreed">{dogBreed}</p>
                             </li>
                             <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Housetrained:</b>
-                                <p className="dogCardHouseTrained"> {props.dogData.housetrained === true ? "Yes" : "No"}</p>
+                                <p className="dogCardHouseTrained">{props.dogData.housetrained === true ? "Yes" : "No"}</p>
                             </li>
                             <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Friendly:</b> 
-                                <p className="dogCardFriendly"> {props.dogData.friendly === true ? "Yes" : "No"} </p>
+                                <p className="dogCardFriendly">{props.dogData.friendly ? "Yes" : "No"}</p>
                             </li>
                         </ul>
                     </CardText>
