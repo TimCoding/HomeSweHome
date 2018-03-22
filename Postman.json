@@ -1,0 +1,512 @@
+{
+	"info": {
+		"_postman_id": "3d0eed79-7d5e-4e4a-9643-f50b3673a6f3",
+		"name": "HomeSweHome",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Query For Individual Dogs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b9279a4-e53c-4e0e-bc82-5065388ee14a",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Query for specific dog, DIVA\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Checking breed of DIVA\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.breeds[0]).to.eql(\"Rhodesian Ridgeback\");",
+							"});",
+							"",
+							"pm.test(\"Checking if DIVA is altered\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.altered).to.eql(true);",
+							"});",
+							"",
+							"pm.test(\"Checking city of DIVA\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.city).to.eql(\"Carrollton\");",
+							"});",
+							"",
+							"pm.test(\"Checking name of DIVA\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"DIVA\");",
+							"});",
+							"",
+							"pm.test(\"Checking id of DIVA\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(28711795);",
+							"});",
+							"",
+							"pm.test(\"Checking shelter id of DIVA\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.shelter_id).to.eql(\"TX443\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/dog/28711795/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"dog",
+						"28711795",
+						""
+					]
+				},
+				"description": "Testing API endpoint for single dog DIVA"
+			},
+			"response": []
+		},
+		{
+			"name": "Query For Parks Near Individual Dog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "25f937c3-e8df-41ba-9278-8c9af2ab120b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Check name of park 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.parks[0].name).to.eql(\"Addison Circle Park\");",
+							"});",
+							"",
+							"pm.test(\"Check name of park 2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.parks[1].name).to.eql(\"Bosque Park\");",
+							"});",
+							"",
+							"pm.test(\"Check name of park 3\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.parks[2].name).to.eql(\"Spruill Park\");",
+							"});",
+							"",
+							"pm.test(\"Check name of park 4\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.parks[3].name).to.eql(\"Beckert Park\");",
+							"});",
+							"",
+							"pm.test(\"Check name of park 5\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.parks[4].name).to.eql(\"Quorum Park\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/dog/28711795/nearby",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"dog",
+						"28711795",
+						"nearby"
+					]
+				},
+				"description": "Check to verify parks near DIVA"
+			},
+			"response": []
+		},
+		{
+			"name": "Query for List of Dogs: Limit 10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9d851d9-1de4-4081-a56d-2fc3e5f92842",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response time is less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].name).to.eql(\"Tic\");",
+							"    pm.expect(jsonData.results[0].shelter_id).to.eql(\"TX2237\");",
+							"    pm.expect(jsonData.results[0].id).to.eql(40172988);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[1].name).to.eql(\"Harrison\");",
+							"    pm.expect(jsonData.results[1].shelter_id).to.eql(\"TX2237\");",
+							"    pm.expect(jsonData.results[1].id).to.eql(40051229);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[2].name).to.eql(\"Cappuccino\");",
+							"    pm.expect(jsonData.results[2].shelter_id).to.eql(\"TX2237\");",
+							"    pm.expect(jsonData.results[2].id).to.eql(41122187);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[3].name).to.eql(\"Drakie\");",
+							"    pm.expect(jsonData.results[3].shelter_id).to.eql(\"TX1221\");",
+							"    pm.expect(jsonData.results[3].id).to.eql(40823192);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[4].name).to.eql(\"Maya\");",
+							"    pm.expect(jsonData.results[4].shelter_id).to.eql(\"TX2237\");",
+							"    pm.expect(jsonData.results[4].id).to.eql(41099665);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/dogs",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"dogs"
+					]
+				},
+				"description": "Get list of all dogs but limit by 10"
+			},
+			"response": []
+		},
+		{
+			"name": "Query For Shelters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "273ebcdc-c1eb-4c03-b901-fddf846605cb",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Test if shelter has a city\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.city).to.eql(\"Addison\");",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Test if shelter has an id\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.zipcode).to.eql(75001);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/shelter/TX2237",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"shelter",
+						"TX2237"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query for dogs at a shelter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d932565-6d6f-4572-a769-d01044e0f851",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Grab nearby dog 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.dogs[0].breeds[0]).to.eql(\"Pit Bull Terrier\");",
+							"    pm.expect(jsonData.dogs[0].city).to.eql(\"Addison\");",
+							"    pm.expect(jsonData.dogs[0].name).to.eql(\"Tic\");",
+							"});",
+							"",
+							"pm.test(\"Grab nearby dog 2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.dogs[1].breeds[0]).to.eql(\"Pit Bull Terrier\");",
+							"    pm.expect(jsonData.dogs[1].city).to.eql(\"Addison\");",
+							"    pm.expect(jsonData.dogs[1].name).to.eql(\"Harrison\");",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/shelter/TX2237/nearby/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"shelter",
+						"TX2237",
+						"nearby",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query for list of shelters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1612a0fb-6747-486e-88ce-8660ea90932e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Test shelter list, shelter 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].id).to.eql(\"TX2237\");",
+							"    pm.expect(jsonData.results[0].name).to.eql(\"Town of Addison\");",
+							"    pm.expect(jsonData.results[0].phone).to.eql(\"(972) 450-2845\");",
+							"    pm.expect(jsonData.results[0].zipcode).to.eql(75001);",
+							"});",
+							"",
+							"pm.test(\"Test shelter list, shelter 2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[1].id).to.eql(\"TX1221\");",
+							"    pm.expect(jsonData.results[1].name).to.eql(\"Texas Little Cuties (TLC) Rescue\");",
+							"    pm.expect(jsonData.results[1].zipcode).to.eql(75074);",
+							"});",
+							"",
+							"pm.test(\"Test shelter list, shelter 3\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[2].id).to.eql(\"TX1980\");",
+							"    pm.expect(jsonData.results[2].name).to.eql(\"Border Collie Rescue & Rehab of Texas\");",
+							"    pm.expect(jsonData.results[2].phone).to.eql(\"972-533-9172\");",
+							"    pm.expect(jsonData.results[2].zipcode).to.eql(75002);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/shelters/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"shelters",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Query for individual Park",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe2b7464-4cfa-491d-8b1d-97ce414d29c1",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Check park info for address\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.address).to.eql(\"5004 Addison Cir\");",
+							"});",
+							"",
+							"pm.test(\"Check park info for city\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.city).to.eql(\"Addison\");",
+							"});",
+							"",
+							"pm.test(\"Check park info for name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"Beckert Park\");",
+							"});",
+							"",
+							"pm.test(\"Check park info for phone\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.phone).to.eql(\"+19724507001\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/park/4/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"park",
+						"4",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Query for dogs near a park",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52a8f6b9-078a-4ce2-949f-c052f272e88f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Get nearby dog from park 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.dogs[0].breeds[0]).to.eql(\"Pit Bull Terrier\");",
+							"    pm.expect(jsonData.dogs[0].name).to.eql(\"Tic\");",
+							"    pm.expect(jsonData.dogs[0].shelter_id).to.eql(\"TX2237\");",
+							"});",
+							"",
+							"pm.test(\"Get nearby dog from park 2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.dogs[1].breeds[0]).to.eql(\"Pit Bull Terrier\");",
+							"    pm.expect(jsonData.dogs[1].name).to.eql(\"Harrison\");",
+							"    pm.expect(jsonData.dogs[1].shelter_id).to.eql(\"TX2237\");",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/park/4/nearby/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"park",
+						"4",
+						"nearby",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Query for List of Parks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56abd271-0322-4790-be55-5814f44fe53f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Get park from list of parks 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].name).to.eql(\"Addison Circle Park\");",
+							"    pm.expect(jsonData.results[0].city).to.eql(\"Addison\");",
+							"    pm.expect(jsonData.results[0].zip).to.eql(75001);",
+							"});",
+							"",
+							"pm.test(\"Get park from list of parks 2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[1].name).to.eql(\"Bosque Park\");",
+							"    pm.expect(jsonData.results[1].city).to.eql(\"Addison\");",
+							"    pm.expect(jsonData.results[1].zip).to.eql(75001);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/parks/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"parks",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
