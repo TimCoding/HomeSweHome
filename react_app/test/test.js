@@ -4,11 +4,12 @@ import Enzyme, { shallow, mount } from 'enzyme'
 import { Splash } from '../js/splash.jsx'
 import ModelPage from '../js/modelpage.jsx'
 import { NavBar } from '../js/navbar.jsx'
-import Reviews from '../js/reviews.jsx'
+import ShelterInfo from '../js/shelterinfo.jsx'
 import Adapter from 'enzyme-adapter-react-16';
 import DogCard from '../js/dogcards.jsx'
 import ShelterCard from '../js/sheltercards.jsx'
 import ParkCard from '../js/parkcards.jsx'
+import ShelterContact from '../js/sheltercontact.jsx'
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -16,7 +17,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const navbarWrapper = shallow(<NavBar/>)
 const jsonReviews = { adoption_policy:"test", mission:"test" }
-const reviewsWrapper = shallow(<Reviews desc = {jsonReviews} />)
+// const reviewsWrapper = shallow(<Reviews desc = {jsonReviews} />)
 
 
 describe('Splash Component', () => {
@@ -43,15 +44,26 @@ describe('Navbar Component', () => {
 	})
 })
 
-describe('Reviews Component', () => {
-	it('render reviews', () => {
-		expect(reviewsWrapper).to.have.length(1)
+describe('ShelterInfo Component', () => {
+	const shelterInfoJSON = {adoption_policy:"Adoption Policy", mission:"Mission", email:"email"}
+	const shelterInfoWrapper = shallow(<ShelterInfo desc={shelterInfoJSON}/>)
+	
+	it('render shelterinfo', () => {
+		// I think there is an error with dangerouslysetinnerhtml I cant get the data from there
+		// expect(shelterInfoWrapper.find('.shelterAdoptionPolicy').text()).to.equal("Adoption Policy")
+		// expect(shelterInfoWrapper.find('.shelterMission').text()).to.equal("Mission")
+		expect(shelterInfoWrapper.find('.shelterEmail').text()).to.equal("email")
 	})
 })
 
-describe('Reviews Component', () => {
-	it('render reviews', () => {
-		expect(reviewsWrapper).to.have.length(1)
+describe('ShelterContact Component', () =>{
+	const shelterContactJSON = {image_urls:["src"], name:"Shelter Name", city:"city", state:"state", phone:"123-345-5678", address:"address"}
+	const shelterContactWrapper = shallow(<ShelterContact shelterJSON={shelterContactJSON}/>)
+
+	it ('render sheltercontact', () => {
+		expect(shelterContactWrapper.find('.shelterName').text()).to.equal("Shelter Name")
+		expect(shelterContactWrapper.find('.shelterAddress').text()).to.equal("address" || "city, state")
+		expect(shelterContactWrapper.find('.shelterPhone').text()).to.equal("123-345-5678")
 	})
 })
 

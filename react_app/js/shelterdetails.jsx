@@ -85,7 +85,7 @@ export class ShelterDetails extends Component {
       <div>
         <NavBar/>
         <br/>
-        <ShelterInfo shelterJSON={this.state.shelterJSON}/>
+        <ShelterContact shelterJSON={this.state.shelterJSON}/>
         {/*<ShelterInfo/>*/}
         <Container>
           <Row>
@@ -107,7 +107,7 @@ export class ShelterDetails extends Component {
         <Container>
           <Row>
             <Col>
-              <Reviews desc={this.state.shelterJSON}/>
+              <ShelterInfo desc={this.state.shelterJSON}/>
             </Col>
           </Row>
         </Container>

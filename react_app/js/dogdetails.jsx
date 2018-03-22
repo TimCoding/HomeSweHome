@@ -102,7 +102,7 @@ export default class DogDetails extends Component {
 							<p className="description_content">{this.state.dogJSON.description}</p>
 						</Col>
 						<Col md="4">
-							<InfoCard id={this.state.dogJSON.shelter_id} center={this.state.dogJSON.shelter.name} address={this.state.dogJSON.address} city={this.state.dogJSON.city} state={this.state.dogJSON.state} zip={this.state.dogJSON.zipcode} phone={this.state.dogJSON.phone} />
+							<InfoCard center={this.state.dogJSON.shelter.name} address={this.state.dogJSON.address} city={this.state.dogJSON.city} state={this.state.dogJSON.state} zip={this.state.dogJSON.zipcode} phone={this.state.dogJSON.phone} />
 						</Col>
 					</Row>
 				</Container>

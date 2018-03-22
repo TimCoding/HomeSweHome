@@ -10,12 +10,18 @@ const ShelterContact = (props) => {
            <img className="rounded-circle" width="200" height="200" src={props.shelterJSON.image_urls[0] != 0 ? props.shelterJSON.image_urls[0] : "/static/img/homeswehomelogo.svg"}/>
          </Col>
          <Col>
-           <h1>{props.shelterJSON.name}</h1>
-           <span className="text-muted">Address: {props.shelterJSON.address != null ? props.shelterJSON.address : props.shelterJSON.city +", "+ props.shelterJSON.state}</span>
+           <h1 className="shelterName">{props.shelterJSON.name}</h1>
+           <span className="text-muted">Address: 
+              <p className="shelterAddress">{props.shelterJSON.address != null ? 
+              props.shelterJSON.address : props.shelterJSON.city +", "+ props.shelterJSON.state}
+              </p>
+           </span>
            <br/>
-           <span className="text-muted">Phone: {props.shelterJSON.phone}</span>
+           <span className="text-muted">Phone: 
+              <p className="shelterPhone">{props.shelterJSON.phone}</p>
+           </span>
            <br/>
-           /*<span className="text-muted">Yelp Rating: </span>*/
+           {/*<span className="text-muted">Yelp Rating: </span>*/}
          </Col>
        </Row>
      </Container>
