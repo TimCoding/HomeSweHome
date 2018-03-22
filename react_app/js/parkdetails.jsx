@@ -61,7 +61,7 @@ export class ParkDetails extends Component{
 				<div>
 					<NavBar/>
 					<Container>
-						<h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
+						<h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner className="PawSpinner" /></h1>
 					</Container>
 				</div>
 			);

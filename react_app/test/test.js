@@ -10,6 +10,9 @@ import DogCard from '../js/dogcards.jsx'
 import ShelterCard from '../js/sheltercards.jsx'
 import ParkCard from '../js/parkcards.jsx'
 import ShelterContact from '../js/sheltercontact.jsx'
+import {ControlledCarousel} from '../js/carousel.jsx'
+import {ParkDetails} from '../js/parkdetails.jsx'
+import {CarouselItem} from 'reactstrap';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -25,7 +28,6 @@ describe('Splash Component', () => {
 
 	it('render splash', () => {
 		expect(splashWrapper).to.have.length(1)
-
 	})
 })
 
@@ -103,7 +105,22 @@ describe('ShelterCard Component', () => {
 	})
 })
 
+describe('Carousel Component', () => {
+	const images = ["1", "2", "3"]
+	const carouselWrapper = shallow(<ControlledCarousel items={images}/>)
+	
+	it ('render sheltercard', () => {
+		expect(carouselWrapper.find(CarouselItem)).to.have.length(3)
+	})
+})
 
+// describe('ParkDetails Component', () => {
+// 	const parkDetailsWrapper = shallow(<ParkDetails parkID={1}/>)
+
+// 	it('displays a loading spinner when no reps present', () => {
+//     expect(parkDetailsWrapper.find('.PawSpinner')).to.have.length(1)
+//   })
+// })
 // Rebekkah: spinner, shelterdetails, map
 // Godfrey: shelterinfo, reviews, DogDetails
 // Emily: carousel, parkdetails
