@@ -1,6 +1,7 @@
 import unittest
 
 import server.geo as geo
+import server.scraper as scraper
 
 
 class TestGeoMethods(unittest.TestCase):
@@ -66,6 +67,24 @@ class TestGeoMethods(unittest.TestCase):
             geo.get_closest_zip((lat + 0.0005, lon + 0.0005)),
             75001
         )
+
+
+class TestScraperMethods(unittest.TestCase):
+
+    def test_unique_queue(self):
+        uq = scraper.UniqueQueue()
+        self.assertTrue(uq.empty())
+        uq.put(1)
+        self.assertFalse(uq.empty())
+        uq.put(2)
+        uq.put(1)
+        uq.put(3)
+        self.assertEqual(uq.get(), 1)
+        self.assertEqual(uq.get(), 2)
+        self.assertEqual(uq.get(), 3)
+        self.assertTrue(uq.empty())
+        uq.put(2)
+        self.assertTrue(uq.empty())
 
 
 if __name__ == "__main__":
