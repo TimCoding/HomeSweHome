@@ -19,7 +19,7 @@ const jsonReviews = { adoption_policy:"test", mission:"test" }
 const reviewsWrapper = shallow(<Reviews desc = {jsonReviews} />)
 
 
-describe('Splash Page', () => {
+describe('Splash Component', () => {
 	const splashWrapper = shallow(<Splash/>)
 
 	it('render splash', () => {
@@ -28,7 +28,7 @@ describe('Splash Page', () => {
 	})
 })
 
-describe('Model Page', () => {
+describe('Model Component', () => {
 	const modelWrapper = shallow(<ModelPage/>)
 
 	it('render component', () => {
