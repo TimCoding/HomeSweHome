@@ -80,18 +80,17 @@ export class ShelterDetails extends Component {
         );
       })
     }
+
     return (
       <div>
         <NavBar/>
         <br/>
         <ShelterInfo shelterJSON={this.state.shelterJSON}/>
         {/*<ShelterInfo/>*/}
-
         <Container>
           <Row>
-
             <Col md="8"
-							>
+							style={{width: '100%', height: '400px'}}>
 							<GoogleMap
 								initialCenter={{lat: this.state.shelterJSON.latitude, lng: this.state.shelterJSON.longitude}}
 								marker={{lat: this.state.shelterJSON.latitude, lng: this.state.shelterJSON.longitude}}
