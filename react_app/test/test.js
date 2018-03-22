@@ -10,7 +10,10 @@ import DogCard from '../js/dogcards.jsx'
 import ShelterCard from '../js/sheltercards.jsx'
 import ParkCard from '../js/parkcards.jsx'
 import ShelterContact from '../js/sheltercontact.jsx'
-
+import {ControlledCarousel} from '../js/carousel.jsx'
+import {ParkDetails} from '../js/parkdetails.jsx'
+import {CarouselItem} from 'reactstrap';
+import InfoCard from '../js/infocard.jsx'
 Enzyme.configure({ adapter: new Adapter() });
 
 
@@ -25,7 +28,6 @@ describe('Splash Component', () => {
 
 	it('render splash', () => {
 		expect(splashWrapper).to.have.length(1)
-
 	})
 })
 
@@ -35,7 +37,6 @@ describe('Model Component', () => {
 	it('render component', () => {
 		expect(modelWrapper).to.have.length(1)
 	})
-
 })
 
 describe('Navbar Component', () => {
@@ -53,6 +54,16 @@ describe('ShelterInfo Component', () => {
 		// expect(shelterInfoWrapper.find('.shelterAdoptionPolicy').text()).to.equal("Adoption Policy")
 		// expect(shelterInfoWrapper.find('.shelterMission').text()).to.equal("Mission")
 		expect(shelterInfoWrapper.find('.shelterEmail').text()).to.equal("email")
+	})
+})
+
+describe('InfoCard Component', () => {
+	const infoCardWrapper = shallow(<InfoCard center={"Adoption Center"} address={"address"} phone={"123"} />)
+	
+	it('render infocard', () => {
+		expect(infoCardWrapper.find('.infoCardTitle').text()).to.equal("Adoption Center")
+		expect(infoCardWrapper.find('.infoCardAddress').text()).to.equal("address")
+		expect(infoCardWrapper.find('.infoCardPhone').text()).to.equal("123")
 	})
 })
 
@@ -103,7 +114,22 @@ describe('ShelterCard Component', () => {
 	})
 })
 
+describe('Carousel Component', () => {
+	const images = ["1", "2", "3"]
+	const carouselWrapper = shallow(<ControlledCarousel items={images}/>)
+	
+	it ('render sheltercard', () => {
+		expect(carouselWrapper.find(CarouselItem)).to.have.length(3)
+	})
+})
 
+// describe('ParkDetails Component', () => {
+// 	const parkDetailsWrapper = shallow(<ParkDetails parkID={1}/>)
+
+// 	it('render spinner', () => {
+//     expect(parkDetailsWrapper.find('.PawSpinner')).to.have.length(1)
+//   })
+// })
 // Rebekkah: spinner, shelterdetails, map
 // Godfrey: shelterinfo, reviews, DogDetails
 // Emily: carousel, parkdetails
