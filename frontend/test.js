@@ -1,1 +1,1 @@
-react_app/test/test.js
+../react_app/test/test.js
