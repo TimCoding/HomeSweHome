@@ -1,7 +1,8 @@
 import json
 from collections import defaultdict
+from copy import deepcopy
 
-from flask import send_from_directory, render_template
+from flask import send_from_directory, render_template, jsonify
 import requests
 import random
 
@@ -9,7 +10,13 @@ from server import app
 from server import api
 from server import database
 
-import os, sys
+import os
+
+
+about_location = os.path.join(os.path.dirname(__file__), "data/about_people.json")
+f = open(about_location, "r")
+about_people_json = json.load(f)
+f.close()
 
 
 @app.url_defaults
@@ -75,12 +82,21 @@ def shelter_details(shelterID):
 
 
 @app.route("/about/")
+def aboutm():
+    return render_template("render_component.html", component_name="About")
+
+
+@app.route("/about/data/")
 def about():
-    users = ["dav-s", "gmac220", "TimCoding", "rebekkahkoo", "ewk298"]
-    attrs = {user: defaultdict(int) for user in users}
+    users = deepcopy(about_people_json)
+    for user in users:
+        users[user]["issues"] = 0
+        users[user]["commits"] = 0
 
     issue_params = {"state": "all", "per_page": 100}
     issue_list = []
+
+
 
     issues_api_url = "https://api.github.com/repos/TimCoding/HomeSweHome/issues"
 
@@ -112,7 +128,7 @@ def about():
         user = issue["user"]["login"]
         total_issues += 1
         if user in users:
-            attrs[user]["issues"] = attrs[user]["issues"] + 1
+            users[user]["issues"] = users[user]["issues"] + 1
 
     commit_api_url = "https://api.github.com/repos/TimCoding/HomeSweHome/commits"
 
@@ -131,16 +147,19 @@ def about():
             if commit["author"] and "login" in commit["author"]:
                 user = commit["author"]["login"]
                 if user in user:
-                    attrs[user]["commits"] = attrs[user]["commits"] + 1
+                    users[user]["commits"] = users[user]["commits"] + 1
 
         commit_api_url = get_next_url(commit_req.headers.get("link"))
 
     data = {
-        "users": attrs,
+        "users": users,
         "totals": {
             "issues": total_issues,
-            "commits": total_commits
+            "commits": total_commits,
+            "unit_tests": sum(
+                users[user]["unit_tests"] for user in users
+            )
         }
     }
 
-    return render_template("about.html", gh_data=data)
+    return jsonify(data)

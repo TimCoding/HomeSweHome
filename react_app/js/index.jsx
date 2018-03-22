@@ -7,6 +7,7 @@ import './modelpage.jsx'
 import './dogdetails.jsx'
 import './shelterdetails.jsx'
 import './parkdetails.jsx'
+import './about.jsx'
 
 // Only need to have this once, here. Uses closures
 window.dom_render = function(component, props) {
