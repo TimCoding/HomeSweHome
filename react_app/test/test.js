@@ -60,7 +60,7 @@ describe('ShelterInfo Component', () => {
 describe('InfoCard Component', () => {
 	const infoCardWrapper = shallow(<InfoCard center={"Adoption Center"} address={"address"} phone={"123"} />)
 	
-	it('render shelterinfo', () => {
+	it('render infocard', () => {
 		expect(infoCardWrapper.find('.infoCardTitle').text()).to.equal("Adoption Center")
 		expect(infoCardWrapper.find('.infoCardAddress').text()).to.equal("address")
 		expect(infoCardWrapper.find('.infoCardPhone').text()).to.equal("123")
