@@ -39,6 +39,8 @@ def haversine(loc1, loc2):
 
 
 def get_zip_distance(zip1, zip2):
+    if zip1 == zip2:
+        return 0.0
     return haversine(
         zip_locs[zip1],
         zip_locs[zip2]
