@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+from functools import wraps
 
 from flask import jsonify, request
 
@@ -17,6 +18,24 @@ def make_session():
     session.close()
 
 
+def retry_once(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        r = None
+        try:
+            r = f(*args, **kwargs)
+        except Exception as e1:
+            print("Failed Once")
+            print(e1)
+            try:
+                r = f(*args, **kwargs)
+            except Exception as e2:
+                print("Failed Twice")
+                raise e2
+        return r
+    return wrapped
+
+
 def raise_error(message, code=400):
     return jsonify({
         "message": message,
@@ -30,6 +49,7 @@ def api_root():
 
 
 @app.route("/api/dog/<int:dog_id>/")
+@retry_once
 def get_dog(dog_id):
     with make_session() as session:
         dog = session.query(Dog).get(dog_id)
@@ -41,6 +61,7 @@ def get_dog(dog_id):
 
 
 @app.route("/api/dog/<int:dog_id>/nearby/")
+@retry_once
 def get_dog_nearby(dog_id):
     with make_session() as session:
         dog = session.query(Dog).get(dog_id)
@@ -61,6 +82,7 @@ def get_dog_nearby(dog_id):
 
 
 @app.route("/api/dogs/")
+@retry_once
 def get_dogs():
     with make_session() as session:
         start = int(request.args.get("start", 0))
@@ -83,6 +105,7 @@ def get_dogs():
 
 
 @app.route("/api/shelter/<shelter_id>/")
+@retry_once
 def get_shelter(shelter_id):
     with make_session() as session:
         shelter = session.query(Shelter).get(shelter_id)
@@ -96,6 +119,7 @@ def get_shelter(shelter_id):
 
 
 @app.route("/api/shelter/<shelter_id>/nearby/")
+@retry_once
 def get_shelter_nearby(shelter_id):
     with make_session() as session:
         shelter = session.query(Shelter).get(shelter_id)
@@ -116,6 +140,7 @@ def get_shelter_nearby(shelter_id):
 
 
 @app.route("/api/shelters/")
+@retry_once
 def get_shelters():
     with make_session() as session:
         start = int(request.args.get("start", 0))
@@ -138,6 +163,7 @@ def get_shelters():
 
 
 @app.route("/api/park/<park_id>/")
+@retry_once
 def get_park(park_id):
     with make_session() as session:
         park = session.query(Park).get(park_id)
@@ -148,6 +174,7 @@ def get_park(park_id):
 
 
 @app.route("/api/park/<park_id>/nearby/")
+@retry_once
 def get_park_nearby(park_id):
     with make_session() as session:
         park = session.query(Park).get(park_id)
@@ -168,6 +195,7 @@ def get_park_nearby(park_id):
 
 
 @app.route("/api/parks/")
+@retry_once
 def get_parks():
     with make_session() as session:
         start = int(request.args.get("start", 0))
