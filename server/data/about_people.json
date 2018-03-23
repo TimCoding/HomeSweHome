@@ -18,7 +18,7 @@
   "TimCoding":{
     "name": "Timothy Ho",
     "image_url": "/static/img/tim_dog.jpg",
-    "unit_tests": 0,
+    "unit_tests": 10,
     "description": "Tim is a senior studying Computer Science at the University of Texas at Austin. He thinks dogs are cool.",
     "role": "He was responsible for creating the models pages. He created some REACT components and API tests.",
     "fav_dog": "Im allergic"
@@ -26,10 +26,10 @@
   "rebekkahkoo":{
     "name": "Rebekkah Koo",
     "image_url": "/static/img/rebekkah_dog.jpg",
-    "unit_tests": 0,
+    "unit_tests": 4,
     "description": "Rebekkah is a senior studying computer science. She enjoys reading, snowboarding, travelling, and hiking.",
     "role": "She was responsible for the splash page and using the petfinder API to populate detail pages for the dogs.",
-    "fav_dog": ""
+    "fav_dog": "Husky"
   },
   "ewk298":{
     "name": "Emily Kwong",
