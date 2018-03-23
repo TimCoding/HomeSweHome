@@ -4,34 +4,39 @@
     "image_url": "/static/img/davis_dog.jpg",
     "unit_tests": 8,
     "description": "Davis is a sophomore studying Computer Science at The University of Texas at Austin. He enjoys Competitive Programming and eating food.",
-    "role": "Davis is responsible for much of the backend work as well as frontend-backend integration."
+    "role": "Davis is responsible for much of the backend work as well as frontend-backend integration.",
+    "fav_dog": ""
   },
   "gmac220":{
     "name": "Godfrey Macasero",
     "image_url": "/static/img/godfrey_dog.jpg",
-    "unit_tests": 0,
+    "unit_tests": 6,
     "description": "Godfrey is a junior in Computer Science and likes to make graphics for fun.",
-    "role": "Godfrey has done some of the setup of the links, the parks details page, and made the logo."
+    "role": "Godfrey was responsible for the frontend part of the project. He converted some of pages into REACT Components.",
+    "fav_dog":"Corgi"
   },
   "TimCoding":{
     "name": "Timothy Ho",
     "image_url": "/static/img/tim_dog.jpg",
     "unit_tests": 0,
     "description": "Tim is a senior studying Computer Science at the University of Texas at Austin. He thinks dogs are cool.",
-    "role": "He was responsible for creating the models pages, creating them with HTML/CSS and Bootstrap."
+    "role": "He was responsible for creating the models pages, creating them with HTML/CSS and Bootstrap.",
+    "fav_dog": ""
   },
   "rebekkahkoo":{
     "name": "Rebekkah Koo",
     "image_url": "/static/img/rebekkah_dog.jpg",
     "unit_tests": 0,
     "description": "Rebekkah is a senior studying computer science. She enjoys reading, snowboarding, travelling, and hiking.",
-    "role": "She was responsible for the splash page and using the petfinder API to populate detail pages for the dogs."
+    "role": "She was responsible for the splash page and using the petfinder API to populate detail pages for the dogs.",
+    "fav_dog": ""
   },
   "ewk298":{
     "name": "Emily Kwong",
     "image_url": "/static/img/emily_dog.jpg",
     "unit_tests": 0,
     "description": "Emily is a senior in Computer Science. In her free time she enjoys cooking, reading, and video games.",
-    "role": "She is responsible for the animal shelter pages and finding shelter APIs."
+    "role": "She is responsible for the animal shelter pages and finding shelter APIs.",
+    "fav_dog": ""
   }
 }

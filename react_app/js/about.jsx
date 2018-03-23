@@ -21,6 +21,10 @@ const PersonCard = (props) => {
                         </td>
                     </tr>
                     <tr>
+                        <td>Favorite Dog:</td>
+                        <td>{props.fav_dog}</td>
+                    </tr>
+                    <tr>
                         <td>Commits:</td>
                         <td>{props.commits}</td>
                     </tr>
