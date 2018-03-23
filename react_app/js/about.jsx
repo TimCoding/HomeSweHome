@@ -67,6 +67,15 @@ export default class About extends Component {
 
     render() {
 
+        if(!(this.state.error == null)) {
+            return (
+                <div>
+                    <NavBar />
+                    <h1 className="text-danger">{this.state.error}</h1>
+                </div>
+            );
+        }
+
 
         let crew = (
             <h1 className="text-center" style={{fontSize: '6em', width: "100%"}}><PawSpinner id={"CrewPawSpinner"}/></h1>
