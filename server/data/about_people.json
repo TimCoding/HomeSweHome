@@ -12,7 +12,7 @@
     "image_url": "/static/img/godfrey_dog.jpg",
     "unit_tests": 6,
     "description": "Godfrey is a junior in Computer Science and likes to make graphics for fun.",
-    "role": "Godfrey was responsible for the frontend part of the project. He converted some of pages into REACT Components.",
+    "role": "Godfrey was responsible for the front end part of the project. He converted some of the pages into REACT Components.",
     "fav_dog":"Corgi"
   },
   "TimCoding":{
