@@ -20,8 +20,8 @@
     "image_url": "/static/img/tim_dog.jpg",
     "unit_tests": 0,
     "description": "Tim is a senior studying Computer Science at the University of Texas at Austin. He thinks dogs are cool.",
-    "role": "He was responsible for creating the models pages, creating them with HTML/CSS and Bootstrap.",
-    "fav_dog": ""
+    "role": "He was responsible for creating the models pages. He created some REACT components and API tests.",
+    "fav_dog": "Im allergic"
   },
   "rebekkahkoo":{
     "name": "Rebekkah Koo",
