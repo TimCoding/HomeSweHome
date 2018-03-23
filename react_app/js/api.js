@@ -23,11 +23,18 @@ function handleErrors(response) {
     if (!response.ok) {
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
-            throw Error(response.json()["message"]);
+            return response;
         }
-        throw Error(response.statusText);
+        throw new Error(response.statusText);
     }
     return response;
+}
+
+function throwError(json) {
+    if("message" in json && "code" in json){
+        throw new Error(json["message"]);
+    }
+    return json;
 }
 
 
@@ -35,12 +42,14 @@ export function fetchDog(dogID) {
     return fetch(BASE_API_URL + "dog/" + dogID + "/")
         .then(handleErrors)
         .then(response => response.json())
+        .then(throwError)
 }
 
 export function fetchDogNearby(dogID) {
     return fetch(BASE_API_URL + "dog/" + dogID + "/nearby/")
         .then(handleErrors)
         .then(response => response.json())
+        .then(throwError)
 }
 
 export function fetchDogs(limit, offset) {
@@ -50,18 +59,21 @@ export function fetchDogs(limit, offset) {
     }))
         .then(handleErrors)
         .then(response => response.json())
+        .then(throwError)
 }
 
 export function fetchShelter(shelterID) {
     return fetch(BASE_API_URL + "shelter/" + shelterID + "/")
         .then(handleErrors)
         .then(response => response.json())
+        .then(throwError)
 }
 
 export function fetchShelterNearby(shelterID) {
     return fetch(BASE_API_URL + "shelter/" + shelterID + "/nearby/")
         .then(handleErrors)
         .then(response => response.json())
+        .then(throwError)
 }
 
 export function fetchShelters(limit, offset) {
@@ -71,18 +83,21 @@ export function fetchShelters(limit, offset) {
     }))
         .then(handleErrors)
         .then(response => response.json())
+        .then(throwError)
 }
 
 export function fetchPark(parkID) {
     return fetch(BASE_API_URL + "park/" + parkID + "/")
         .then(handleErrors)
         .then(response => response.json())
+        .then(throwError)
 }
 
 export function fetchParkNearby(parkID) {
     return fetch(BASE_API_URL + "park/" + parkID + "/nearby/")
         .then(handleErrors)
         .then(response => response.json())
+        .then(throwError)
 }
 
 export function fetchParks(limit, offset) {
@@ -92,4 +107,5 @@ export function fetchParks(limit, offset) {
     }))
         .then(handleErrors)
         .then(response => response.json())
+        .then(throwError)
 }

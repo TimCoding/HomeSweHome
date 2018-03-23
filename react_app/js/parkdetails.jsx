@@ -27,21 +27,21 @@ export class ParkDetails extends Component{
 			parkJSON: parkJSON
 		}))
 		.catch(error => this.setState({
-			error: "DAMN"
+			error: error.message
 		}));
 		api.fetchParkNearby(this.props.parkID)
 		.then(nearbyJSON => this.setState({
 			shelterJSON: nearbyJSON["shelters"]
 		}))
 		.catch(error => this.setState({
-			error: "DAMN"
+			error: error.message
 		}));
 		api.fetchParkNearby(this.props.parkID)
 		.then(nearbyJSON => this.setState({
 			dogJSON: nearbyJSON["dogs"]
 		}))
 		.catch(error => this.setState({
-			error: "DAMN"
+			error: error.message
 		}));
 	}
 

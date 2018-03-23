@@ -25,14 +25,14 @@ export default class DogDetails extends Component {
                 dogJSON: dogJSON
             }))
             .catch(error => this.setState({
-                error: "DAMN"
+                error: error.message
             }));
 		api.fetchDogNearby(this.props.dogID)
             .then(nearbyJSON => this.setState({
                 parkJSON: nearbyJSON["parks"]
             }))
             .catch(error => this.setState({
-                error: "DAMN"
+                error: error.message
             }));
     }
 

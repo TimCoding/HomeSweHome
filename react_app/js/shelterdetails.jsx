@@ -29,14 +29,14 @@ export class ShelterDetails extends Component {
       shelterJSON: shelterJSON
     }))
     .catch(error => this.setState({
-      error: "DAMN"
+      error: error.message
     }));
     api.fetchShelterNearby(this.props.shelterID)
     .then(nearbyJSON => this.setState({
       parkJSON: nearbyJSON["parks"]
     }))
     .catch(error => this.setState({
-      error: "DAMN"
+      error: error.message
     }));
   }
 

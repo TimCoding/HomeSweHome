@@ -27,7 +27,7 @@ export default class ModelPage extends Component {
                 dogsJSON: dogsJSON
             }))
             .catch(error => this.setState({
-                error: "fetch dog api error"
+                error: "Dog Fetching API Error"
             }));
 		} else if (this.props.model == 'parks') {
 			api.fetchParks(12)
@@ -35,7 +35,7 @@ export default class ModelPage extends Component {
                 parksJSON: parksJSON
             }))
             .catch(error => this.setState({
-                error: "fetch parks api error"
+                error: "Dog Fetching API Error"
             }));
 		} else if (this.props.model == 'shelters') {
 			api.fetchShelters(12)
@@ -43,7 +43,7 @@ export default class ModelPage extends Component {
                 sheltersJSON: sheltersJSON
             }))
             .catch(error => this.setState({
-                error: "fetch shelter api error"
+                error: "Dog Fetching API Error"
             }));
 		} else {
 			this.setState({error: "INVALID MODEL PROP"});

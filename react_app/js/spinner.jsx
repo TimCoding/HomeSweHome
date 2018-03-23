@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 export class PawSpinner extends Component {
     render() {
         return (
-            <i className="fas fa-paw fa-spin text-primary"></i>
+            <FontAwesomeIcon className="text-primary" icon="paw" spin/>
         )
     }
 }

@@ -48,7 +48,8 @@ export default class About extends Component {
         super(props);
 
         this.state = {
-            aboutData: null
+            aboutData: null,
+            error: null
         };
     }
 
@@ -59,7 +60,9 @@ export default class About extends Component {
                 this.setState({
                     aboutData: response
                 });
-            })
+            }).catch(error => this.setState({
+                "error": error.message
+            }))
     }
 
     render() {
