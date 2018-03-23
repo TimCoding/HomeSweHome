@@ -34,9 +34,9 @@
   "ewk298":{
     "name": "Emily Kwong",
     "image_url": "/static/img/emily_dog.jpg",
-    "unit_tests": 0,
+    "unit_tests": 5,
     "description": "Emily is a senior in Computer Science. In her free time she enjoys cooking, reading, and video games.",
     "role": "She is responsible for the animal shelter pages and finding shelter APIs.",
-    "fav_dog": ""
+    "fav_dog": "I'm allergic but that doesnt stop me!! Corgis"
   }
 }
