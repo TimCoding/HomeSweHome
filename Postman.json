@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0b9279a4-e53c-4e0e-bc82-5065388ee14a",
+						"id": "cb3261c8-c151-4698-a533-8d44bbd53e7d",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Query for specific dog, DIVA\", function () {",
@@ -47,6 +47,10 @@
 							"pm.test(\"Checking shelter id of DIVA\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.shelter_id).to.eql(\"TX443\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
 							"});"
 						]
 					}
@@ -75,12 +79,54 @@
 			"response": []
 		},
 		{
+			"name": "Query For Individual Dogs with ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "886d220d-7676-475f-baff-3cd7c0addd3f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"BAD DOG Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"A dog with that ID was not found.\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/dog/1/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"dog",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Query For Parks Near Individual Dog",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "25f937c3-e8df-41ba-9278-8c9af2ab120b",
+						"id": "c7069615-6a07-4140-aacc-35a34c811226",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -112,6 +158,10 @@
 							"pm.test(\"Check name of park 5\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.parks[4].name).to.eql(\"Quorum Park\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
 							"});"
 						]
 					}
@@ -140,17 +190,57 @@
 			"response": []
 		},
 		{
+			"name": "Query For Parks Near Individual Dog with ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c2836377-8d28-417c-a2ee-8040f8e1c27e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"BAD DOG Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"A dog with that ID was not found.\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/dog/1/nearby",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"dog",
+						"1",
+						"nearby"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Query for List of Dogs: Limit 10",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "d9d851d9-1de4-4081-a56d-2fc3e5f92842",
+						"id": "d5c2678a-710f-46e4-8caa-ac6ad874705a",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Response time is less than 2000ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
-							"});",
+							"",
 							"",
 							"pm.test(\"Your test name\", function () {",
 							"    var jsonData = pm.response.json();",
@@ -185,6 +275,10 @@
 							"    pm.expect(jsonData.results[4].name).to.eql(\"Maya\");",
 							"    pm.expect(jsonData.results[4].shelter_id).to.eql(\"TX2237\");",
 							"    pm.expect(jsonData.results[4].id).to.eql(41099665);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
 							"});"
 						]
 					}
@@ -502,6 +596,136 @@
 					"path": [
 						"api",
 						"parks",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query for shelter with ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3b7aaca6-1f5f-42c3-ac96-2d4ac31db3a1",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"A shelter with that ID was not found.\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/shelter/1",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"shelter",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query for individual Park WITH ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba4e6479-3432-438b-b3e1-2f72fa5a8066",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"A park with that ID was not found.\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/park/100/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"park",
+						"100",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query for dogs near a park WITH ERROR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0eb91b70-44b9-4564-91d8-c0790c510c57",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"A park with that ID was not found.\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/park/100/nearby/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"park",
+						"100",
+						"nearby",
 						""
 					]
 				}
