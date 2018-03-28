@@ -11,6 +11,13 @@ from server.geo import order_zips
 NEARBY_LIMIT = 5
 
 
+class ResponseError(Exception):
+
+    def __init__(self, message, response):
+        super().__init__(message)
+        self.response = response
+
+
 @contextmanager
 def make_session():
     session = db_session()
@@ -36,11 +43,31 @@ def retry_once(f):
     return wrapped
 
 
+def convert_error_response(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        try:
+            return f(*args, **kwargs)
+        except ResponseError as e:
+            return e.response
+    return wrapped
+
+
 def raise_error(message, code=400):
     return jsonify({
         "message": message,
         "code": code
     }), code
+
+
+def get_int_arg(arg, default):
+    try:
+        return int(request.args.get(arg, default))
+    except TypeError:
+        raise ResponseError(
+            "Argument is not int.",
+            raise_error("The {0} argument must be an integer!".format(arg), 400)
+        )
 
 
 @app.route("/api/")
@@ -50,6 +77,7 @@ def api_root():
 
 @app.route("/api/dog/<int:dog_id>/")
 @retry_once
+@convert_error_response
 def get_dog(dog_id):
     with make_session() as session:
         dog = session.query(Dog).get(dog_id)
@@ -62,6 +90,7 @@ def get_dog(dog_id):
 
 @app.route("/api/dog/<int:dog_id>/nearby/")
 @retry_once
+@convert_error_response
 def get_dog_nearby(dog_id):
     with make_session() as session:
         dog = session.query(Dog).get(dog_id)
@@ -83,10 +112,11 @@ def get_dog_nearby(dog_id):
 
 @app.route("/api/dogs/")
 @retry_once
+@convert_error_response
 def get_dogs():
     with make_session() as session:
-        start = int(request.args.get("start", 0))
-        limit = int(request.args.get("limit", 10))
+        start = get_int_arg("start", 0)
+        limit = get_int_arg("limit", 10)
         if start < 0:
             return raise_error("The start parameter must be non-negative.")
         if limit <= 0:
@@ -106,20 +136,44 @@ def get_dogs():
 
 @app.route("/api/shelter/<shelter_id>/")
 @retry_once
+@convert_error_response
 def get_shelter(shelter_id):
     with make_session() as session:
         shelter = session.query(Shelter).get(shelter_id)
         if shelter is None:
-            return raise_error("A shelter with that ID was not found.")
+            return raise_error("A shelter with that ID was not found.", 404)
         shelter_json = shelter.jsonify()
-        shelter_json["dogs"] = [
-            dog.jsonify() for dog in shelter.dogs
-        ]
         return jsonify(shelter_json)
+
+
+@app.route("/api/shelter/<shelter_id>/dogs/")
+@retry_once
+@convert_error_response
+def get_dogs_in_shelter(shelter_id):
+    with make_session() as session:
+        start = get_int_arg("start", 0)
+        limit = get_int_arg("limit", 10)
+        if start < 0:
+            return raise_error("The start parameter must be non-negative.")
+        if limit <= 0:
+            return raise_error("The limit parameter must be greater than 0.")
+        base_query = session.query(Dog).filter(Dog.shelter_id == shelter_id)
+        count = base_query.count()
+        dogs = base_query.offset(start).limit(limit).all()
+
+        return jsonify({
+            "start": start,
+            "limit": limit,
+            "total": count,
+            "results": [
+                dog.jsonify() for dog in dogs
+            ]
+        })
 
 
 @app.route("/api/shelter/<shelter_id>/nearby/")
 @retry_once
+@convert_error_response
 def get_shelter_nearby(shelter_id):
     with make_session() as session:
         shelter = session.query(Shelter).get(shelter_id)
@@ -141,10 +195,11 @@ def get_shelter_nearby(shelter_id):
 
 @app.route("/api/shelters/")
 @retry_once
+@convert_error_response
 def get_shelters():
     with make_session() as session:
-        start = int(request.args.get("start", 0))
-        limit = int(request.args.get("limit", 10))
+        start = get_int_arg("start", 0)
+        limit = get_int_arg("limit", 10)
         if start < 0:
             return raise_error("The start parameter must be non-negative.")
         if limit <= 0:
@@ -164,6 +219,7 @@ def get_shelters():
 
 @app.route("/api/park/<park_id>/")
 @retry_once
+@convert_error_response
 def get_park(park_id):
     with make_session() as session:
         park = session.query(Park).get(park_id)
@@ -175,6 +231,7 @@ def get_park(park_id):
 
 @app.route("/api/park/<park_id>/nearby/")
 @retry_once
+@convert_error_response
 def get_park_nearby(park_id):
     with make_session() as session:
         park = session.query(Park).get(park_id)
@@ -196,10 +253,11 @@ def get_park_nearby(park_id):
 
 @app.route("/api/parks/")
 @retry_once
+@convert_error_response
 def get_parks():
     with make_session() as session:
-        start = int(request.args.get("start", 0))
-        limit = int(request.args.get("limit", 10))
+        start = get_int_arg("start", 0)
+        limit = get_int_arg("limit", 10)
         if start < 0:
             return raise_error("The start parameter must be non-negative.")
         if limit <= 0:

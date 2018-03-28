@@ -69,6 +69,16 @@ export function fetchShelter(shelterID) {
         .then(throwError)
 }
 
+export function fetchShelterDogs(shelterID, limit, offset) {
+    return fetch(BASE_API_URL + "shelter/" + shelterID + "/dogs/" + parameterize({
+        "start": offset || 0,
+        "limit": limit  || 10
+    }))
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
 export function fetchShelterNearby(shelterID) {
     return fetch(BASE_API_URL + "shelter/" + shelterID + "/nearby/")
         .then(handleErrors)
