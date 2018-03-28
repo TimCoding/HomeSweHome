@@ -5,6 +5,14 @@ import math
 zip_locs = {}
 zips = []
 
+
+class ZipNotFoundException(Exception):
+
+    def __init__(self, zipcode):
+        super().__init__("Zipcode of {0} was not found!".format(zipcode))
+        self.zipcode = zipcode
+
+
 # do all file processing at module load time
 zips_location = os.path.join(os.path.dirname(__file__), "data/texas_zips.csv")
 
@@ -41,6 +49,10 @@ def haversine(loc1, loc2):
 def get_zip_distance(zip1, zip2):
     if zip1 == zip2:
         return 0.0
+    if zip1 not in zip_locs:
+        raise ZipNotFoundException(zip1)
+    if zip2 not in zip_locs:
+        raise ZipNotFoundException(zip2)
     return haversine(
         zip_locs[zip1],
         zip_locs[zip2]
@@ -57,10 +69,14 @@ def get_zip_distance_comparator(source):
 
 
 def order_zips(source):
+    if source not in zip_locs:
+        raise ZipNotFoundException(source)
     return sorted(zip_locs.keys(), key=cmp_to_key(get_zip_distance_comparator(source)))
 
 
 def zips_in_radius(source, km):
+    if source not in zip_locs:
+        raise ZipNotFoundException(source)
     in_radius = (zip_loc for zip_loc in zip_locs.keys() if get_zip_distance(source, zip_loc) <= km)
     return sorted(in_radius, key=cmp_to_key(get_zip_distance_comparator(source)))
 

@@ -6,7 +6,7 @@ from flask import jsonify, request
 from server import app
 from server.models import Dog, Shelter, Park
 from server.database import db_session
-from server.geo import order_zips
+from server.geo import order_zips, ZipNotFoundException
 
 NEARBY_LIMIT = 5
 
@@ -97,7 +97,13 @@ def get_dog_nearby(dog_id):
         if dog is None:
             return raise_error("A dog with that ID was not found.", 404)
         zipcode = dog.zipcode
-        nearby_zips = order_zips(zipcode)[0:10]
+        try:
+            nearby_zips = order_zips(zipcode)[0:10]
+        except ZipNotFoundException:
+            return jsonify({
+                "parks": [],
+                "shelters": []
+            })
         parks = session.query(Park).filter(Park.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
         shelters = session.query(Shelter).filter(Shelter.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
         return jsonify({
@@ -180,7 +186,13 @@ def get_shelter_nearby(shelter_id):
         if shelter is None:
             return raise_error("A shelter with that ID was not found.")
         zipcode = shelter.zipcode
-        nearby_zips = order_zips(zipcode)[0:10]
+        try:
+            nearby_zips = order_zips(zipcode)[0:10]
+        except ZipNotFoundException:
+            return jsonify({
+                "parks": [],
+                "dogs": []
+            })
         parks = session.query(Park).filter(Park.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
         dogs = session.query(Dog).filter(Dog.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
         return jsonify({
@@ -238,7 +250,13 @@ def get_park_nearby(park_id):
         if park is None:
             return raise_error("A park with that ID was not found.", 404)
         zipcode = park.zipcode
-        nearby_zips = order_zips(zipcode)[0:10]
+        try:
+            nearby_zips = order_zips(zipcode)[0:10]
+        except ZipNotFoundException:
+            return jsonify({
+                "dogs": [],
+                "shelters": []
+            })
         shelters = session.query(Shelter).filter(Shelter.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
         dogs = session.query(Dog).filter(Dog.zipcode.in_(nearby_zips)).limit(NEARBY_LIMIT).all()
         return jsonify({
