@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+
 
 export default class ModelPagination extends Component {
 	constructor() {
@@ -37,13 +39,14 @@ export default class ModelPagination extends Component {
 
     const renderPageNumbers = pageNumbers.map(number => {
         return (
-        <li
-            key={number}
-            id={number}
-            onClick={this.handleClick}
-        >
-            {number}
-        </li>
+        <PaginationItem>
+            <PaginationLink
+							key={number}
+	            id={number}
+	            onClick={this.handleClick}>
+						{number}
+						</PaginationLink>
+        </PaginationItem>
         );
     });
 
@@ -52,9 +55,15 @@ export default class ModelPagination extends Component {
         <ul>
             {renderTodos}
         </ul>
-        <ul id="page-numbers">
-            {renderPageNumbers}
-        </ul>
+        <Pagination id="page-numbers">
+					<PaginationItem>
+						<PaginationLink previous href="#" />
+					</PaginationItem>
+          {renderPageNumbers}
+					<PaginationItem>
+          	<PaginationLink next href="#" />
+        	</PaginationItem>
+        </Pagination>
         </div>
     );
     }
