@@ -8,6 +8,7 @@
 
 
 const BASE_API_URL = "/api/";
+const PAGE_SIZE = 10;
 
 
 function parameterize(params) {
@@ -118,4 +119,63 @@ export function fetchParks(limit, offset) {
         .then(handleErrors)
         .then(response => response.json())
         .then(throwError)
+}
+
+
+export class Paginator{
+
+    constructor(per_page, call, ...args){
+        this.pages = {};
+        this.per_page = per_page;
+        this.total = 0;
+        this.current = 0;
+        this.call = (page) => {
+            return call(...args, this.per_page, this.per_page * page).then(response => {
+                let results = response["results"];
+                this.total = response["total"];
+                this.pages[page] = results;
+                return results;
+            });
+        };
+    }
+
+    fetchPage(page){
+        if(page in this.pages){
+            let self = this;
+            return new Promise((resolve, reject) => {
+                resolve(self.pages[page]);
+            });
+        }
+        return this.call(page);
+    }
+
+    fetchCurrentPage(){
+        return this.fetchPage(this.current);
+    }
+
+    fetchFirstPage(){
+        this.current = 0;
+        return this.fetchCurrentPage();
+    }
+
+    fetchLastPage(){
+        this.current = Math.floor(this.total / this.per_page);
+        return this.fetchCurrentPage();
+    }
+
+    fetchNextPage(){
+        this.current++;
+        if (this.current > Math.floor(this.total / this.per_page)){
+            this.current = Math.floor(this.total / this.per_page);
+        }
+        return this.fetchCurrentPage();
+    }
+
+    fetchPreviousPage(){
+        this.current--;
+        if (this.current < 0){
+            this.current = 0;
+        }
+        return this.fetchCurrentPage();
+    }
 }

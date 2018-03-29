@@ -189,15 +189,15 @@ export default class About extends Component {
                                 <table className="table">
                                     <tr>
                                         <td>Total Commits:</td>
-                                        <td>{this.state.aboutData ? this.state.aboutData.totals.commits : "..."}</td>
+                                        <td>{this.state.aboutData ? this.state.aboutData.totals.commits : <PawSpinner/>}</td>
                                     </tr>
                                     <tr>
                                         <td>Total Issues:</td>
-                                        <td>{this.state.aboutData ? this.state.aboutData.totals.issues : "..."}</td>
+                                        <td>{this.state.aboutData ? this.state.aboutData.totals.issues : <PawSpinner/>}</td>
                                     </tr>
                                     <tr>
                                         <td>Total Unit Tests:</td>
-                                        <td>{this.state.aboutData ? this.state.aboutData.totals.unit_tests : "..."}</td>
+                                        <td>{this.state.aboutData ? this.state.aboutData.totals.unit_tests : <PawSpinner/>}</td>
                                     </tr>
                                 </table>
                             </div>

@@ -17,11 +17,25 @@ export class ShelterDetails extends Component {
     constructor(props) {
         super(props);
 
+        this.dogPaginator = new api.Paginator(8, api.fetchShelterDogs, this.props.shelterID);
+
         this.state = {
             shelterJSON: null,
             error: null,
             dogs: []
-        }
+        };
+
+        this.clickLoadMoreDog = this.clickLoadMoreDog.bind(this);
+    }
+
+    clickLoadMoreDog(){
+        this.dogPaginator.fetchNextPage()
+            .then(dogsJSON => this.setState({
+                dogs: this.state.dogs.concat(dogsJSON)
+            }))
+            .catch(error => this.setState({
+                error: error.message
+            }));
     }
 
     componentDidMount() {
@@ -32,9 +46,9 @@ export class ShelterDetails extends Component {
             .catch(error => this.setState({
                 error: error.message
             }));
-        api.fetchShelterDogs(this.props.shelterID)
+        this.dogPaginator.fetchFirstPage()
             .then(dogsJSON => this.setState({
-                dogs: dogsJSON["results"]
+                dogs: this.state.dogs.concat(dogsJSON)
             }))
             .catch(error => this.setState({
                 error: error.message
@@ -75,7 +89,7 @@ export class ShelterDetails extends Component {
                     <DogCard dogData={dogi}/>
                 </Col>
             );
-        })
+        });
         let parkList = (
             <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner/></h1>
         );
@@ -131,6 +145,7 @@ export class ShelterDetails extends Component {
                     <Row>
                         {dogList}
                     </Row>
+                    <button onClick={this.clickLoadMoreDog}>Load More</button>
                 </Container>
                 <br/>
 
