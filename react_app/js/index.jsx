@@ -9,6 +9,8 @@ import './shelterdetails.jsx'
 import './parkdetails.jsx'
 import './about.jsx'
 import './search.jsx'
+import './modelPagination.jsx'
+
 
 // Only need to have this once, here. Uses closures
 window.dom_render = function(component, props) {

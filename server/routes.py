@@ -34,13 +34,17 @@ def cache_bust_static(endpoint, values):
 def shutdown_session(exception=None):
     database.db_session.remove()
 
+@app.route("/paginationtest")
+def pagination():
+    return render_template("render_component.html", component_name="ModelPagination")
+
 @app.route("/")
 def splash():
     return render_template("render_component.html", component_name="Splash")
 
-@app.route("/search")
+@app.route("/search/")
 def search():
-    return render_template("render_component.html", component_name="Seach")
+    return render_template("render_component.html", component_name="Search")
 
 @app.route("/dogs/")
 def dog_model():

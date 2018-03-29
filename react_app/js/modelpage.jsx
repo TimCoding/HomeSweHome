@@ -35,7 +35,7 @@ export default class ModelPage extends Component {
                 parksJSON: parksJSON
             }))
             .catch(error => this.setState({
-                error: "Dog Fetching API Error"
+                error: "Park Fetching API Error"
             }));
 		} else if (this.props.model == 'shelters') {
 			api.fetchShelters(12)
@@ -43,16 +43,15 @@ export default class ModelPage extends Component {
                 sheltersJSON: sheltersJSON
             }))
             .catch(error => this.setState({
-                error: "Dog Fetching API Error"
+                error: "Shelter Fetching API Error"
             }));
 		} else {
 			this.setState({error: "INVALID MODEL PROP"});
 		}
-        
-    }
+}
 
 	render(){
-		
+
 		if(!(this.state.error == null)){
             return (
                 <div>
@@ -117,7 +116,7 @@ export default class ModelPage extends Component {
 	                </Container>
 				</div>
 			);
-		} 
+		}
 
 		if (this.props.model == 'parks') {
 			const staticContent = (
@@ -131,8 +130,8 @@ export default class ModelPage extends Component {
 								time with your favorite four-legged buddy. Here is a selection of all parks that we
 								recommend. You will find shelters and dogs in need of an adoption near each park you look at.
 								Please look around and plan your first puppy date today!</p>
-							<h3 className="models_content"> "It is amazing how much love and laughter they bring into our lives and even how much closer 
-								we become with each other because of them." – John Grogan 
+							<h3 className="models_content"> "It is amazing how much love and laughter they bring into our lives and even how much closer
+								we become with each other because of them." – John Grogan
 							</h3>
 						</Col>
 						<Col md="4">
@@ -184,7 +183,7 @@ export default class ModelPage extends Component {
 					<Row className="models_top">
 						<Col md="8">
 							<p className="models_content">Here you can browse a variety of adoption centers or animal shelters around Texas. Take a look around, your new best friend is waiting!</p>
-							<h3 className="models_content">"Dogs are great. Why stop at one? Get two, or three, or four. Just get the whole damn 
+							<h3 className="models_content">"Dogs are great. Why stop at one? Get two, or three, or four. Just get the whole damn
 								shelter. Wouldn't you agree?" -Timothy Ho
 							</h3>
 						</Col>
