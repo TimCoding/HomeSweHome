@@ -121,10 +121,68 @@ export function fetchParks(limit, offset) {
         .then(throwError)
 }
 
+// TODO: Create search API bindings for models
 
+/**
+ * Usage:
+ * The basic usage is to make an instance of this class, supplying it an API function from this file.
+ * The results are not guaranteed to be accurate until a fetch method is called for the first time.
+ * `fetchFirstPage()` should always be accurate, so this is a good first function to call.
+ * After the first fetch is successfully received, the instance should be fully initialized.
+ *
+ * Example in a React component:
+ * <code>
+ *     constructor(){
+ *         this.parkPaginator = new Paginator(4, fetchParks);
+ *
+ *         // Needed for some weird `this` business
+ *         this.loadPreviousButtonClick = this.loadPreviousButtonClick.bind(this);
+ *         this.loadNextButtonClick = this.loadNextButtonClick.bind(this);
+ *     }
+ *
+ *     componentDidMount(){
+ *         this.parkPaginator.fetchFirstPage()
+ *             .then((results) => this.setState({
+ *                 parks: results
+ *             }););
+ *     }
+ *
+ *     loadNextButtonClick(){
+ *         this.parkPaginator.fetchNextPage()
+ *             .then((results) => this.setState({
+ *                 parks: results
+ *             }););
+ *     }
+ *
+ *     loadPreviousButtonClick(){
+ *         this.parkPaginator.fetchPreviousPage()
+ *             .then((results) => this.setState({
+ *                 parks: results
+ *             }););
+ *     }
+ *
+ *     render(){
+ *         if(!this.parkPaginator().isInitialized()){
+ *             return (<div>Loading...</div>);
+ *         }
+ *         let parkComponents = this.state.parks.map; //... map the result JSON list to components
+ *         return (
+ *             <div>
+ *                 {parkComponents}
+ *                 {this.parkPaginator.hasPreviousPage() ? <button onClick={this.loadPreviousButtonClick}>Previous</button> : ""}
+ *                 {this.parkPaginator.hasNextPage() ? <button onClick={this.loadNextButtonClick}>Next</button> : ""}
+ *             </div>
+ *         );
+ *     }
+ * </code>
+ */
 export class Paginator{
 
     /**
+     * Constructor to make a Paginator object.
+     *
+     * Make sure to look at usage to see how to use.
+     *
      * @param {number} per_page - Number of results to retrieve per fetch
      * @param {function} call - API endpoint function
      * @param {...Object} args - Additional arguments to pass to the endpoint function
@@ -134,8 +192,10 @@ export class Paginator{
         this.per_page = per_page;
         this.total = MAX_RESULTS;
         this.current = 0;
+        this.initialized = false;
         this.call = (page) => {
             return call(...args, this.per_page, this.per_page * page).then(response => {
+                this.initialized = true;
                 let results = response["results"];
                 this.total = response["total"];
                 this.pages[page] = results;
@@ -144,10 +204,43 @@ export class Paginator{
         };
     }
 
-    hasPage(page){
-        return page >= 0 && page <= Math.floor(this.total / this.per_page);
+    /**
+     * Checks whether or not the first request has been made to populate the total number of results
+     * @returns {boolean} - True if the total number of results has been properly initialized
+     */
+    isInitialized(){
+        return this.initialized;
     }
 
+    /**
+     * Returns the total amount of pages in the results
+     * The highest page index would be totalPages() - 1 (0 indexed)
+     * (Is not guaranteed to be correct is not initialized yet)
+     *
+     * @returns {number} - total number of pages in the result
+     */
+    totalPages(){
+        return Math.floor(this.total / this.per_page) + 1;
+    }
+
+    /**
+     * Checks if the the results have a page corresponding with the given page index
+     * (Is not guaranteed to be correct is not initialized yet)
+     *
+     * @param {number} page - Index of the page to check
+     * @returns {boolean} True if the page is in the bounds of the results
+     */
+    hasPage(page){
+        return page >= 0 && page < this.totalPages();
+    }
+
+    /**
+     * Fetches a list of JSON results for the given page
+     * (Is not guaranteed to be correct is not initialized yet)
+     *
+     * @param page - Index of the page to check
+     * @returns {Promise} - Promise that returns an array of at most `per_page` JSON results
+     */
     fetchPage(page){
         if(!this.hasPage(page)){
             return new Promise((resolve, reject) => {
@@ -163,37 +256,93 @@ export class Paginator{
         return this.call(page);
     }
 
+    /**
+     * Returns the index of the current page
+     * @returns {number} the index of the current page
+     */
+    getCurrentPageNumber(){
+        return this.current;
+    }
+
+    /**
+     * Sets the new index of the current page
+     * @param {number} index - the new index of the current page
+     */
+    setCurrentPageNumber(index){
+        this.current = index;
+    }
+
+    /**
+     * Checks if the the results have a current page
+     * (Is not guaranteed to be correct is not initialized yet)
+     *
+     * @returns {boolean} True if the current page is in the bounds of the results
+     */
     hasCurrentPage() {
         return this.hasPage(this.current);
     }
 
+    /**
+     * Fetches a list of JSON results for the current page
+     * @returns {Promise} - Promise that returns an array of at most `per_page` JSON results
+     */
     fetchCurrentPage(){
         return this.fetchPage(this.current);
     }
 
+    /**
+     * Fetches a list of JSON results for the first page of the results
+     * @returns {Promise} - Promise that returns an array of at most `per_page` JSON results
+     */
     fetchFirstPage(){
         this.current = 0;
         return this.fetchCurrentPage();
     }
 
+    /**
+     * Fetches a list of JSON results for the last page of the results
+     * (Is not guaranteed to be correct is not initialized yet)
+     *
+     * @returns {Promise} - Promise that returns an array of at most `per_page` JSON results
+     */
     fetchLastPage(){
-        this.current = Math.floor(this.total / this.per_page);
+        this.current = this.totalPages() - 1;
         return this.fetchCurrentPage();
     }
 
+    /**
+     * Checks if the the results have a next page from the current page
+     * (Is not guaranteed to be correct is not initialized yet)
+     *
+     * @returns {boolean} True if the page after the current page is in the bounds of the results
+     */
     hasNextPage(){
         return this.hasPage(this.current + 1);
     }
 
+    /**
+     * Fetches a list of JSON results for the page after the current page
+     * (Is not guaranteed to be correct is not initialized yet)
+     *
+     * @returns {Promise} - Promise that returns an array of at most `per_page` JSON results
+     */
     fetchNextPage(){
         this.current++;
         return this.fetchCurrentPage();
     }
 
+    /**
+     * Checks if the the results have a page before the current page
+     * @returns {boolean} True if the page before the current page is in the bounds of the results
+     */
     hasPreviousPage(){
         return this.hasPage(this.current - 1);
     }
 
+    /**
+     * Fetches a list of JSON results for the page before the current page
+     * @returns {Promise} - Promise that returns an array of at most `per_page` JSON results
+     */
     fetchPreviousPage(){
         this.current--;
         return this.fetchCurrentPage();
