@@ -1,8 +1,0 @@
-import React, { Component } from 'react';
-
-export default class ModelPagination extends Component {
-	constructor(props){
-		super(props);
-		/*Set state here*/
-	}
-}
