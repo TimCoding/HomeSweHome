@@ -16,20 +16,24 @@ export default class ModelPagination extends Component {
       }
 
     handleClick(event) {
-        var mid = (this.startPage + this.endPage) / 2;
+        var mid = (this.state.startPage + this.state.endPage) / 2;
         var shift = Number(event.target.id) - mid;
         var newStart = this.state.startPage + shift;
         var newEnd = this.state.endPage + shift;
-        alert("MID VALUE: " + mid);
-        alert("SHIFT VALUE: " + shift);
-        alert("WHAT WE CLICK ON: " + Number(event.target.id));
-        alert("START VALUE: " + Number(newStart));
-        alert("END VALUE: " + Number(newEnd));
-        this.setState({
-            currentPage: Number(event.target.id),
-            startPage: newStart,
-            endPage: newEnd
-        });
+				var max = Math.ceil(this.state.todos.length / this.state.todosPerPage);
+				if(newStart < 1){
+					newStart = 1;
+					newEnd = 5
+				}
+				if(newEnd > max){
+					newStart = max - 4;
+					newEnd = max;
+				}
+				this.setState({
+						currentPage: Number(event.target.id),
+						startPage: newStart,
+						endPage: newEnd
+				});
     }
 
     render() {
