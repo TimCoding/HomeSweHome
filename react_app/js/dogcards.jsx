@@ -1,44 +1,48 @@
 import React, {Component} from 'react';
 import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button
 } from 'reactstrap';
 import * as urls from './urls.js';
 
 const DogCard = (props) => {
-    let dogBreed = props.dogData.breeds.map(type => {
-        return (
-            <ul>
-           <li>{type}</li>
-           </ul>
-        );
-    })
+  let dogBreed = props.dogData.breeds.map(type => {
     return (
-        <div className="cards">
-            <Card>
-                {/*style={{width:"10%", height:"10%"}}*/}
-                <CardImg src={props.dogData.image_urls != "" ? props.dogData.image_urls : "/static/img/homeswehomelogo.svg"} alt="Dog image" />
-                <CardBody>
-                    {/* don't know if these props work properly need data to test */}
-                    <CardTitle><p className="dogCardName">{props.dogData.name}</p></CardTitle>
-                    <CardText>
-                        <ul className="fa-ul">
-                            <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Breed:</b> 
-                                <p className="dogCardBreed">{dogBreed}</p>
-                            </li>
-                            <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Housetrained:</b>
-                                <p className="dogCardHouseTrained">{props.dogData.housetrained === true ? "Yes" : "No"}</p>
-                            </li>
-                            <li><span className="fa-li"><i className="fas fa-paw"></i></span><b>Friendly:</b> 
-                                <p className="dogCardFriendly">{props.dogData.friendly ? "Yes" : "No"}</p>
-                            </li>
-                        </ul>
-                    </CardText>
-                    <a className="btn btn-primary" href={urls.dogURL(props.dogData.id)}>Meet {props.dogData.name}</a>
-                </CardBody>
-            </Card>
-        </div>
+      <div>
+        <li>{type}</li>
+      </div>
     );
+  })
+
+  return (
+    <div className="cards">
+      <Card>
+        <CardImg className="cardImg"
+                 src={props.dogData.image_urls != "" ? props.dogData.image_urls : "/static/img/homeswehomelogo.svg"} 
+                 alt="Dog image" />
+        <span className="hoverText">
+          <CardBody>
+            <CardTitle><h3 className="dogCardName">{props.dogData.name}</h3></CardTitle>
+            <CardText>
+              <div>
+                <b>Breed: </b>
+                <span className="dogCardBreed">{dogBreed}</span>
+              </div>
+              <div>
+                <b>Housetrained: </b>
+                <span className="dogCardHouseTrained">{props.dogData.housetrained === true ? "Yes" : "No"}</span>
+              </div>
+              <div>
+                <b>Friendly: </b>
+                <span className="dogCardFriendly">{props.dogData.friendly ? "Yes" : "No"}</span>
+              </div>
+            </CardText>
+            <a className="btn btn-primary" href={urls.dogURL(props.dogData.id)}>Meet {props.dogData.name}</a>
+          </CardBody>
+        </span>
+      </Card>
+    </div>
+  );
 };
 
 export default DogCard;

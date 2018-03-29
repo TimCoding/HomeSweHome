@@ -11,14 +11,14 @@ const ShelterContact = (props) => {
          </Col>
          <Col>
            <h1 className="shelterName">{props.shelterJSON.name}</h1>
-           <span className="text-muted">Address: 
-              <p className="shelterAddress">{props.shelterJSON.address != null ? 
+           <span className="text-muted">Address:
+              <span className="shelterAddress"> {props.shelterJSON.address != null ?
               props.shelterJSON.address : props.shelterJSON.city +", "+ props.shelterJSON.state}
-              </p>
+              </span>
            </span>
            <br/>
-           <span className="text-muted">Phone: 
-              <p className="shelterPhone">{props.shelterJSON.phone}</p>
+           <span className="text-muted">Phone:
+              <span className="shelterPhone"> {props.shelterJSON.phone}</span>
            </span>
            <br/>
            {/*<span className="text-muted">Yelp Rating: </span>*/}
