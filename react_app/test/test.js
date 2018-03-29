@@ -48,7 +48,7 @@ describe('Navbar Component', () => {
 describe('ShelterInfo Component', () => {
 	const shelterInfoJSON = {adoption_policy:"Adoption Policy", mission:"Mission", email:"email"}
 	const shelterInfoWrapper = shallow(<ShelterInfo desc={shelterInfoJSON}/>)
-	
+
 	it('render shelterinfo', () => {
 		// I think there is an error with dangerouslysetinnerhtml I cant get the data from there
 		// expect(shelterInfoWrapper.find('.shelterAdoptionPolicy').text()).to.equal("Adoption Policy")
@@ -58,8 +58,8 @@ describe('ShelterInfo Component', () => {
 })
 
 describe('InfoCard Component', () => {
-	const infoCardWrapper = shallow(<InfoCard center={"Adoption Center"} address={"address"} phone={"123"} />)
-	
+	const infoCardWrapper = shallow(<InfoCard name={"Adoption Center"} address={"address"} phone={"123"} />)
+
 	it('render infocard', () => {
 		expect(infoCardWrapper.find('.infoCardTitle').text()).to.equal("Adoption Center")
 		expect(infoCardWrapper.find('.infoCardAddress').text()).to.equal("address")
@@ -117,7 +117,7 @@ describe('ShelterCard Component', () => {
 describe('Carousel Component', () => {
 	const images = ["1", "2", "3"]
 	const carouselWrapper = shallow(<ControlledCarousel items={images}/>)
-	
+
 	it ('render sheltercard', () => {
 		expect(carouselWrapper.find(CarouselItem)).to.have.length(3)
 	})
