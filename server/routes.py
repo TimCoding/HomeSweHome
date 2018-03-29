@@ -38,6 +38,9 @@ def shutdown_session(exception=None):
 def splash():
     return render_template("render_component.html", component_name="Splash")
 
+@app.route("/search")
+def search():
+    return render_template("render_component.html", component_name="Seach")
 
 @app.route("/dogs/")
 def dog_model():
