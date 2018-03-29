@@ -38,6 +38,10 @@ def shutdown_session(exception=None):
 def test():
     return render_template("render_component.html", component_name="Filter")
 
+@app.route("/paginationtest")
+def pagination():
+    return render_template("render_component.html", component_name="ModelPagination")
+
 @app.route("/")
 def splash():
     return render_template("render_component.html", component_name="Splash")

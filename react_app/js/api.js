@@ -8,7 +8,7 @@
 
 
 const BASE_API_URL = "/api/";
-const PAGE_SIZE = 10;
+const MAX_RESULTS = 100000000;
 
 
 function parameterize(params) {
@@ -124,10 +124,15 @@ export function fetchParks(limit, offset) {
 
 export class Paginator{
 
+    /**
+     * @param {number} per_page - Number of results to retrieve per fetch
+     * @param {function} call - API endpoint function
+     * @param {...Object} args - Additional arguments to pass to the endpoint function
+     */
     constructor(per_page, call, ...args){
         this.pages = {};
         this.per_page = per_page;
-        this.total = 0;
+        this.total = MAX_RESULTS;
         this.current = 0;
         this.call = (page) => {
             return call(...args, this.per_page, this.per_page * page).then(response => {
@@ -139,7 +144,16 @@ export class Paginator{
         };
     }
 
+    hasPage(page){
+        return page >= 0 && page <= Math.floor(this.total / this.per_page);
+    }
+
     fetchPage(page){
+        if(!this.hasPage(page)){
+            return new Promise((resolve, reject) => {
+                resolve([]);
+            });
+        }
         if(page in this.pages){
             let self = this;
             return new Promise((resolve, reject) => {
@@ -147,6 +161,10 @@ export class Paginator{
             });
         }
         return this.call(page);
+    }
+
+    hasCurrentPage() {
+        return this.hasPage(this.current);
     }
 
     fetchCurrentPage(){
@@ -163,19 +181,21 @@ export class Paginator{
         return this.fetchCurrentPage();
     }
 
+    hasNextPage(){
+        return this.hasPage(this.current + 1);
+    }
+
     fetchNextPage(){
         this.current++;
-        if (this.current > Math.floor(this.total / this.per_page)){
-            this.current = Math.floor(this.total / this.per_page);
-        }
         return this.fetchCurrentPage();
+    }
+
+    hasPreviousPage(){
+        return this.hasPage(this.current - 1);
     }
 
     fetchPreviousPage(){
         this.current--;
-        if (this.current < 0){
-            this.current = 0;
-        }
         return this.fetchCurrentPage();
     }
 }

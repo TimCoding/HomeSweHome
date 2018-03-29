@@ -8,6 +8,7 @@ import './dogdetails.jsx'
 import './shelterdetails.jsx'
 import './parkdetails.jsx'
 import './about.jsx'
+import './modelPagination.jsx'
 import './dropdown.jsx'
 
 // Only need to have this once, here. Uses closures
