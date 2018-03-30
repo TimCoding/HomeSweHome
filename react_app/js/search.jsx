@@ -48,6 +48,18 @@ class Search extends React.Component {
   }
 
   render() {
+    /* Check for errors */
+    if(!(this.state.error == null)){
+      return (
+        <div>
+          <NavBar/>
+          <Container>
+            <h1 className="text-center text-danger">{this.state.error}</h1>
+          </Container>
+        </div>
+      );
+    }
+      
     /* Create static content */
     var dogStaticContent = (
       <Row>
@@ -73,59 +85,71 @@ class Search extends React.Component {
       </Row>
     );
 
+    /* Show Spinner */
+    if(this.state.dogsJSON == null || this.state.parksJSON == null || this.state.sheltersJSON == null) {
+        return (
+          <div>
+            <NavBar/>
+            <Container>
+              <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
+            </Container>
+          </div>
+        );
+      }
+
     /* Create card lists */
     var dogList;
     var parkList;
     var shelterList;
 
-    if (this.state.dogsJSON != null) {
-      dogList = this.state.dogsJSON.results.map(dog => {
-          return (
-            <Col md="3">
-              <DogCard dogData={dog}/>
-            </Col>
-          );
-        })
-      if(this.state.dogsJSON.total == 0) {
-        dogList = (
-            <Col md="12">
-              <p> No Results </p>
-            </Col>
-          );
-      }
-    } 
-    if (this.state.parksJSON != null) {
-      parkList = this.state.parksJSON.results.map(park => {
-          return (
-            <Col md="3">
-              <ParkCard parkData={park}/>
-            </Col>
-          );
-        })
-      if (this.state.parksJSON.total == 0) {
-        parkList = (
-            <Col md="12">
-              <p> No Results </p>
-            </Col>
-          );
-      }
+    
+    dogList = this.state.dogsJSON.results.map(dog => {
+        return (
+          <Col md="3">
+            <DogCard dogData={dog}/>
+          </Col>
+        );
+      })
+    if(this.state.dogsJSON.total == 0) {
+      dogList = (
+          <Col md="12">
+            <p> No Results </p>
+          </Col>
+        );
     }
-    if (this.state.sheltersJSON != null) {
-      shelterList = this.state.sheltersJSON.results.map(shelter => {
-          return (
-            <Col md="3">
-              <ShelterCard shelterData={shelter}/>
-            </Col>
-          );
-        })
-      if(this.state.sheltersJSON.total == 0) {
-        shelterList = (
-            <Col md="12">
-              <p> No Results </p>
-            </Col>
-          );
-      }
+    
+    
+    parkList = this.state.parksJSON.results.map(park => {
+        return (
+          <Col md="3">
+            <ParkCard parkData={park}/>
+          </Col>
+        );
+      })
+    if (this.state.parksJSON.total == 0) {
+      parkList = (
+          <Col md="12">
+            <p> No Results </p>
+          </Col>
+        );
     }
+    
+    
+    shelterList = this.state.sheltersJSON.results.map(shelter => {
+        return (
+          <Col md="3">
+            <ShelterCard shelterData={shelter}/>
+          </Col>
+        );
+      })
+    if(this.state.sheltersJSON.total == 0) {
+      shelterList = (
+          <Col md="12">
+            <p> No Results </p>
+          </Col>
+        );
+    }
+    
 
     return (
       <div>
