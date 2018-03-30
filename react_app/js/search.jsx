@@ -6,6 +6,8 @@ import DogCard from './dogcards.jsx';
 import ShelterCard from './sheltercards.jsx'
 import ParkCard from './parkcards.jsx';
 
+import * as api from './api.js';
+
 class Search extends React.Component {
   constructor(props) {
   {
@@ -19,27 +21,63 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    //do api calls here
+    /* do api calls here */
+    api.fetchDogsSearchFull(this.props.query)
+    .then(dogsJSON => this.setState({
+        dogsJSON: dogsJSON
+      }))
+    .catch(error => this.setState({
+        error: "Dog Searching API Error"
+    }));
+
+    api.fetchSheltersSearchFull(this.props.query)
+    .then(sheltersJSON => this.setState({
+        sheltersJSON: sheltersJSON
+      }))
+    .catch(error => this.setState({
+        error: "Shelter Searching API Error"
+    }));
+
+    api.fetchParksSearchFull(this.props.query)
+    .then(parksJSON => this.setState({
+        parksJSON: parksJSON
+      }))
+    .catch(error => this.setState({
+        error: "Park Searching API Error"
+    }));
   }
 
   render() {
-    
-    // if(this.state.dogsJSON == null) {
-    //   return (
-    //       <div> 
-    //           <Container>
-    //               <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
-    //           </Container>
-    //       </div>
-    //   );
-    // }
+    /* Create static content */
+    var dogStaticContent = (
+      <Row>
+        <Col md="12">
+          <h2> Dog Results </h2>
+        </Col>
+      </Row>
+    );
 
-    //Create Lists
+    var shelterStaticContent = (
+      <Row>
+        <Col md="12">
+          <h2> Shelter Results </h2>
+        </Col>
+      </Row>
+    );
+
+    var parkStaticContent = (
+      <Row>
+        <Col md="12">
+          <h2> Park Results </h2>
+        </Col>
+      </Row>
+    );
+
+    /* Create card lists */
     var dogList;
     var parkList;
     var shelterList;
 
-    // Later should check for length == 0
     if (this.state.dogsJSON != null) {
       dogList = this.state.dogsJSON.results.map(dog => {
           return (
@@ -48,10 +86,14 @@ class Search extends React.Component {
             </Col>
           );
         })
-    } else {
-      dogList = "No Results"
-    }
-
+      if(this.state.dogsJSON.total == 0) {
+        dogList = (
+            <Col md="12">
+              <p> No Results </p>
+            </Col>
+          );
+      }
+    } 
     if (this.state.parksJSON != null) {
       parkList = this.state.parksJSON.results.map(park => {
           return (
@@ -60,10 +102,14 @@ class Search extends React.Component {
             </Col>
           );
         })
-    } else {
-      parkList = "No Results"
+      if (this.state.parksJSON.total == 0) {
+        parkList = (
+            <Col md="12">
+              <p> No Results </p>
+            </Col>
+          );
+      }
     }
-
     if (this.state.sheltersJSON != null) {
       shelterList = this.state.sheltersJSON.results.map(shelter => {
           return (
@@ -72,49 +118,29 @@ class Search extends React.Component {
             </Col>
           );
         })
-    } else {
-      shelterList = "No Results"
+      if(this.state.sheltersJSON.total == 0) {
+        shelterList = (
+            <Col md="12">
+              <p> No Results </p>
+            </Col>
+          );
+      }
     }
-
 
     return (
       <div>
-         <NavBar/>
-         <Container>
-          <Row>
-            <Col md="12">
-              <h2> Dog Results </h2>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="12">
-              {dogList}
-            </Col>
-          </Row>
+        <NavBar/>
+        <Container>
+          {dogStaticContent}
+          <Row> {dogList} </Row>
         </Container>
         <Container>
-          <Row>
-            <Col md="8">
-            <h2> Shelter Results </h2>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="12">
-              {shelterList}
-            </Col>
-          </Row>
+          {shelterStaticContent}
+          <Row> {shelterList} </Row>
         </Container>
         <Container>
-          <Row>
-            <Col md="8">
-            <h2> Park Results </h2>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="12">
-              {parkList}
-            </Col>
-          </Row>
+          {parkStaticContent}
+          <Row> {parkList} </Row>
         </Container>
       </div>
     );

@@ -18,7 +18,7 @@ export function dogURL(dogID) {
 }
 
 export function dogsURL() {
-    return BASE_URL + "dogs/"
+    return BASE_URL + "dogs/";
 }
 
 export function shelterURL(shelterID) {
@@ -26,7 +26,7 @@ export function shelterURL(shelterID) {
 }
 
 export function sheltersURL() {
-    return BASE_URL + "shelters/"
+    return BASE_URL + "shelters/";
 }
 
 export function parkURL(parksID) {
@@ -37,6 +37,10 @@ export function parksURL() {
     return BASE_URL + "parks/"
 }
 
-export function searchURL() {
-	return BASE_URL + "search/"
+export function searchURL(query) {
+    let end = "";
+    if (!(query == null)){
+        end = "?query=" + encodeURIComponent(query);
+    }
+    return BASE_URL + "search/" + end;
 }

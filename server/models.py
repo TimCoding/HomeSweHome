@@ -25,6 +25,9 @@ class Shelter(Base):
     # Declaring one to many relationship here between Shelter and Dogs
     dogs = relationship("Dog", back_populates="shelter")
 
+    sortable = ["name"]
+    searchable = ["name", "address", "city"]
+
     def __repr__(self):
         return "<Shelter(id=\"{}\", name=\"{}\", zip={})>".format(self.petfinder_id, self.name, self.zipcode)
 
@@ -65,6 +68,9 @@ class Park(Base):
     google_id = Column(String)
     yelp_rating = Column(Float)
     yelp_id = Column(String)
+
+    sortable = ["name", "yelp_rating"]
+    searchable = ["name", "address", "city"]
 
     def __repr__(self):
         return "<Park(id={}, name=\"{}\", zip={})>".format(self.id, self.name, self.zipcode)
@@ -110,6 +116,9 @@ class Dog(Base):
     shelter = relationship("Shelter", back_populates="dogs")
     # Declaring one to many relationship here between Dogs and Breed
     breeds = relationship("Breed", back_populates="dog")
+
+    sortable = ["name"]
+    searchable = ["name", "address", "city"]
 
     def __repr__(self):
         return "<Dog(id={}, name=\"{}\", zip={})>".format(self.petfinder_id, self.name, self.zipcode)
