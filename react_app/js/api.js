@@ -63,6 +63,17 @@ export function fetchDogs(limit, offset) {
         .then(throwError)
 }
 
+export function fetchDogsSearchFull(query, limit, offset) {
+    return fetch(BASE_API_URL + "dogs/search/full/" + parameterize({
+        "query": query,
+        "start": offset || 0,
+        "limit": limit  || 10
+    }))
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
 export function fetchShelter(shelterID) {
     return fetch(BASE_API_URL + "shelter/" + shelterID + "/")
         .then(handleErrors)
@@ -97,6 +108,17 @@ export function fetchShelters(limit, offset) {
         .then(throwError)
 }
 
+export function fetchSheltersSearchFull(query, limit, offset) {
+    return fetch(BASE_API_URL + "shelters/search/full/" + parameterize({
+        "query": query,
+        "start": offset || 0,
+        "limit": limit  || 10
+    }))
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
 export function fetchPark(parkID) {
     return fetch(BASE_API_URL + "park/" + parkID + "/")
         .then(handleErrors)
@@ -113,6 +135,17 @@ export function fetchParkNearby(parkID) {
 
 export function fetchParks(limit, offset) {
     return fetch(BASE_API_URL + "parks/" + parameterize({
+        "start": offset || 0,
+        "limit": limit  || 10
+    }))
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
+export function fetchParksSearchFull(query, limit, offset) {
+    return fetch(BASE_API_URL + "parks/search/full/" + parameterize({
+        "query": query,
         "start": offset || 0,
         "limit": limit  || 10
     }))
@@ -184,7 +217,7 @@ export class Paginator{
      * Make sure to look at usage to see how to use.
      *
      * @param {number} per_page - Number of results to retrieve per fetch
-     * @param {function} call - API endpoint function
+     * @param {function} call - API endpoint function, needs to have limit and offset as last two parameters, respectively
      * @param {...Object} args - Additional arguments to pass to the endpoint function
      */
     constructor(per_page, call, ...args){

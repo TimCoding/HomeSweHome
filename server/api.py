@@ -2,9 +2,10 @@ from contextlib import contextmanager
 from functools import wraps
 
 from flask import jsonify, request
+from sqlalchemy import or_
 
 from server import app
-from server.models import Dog, Shelter, Park
+from server.models import Dog, Shelter, Park, Breed
 from server.database import db_session
 from server.geo import order_zips, ZipNotFoundException
 
@@ -140,6 +141,39 @@ def get_dogs():
         })
 
 
+@app.route("/api/dogs/search/full/")
+@retry_once
+@convert_error_response
+def search_dogs_full():
+    with make_session() as session:
+        start = get_int_arg("start", 0)
+        limit = get_int_arg("limit", 10)
+        if start < 0:
+            return raise_error("The start parameter must be non-negative.")
+        if limit <= 0:
+            return raise_error("The limit parameter must be greater than 0.")
+        query = request.args.get("query", "").strip()
+        if len(query) == 0:
+            return raise_error("The query must be non-empty!")
+        base_query = session.query(Dog).join(Breed)
+        filters = [getattr(Dog, field).ilike('%{0}%'.format(query)) for field in Dog.searchable]
+        filters.append(Breed.breed.ilike('%{0}%'.format(query)))
+        if query.isdigit():
+            zipcode = int(query)
+            filters.append(Dog.zipcode == zipcode)
+        base_query = base_query.filter(or_(*filters))
+        count = base_query.count()
+        dogs = base_query.offset(start).limit(limit).all()
+        return jsonify({
+            "start": start,
+            "limit": limit,
+            "total": count,
+            "results": [
+                dog.jsonify() for dog in dogs
+            ]
+        })
+
+
 @app.route("/api/shelter/<shelter_id>/")
 @retry_once
 @convert_error_response
@@ -229,6 +263,38 @@ def get_shelters():
         })
 
 
+@app.route("/api/shelters/search/full/")
+@retry_once
+@convert_error_response
+def search_shelter_full():
+    with make_session() as session:
+        start = get_int_arg("start", 0)
+        limit = get_int_arg("limit", 10)
+        if start < 0:
+            return raise_error("The start parameter must be non-negative.")
+        if limit <= 0:
+            return raise_error("The limit parameter must be greater than 0.")
+        query = request.args.get("query", "").strip()
+        if len(query) == 0:
+            return raise_error("The query must be non-empty!")
+        base_query = session.query(Shelter)
+        filters = [getattr(Shelter, field).ilike('%{0}%'.format(query)) for field in Shelter.searchable]
+        if query.isdigit():
+            zipcode = int(query)
+            filters.append(Shelter.zipcode == zipcode)
+        base_query = base_query.filter(or_(*filters))
+        count = base_query.count()
+        shelters = base_query.offset(start).limit(limit).all()
+        return jsonify({
+            "start": start,
+            "limit": limit,
+            "total": count,
+            "results": [
+                shelter.jsonify() for shelter in shelters
+            ]
+        })
+
+
 @app.route("/api/park/<park_id>/")
 @retry_once
 @convert_error_response
@@ -281,6 +347,38 @@ def get_parks():
         if limit <= 0:
             return raise_error("The limit parameter must be greater than 0.")
         base_query = session.query(Park)
+        count = base_query.count()
+        parks = base_query.offset(start).limit(limit).all()
+        return jsonify({
+            "start": start,
+            "limit": limit,
+            "total": count,
+            "results": [
+                park.jsonify() for park in parks
+            ]
+        })
+
+
+@app.route("/api/parks/search/full/")
+@retry_once
+@convert_error_response
+def search_park_full():
+    with make_session() as session:
+        start = get_int_arg("start", 0)
+        limit = get_int_arg("limit", 10)
+        if start < 0:
+            return raise_error("The start parameter must be non-negative.")
+        if limit <= 0:
+            return raise_error("The limit parameter must be greater than 0.")
+        query = request.args.get("query", "").strip()
+        if len(query) == 0:
+            return raise_error("The query must be non-empty!")
+        base_query = session.query(Park)
+        filters = [getattr(Park, field).ilike('%{0}%'.format(query)) for field in Park.searchable]
+        if query.isdigit():
+            zipcode = int(query)
+            filters.append(Park.zipcode == zipcode)
+        base_query = base_query.filter(or_(*filters))
         count = base_query.count()
         parks = base_query.offset(start).limit(limit).all()
         return jsonify({
