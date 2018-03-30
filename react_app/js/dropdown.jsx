@@ -7,7 +7,7 @@ export class Filter extends React.Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: props.open
     };
   }
 

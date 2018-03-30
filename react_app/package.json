@@ -45,6 +45,7 @@
     "webpack-cli": "^2.0.10"
   },
   "dependencies": {
+    "@khanacademy/react-multi-select": "^0.2.6",
     "google-maps-react": "^1.1.4",
     "react-select": "^1.2.1"
   }

@@ -141,6 +141,32 @@ def get_dogs():
         })
 
 
+@app.route("/api/dogs/breeds/")
+@retry_once
+@convert_error_response
+def get_breeds():
+    with make_session() as session:
+        breeds = session.query(Breed.breed).distinct.all()
+        return jsonify({
+            "results": [
+                breed[0] for breed in breeds
+            ]
+        })
+
+
+@app.route("/api/dogs/cities/")
+@retry_once
+@convert_error_response
+def get_dog_cities():
+    with make_session() as session:
+        cities = session.query(Dog.city).distinct.all()
+        return jsonify({
+            "results": [
+                city[0] for city in cities
+            ]
+        })
+
+
 @app.route("/api/dogs/search/full/")
 @retry_once
 @convert_error_response
@@ -263,6 +289,19 @@ def get_shelters():
         })
 
 
+@app.route("/api/shelters/cities/")
+@retry_once
+@convert_error_response
+def get_shelter_cities():
+    with make_session() as session:
+        cities = session.query(Shelter.city).distinct.all()
+        return jsonify({
+            "results": [
+                city[0] for city in cities
+            ]
+        })
+
+
 @app.route("/api/shelters/search/full/")
 @retry_once
 @convert_error_response
@@ -355,6 +394,19 @@ def get_parks():
             "total": count,
             "results": [
                 park.jsonify() for park in parks
+            ]
+        })
+
+
+@app.route("/api/parks/cities/")
+@retry_once
+@convert_error_response
+def get_parks_cities():
+    with make_session() as session:
+        cities = session.query(Park.city).distinct.all()
+        return jsonify({
+            "results": [
+                city[0] for city in cities
             ]
         })
 
