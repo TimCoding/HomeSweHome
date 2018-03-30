@@ -36,7 +36,7 @@ def shutdown_session(exception=None):
 
 @app.route("/test/")
 def test():
-    return render_template("render_component.html", component_name="Filter")
+    return render_template("render_component.html", component_name="Multiselect")
 
 @app.route("/paginationtest")
 def pagination():

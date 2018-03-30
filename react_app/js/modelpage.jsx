@@ -7,7 +7,8 @@ import {PawSpinner} from './spinner.jsx';
 import DogCard from './dogcards.jsx';
 import ShelterCard from './sheltercards.jsx'
 import ParkCard from './parkcards.jsx';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
+ 				 Form, FormGroup, Label, Input } from 'reactstrap';
 
 export default class ModelPage extends Component {
 	constructor(props) {
@@ -19,24 +20,13 @@ export default class ModelPage extends Component {
 			sheltersJSON: null,
 			parksJSON: null,
 			filterOpen: false,
-			sortbyOpen: false
+			sortbyOpen: false,
 		}
-		this.toggle = this.toggleFilter.bind(this);
-		this.toggle = this.toggleSortby.bind(this);
-	}
 
-	toggleSortby() {
-		this.setState({
-			sortbyOpen: !this.state.sortbyOpen
-		});
+		this.toggleFilter = this.toggleFilter.bind(this)
+		this.toggleSortby = this.toggleSortby.bind(this)
+		// this.selectSortby = this.selectSortby.bind(this)
 	}
-
-	toggleFilter() {
-		this.setState({
-			filterOpen: !this.state.filterOpen
-		});
-	}
-
 
 	componentDidMount() {
 		if (this.props.model == 'dogs') {
@@ -66,7 +56,55 @@ export default class ModelPage extends Component {
 		} else {
 			this.setState({error: "INVALID MODEL PROP"});
 		}
+	}
 
+	toggleFilter() {
+		this.setState({
+			filterOpen: !this.state.filterOpen
+		})
+	}
+
+	toggleSortby() {
+		this.setState({
+			sortbyOpen: !this.state.sortbyOpen
+		})
+	}
+
+/*
+	selectSortby() {
+		this.setState({
+			value: event.target.innerText
+		});
+	}
+	*/
+
+	renderFilterDropdown(options) {
+		return (
+			<Dropdown isOpen={this.state.filterOpen}
+							  toggle={this.toggleFilter}>
+				<DropdownToggle caret>
+					Filter
+				</DropdownToggle>
+				<DropdownMenu>
+					<Col>
+						{options}
+					</Col>
+				</DropdownMenu>
+			</Dropdown>
+		)
+	}
+
+	renderSortbyDropdown(options) {
+		return (
+			<Dropdown isOpen={this.state.sortbyOpen} toggle={this.toggleSortby}>
+				<DropdownToggle caret>
+					Sort by
+				</DropdownToggle>
+				<DropdownMenu>
+					{options}
+				</DropdownMenu>
+			</Dropdown>
+		)
 	}
 
 	render(){
@@ -124,6 +162,23 @@ export default class ModelPage extends Component {
 				);
 			})
 
+			let sortOptions = ["Name"].map(option => {
+				return (
+					<DropdownItem>{option}</DropdownItem>
+				)
+			})
+
+			let filterOptions = ["breed1", "breed2", "breed3"].map(breed => {
+				return (
+					<FormGroup check>
+						<Label check>
+							<Input type="checkbox"/>
+							 {' '}{breed}
+						</Label>
+					</FormGroup>
+				)
+			})
+
 			return (
 				<div>
 					{staticContent}
@@ -133,26 +188,10 @@ export default class ModelPage extends Component {
 						<br/>
 						<Row>
 							<Col md="1">
-								<Dropdown isOpen={this.state.filterOpen} toggle={this.toggleFilter}>
-									<DropdownToggle caret>
-										Filter
-									</DropdownToggle>
-									<DropdownMenu>
-										<DropdownItem>City</DropdownItem>
-										<DropdownItem>Zip</DropdownItem>
-									</DropdownMenu>
-								</Dropdown>
+								{this.renderFilterDropdown(filterOptions)}
 							</Col>
-							<Col>
-								<Dropdown isOpen={this.state.sortbyOpen} toggle={this.toggleSortby}>
-									<DropdownToggle caret>
-										Sortby
-									</DropdownToggle>
-									<DropdownMenu>
-										<DropdownItem>City</DropdownItem>
-										<DropdownItem>Zip</DropdownItem>
-									</DropdownMenu>
-								</Dropdown>
+							<Col md="1">
+								{this.renderSortbyDropdown(sortOptions)}
 							</Col>
 						</Row><br/>
 						<Row>
@@ -206,12 +245,37 @@ export default class ModelPage extends Component {
 				);
 			})
 
+			let sortOptions = ["Name", "Rating"].map(option => {
+				return (
+					<DropdownItem>{option}</DropdownItem>
+				)
+			})
+
+			let filterOptions = ["> 4 stars", "> 3 stars", "> 2 stars", "City"].map(filter => {
+				return (
+					<FormGroup check>
+						<Label check>
+							<Input type="checkbox"/>
+							 {' '}{filter}
+						</Label>
+					</FormGroup>
+				)
+			})
+
 			return (
 				<div>
 					{staticContent}
 					<hr></hr>
 					<Container>
 						<h2>Parks</h2>
+							<Row>
+								<Col md="1">
+									{this.renderFilterDropdown(filterOptions)}
+								</Col>
+								<Col md="1">
+									{this.renderSortbyDropdown(sortOptions)}
+								</Col>
+							</Row><br/>
 						<Row>
 							{parkList}
 						</Row>
@@ -259,11 +323,36 @@ export default class ModelPage extends Component {
 				);
 			})
 
+			let sortOptions = ["Name"].map(option => {
+				return (
+					<DropdownItem>{option}</DropdownItem>
+				)
+			})
+
+			let filterOptions = ["Radius", "City"].map(filter => {
+				return (
+					<FormGroup check>
+						<Label check>
+							<Input type="checkbox"/>
+							 {' '}{filter}
+						</Label>
+					</FormGroup>
+				)
+			})
+
 			return (
 				<div>
 					{staticContent}
 					<Container>
 						<h2>Shelters</h2>
+						<Row>
+							<Col md="1">
+								{this.renderFilterDropdown(filterOptions)}
+							</Col>
+							<Col md="1">
+								{this.renderSortbyDropdown(sortOptions)}
+							</Col>
+						</Row><br/>
 						<Row>
 							{shelterList}
 						</Row>

@@ -73,8 +73,8 @@ describe('ShelterContact Component', () =>{
 
 	it ('render sheltercontact', () => {
 		expect(shelterContactWrapper.find('.shelterName').text()).to.equal("Shelter Name")
-		expect(shelterContactWrapper.find('.shelterAddress').text()).to.equal("address" || "city, state")
-		expect(shelterContactWrapper.find('.shelterPhone').text()).to.equal("123-345-5678")
+		expect(shelterContactWrapper.find('.shelterAddress').text()).to.equal(" address" || " city, state")
+		expect(shelterContactWrapper.find('.shelterPhone').text()).to.equal(" 123-345-5678")
 	})
 })
 

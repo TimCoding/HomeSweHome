@@ -18,11 +18,11 @@ const DogCard = (props) => {
     <div className="cards">
       <Card>
         <CardImg className="cardImg"
-                 src={props.dogData.image_urls != "" ? props.dogData.image_urls : "/static/img/homeswehomelogo.svg"} 
+                 src={props.dogData.image_urls != "" ? props.dogData.image_urls : "/static/img/homeswehomelogo.svg"}
                  alt="Dog image" />
         <span className="hoverText">
           <CardBody>
-            <CardTitle><h3 className="dogCardName">{props.dogData.name}</h3></CardTitle>
+            <h4 className="dogCardName">{props.dogData.name}</h4>
             <CardText>
               <div>
                 <b>Breed: </b>
