@@ -36,3 +36,7 @@ export function parkURL(parksID) {
 export function parksURL() {
     return BASE_URL + "parks/"
 }
+
+export function searchURL() {
+	return BASE_URL + "search/"
+}

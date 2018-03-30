@@ -19,9 +19,11 @@ export class NavBar extends React.Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
     };
+  
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -50,12 +52,11 @@ export class NavBar extends React.Component {
               </NavItem>
             </Nav>
           </Collapse>
-          <FormGroup className="form-inline ml-auto" expand="md">
-            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-success" type="submit">Search</button>
-          </FormGroup>
+        <form action="/search/">
+          <input type="text" value={this.state.value} name="query"/>
+          <input type="submit" value="Search" />
+        </form>
         </Navbar>
-
         <footer className="footer">
           <div className="container text-center">
             <span className="text-muted">&copy; 2018 - HomeSweHome <i className="fas fa-paw"></i></span>

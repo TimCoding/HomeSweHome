@@ -39,6 +39,7 @@ class Search extends React.Component {
     var parkList;
     var shelterList;
 
+    // Later should check for length == 0
     if (this.state.dogsJSON != null) {
       dogList = this.state.dogsJSON.results.map(dog => {
           return (

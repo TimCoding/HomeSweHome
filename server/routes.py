@@ -2,7 +2,7 @@ import json
 from collections import defaultdict
 from copy import deepcopy
 
-from flask import send_from_directory, render_template, jsonify
+from flask import send_from_directory, render_template, jsonify, request
 import requests
 import random
 
@@ -34,10 +34,6 @@ def cache_bust_static(endpoint, values):
 def shutdown_session(exception=None):
     database.db_session.remove()
 
-@app.route("/test/")
-def test():
-    return render_template("render_component.html", component_name="Filter")
-
 @app.route("/paginationtest")
 def pagination():
     return render_template("render_component.html", component_name="ModelPagination")
@@ -48,7 +44,10 @@ def splash():
 
 @app.route("/search/")
 def search():
-    return render_template("render_component.html", component_name="Search")
+    query = request.args.get('query')
+    return render_template("render_component.html", component_name="Search", props=json.dumps({
+        "query" : query
+    }))
 
 @app.route("/dogs/")
 def dog_model():
