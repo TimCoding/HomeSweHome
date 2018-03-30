@@ -20,17 +20,15 @@ const ShelterCard = (props) => {
         <CardImg className="cardImg" src={img} alt="Card image cap" />
         <div className="hoverText">
         <CardBody>
-          <CardTitle><h4 className="shelterCardsTitle">{props.shelterData.name}</h4></CardTitle>
+          <CardTitle className="shelterCardsTitle">{props.shelterData.name}</CardTitle>
           <CardText>
-            <div>
-              <i className="fas fa-paw"></i><b>Email: </b>
-              <span className="shelterCardEmail">{props.shelterData.email}</span>
-            </div>
-            <div>
-              <i className="fas fa-paw"></i><b>Phone: </b>
-              <span className="shelterCardPhone">{props.shelterData.phone == "" ? "N/A" : props.shelterData.phone}</span>
-            </div>
-      </CardText>
+            <i className="fas fa-paw"></i><b>Email: </b>
+            <span className="shelterCardEmail">{props.shelterData.email}</span>
+          </CardText>
+          <CardText>
+            <i className="fas fa-paw"></i><b>Phone: </b>
+            <span className="shelterCardPhone">{props.shelterData.phone == "" ? "N/A" : props.shelterData.phone}</span>
+          </CardText>
       <a className="btn btn-primary" href={urls.shelterURL(props.shelterData.id)}>Visit</a>
     </CardBody>
   </div>
