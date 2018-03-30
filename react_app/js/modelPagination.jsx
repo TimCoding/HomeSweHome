@@ -11,6 +11,7 @@ export default class ModelPagination extends Component {
 				var paginator = new api.Paginator(amtPages, api.fetchShelterDogs, "TX2115");
 				this.maxPages = 0;
 				this.paginatorAPI = paginator;
+				//Intialize pagination API here
 				this.paginatorAPI.fetchFirstPage().then(() => {
 					alert(this.paginatorAPI.isInitialized());
 				});
@@ -29,13 +30,14 @@ export default class ModelPagination extends Component {
 			this.paginatorAPI.fetchFirstPage()
 				.then((dogsJSON) =>
 				{
-					var dogs = [];
-					dogs.concat(dogsJSON);
-					alert(dogs);
+					//var dogs = [];
+					// dogs.concat(dogsJSON);
+					// alert(dogs);
 					this.maxPages = this.paginatorAPI.totalPages();
 					this.setState({
 						todos: this.state.todos.concat(dogsJSON),
 						max: this.paginatorAPI.totalPages(),
+						/*FIX PLEASE*/
 						startPage: 1,
 						endPage: 5
 					})
@@ -58,9 +60,10 @@ export default class ModelPagination extends Component {
 				this.paginatorAPI.fetchPage(page - 1)
 					.then((dogsJSON) =>
 					{
-						var dogs = [];
-						dogs.concat(dogsJSON);
+						// var dogs = [];
+						// dogs.concat(dogsJSON);
 						this.setState({
+							/*Rename todos to useful homeswehome related name*/
 							todos: this.state.todos.concat(dogsJSON)
 						})
 					}
