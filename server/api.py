@@ -401,7 +401,7 @@ def get_parks():
 @app.route("/api/parks/cities/")
 @retry_once
 @convert_error_response
-def get_parks_cities():g
+def get_parks_cities():
     with make_session() as session:
         cities = session.query(Park.city).distinct.all()
         return jsonify({
