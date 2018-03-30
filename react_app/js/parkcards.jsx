@@ -12,23 +12,22 @@ const ParkCard = (props) => {
         <CardImg className="cardImg" src={props.parkData.image_urls[0]} alt="Park image" />
         <span className="hoverText">
         <CardBody>
-          <CardTitle><h3 className="parkCardTitle">{props.parkData.name}</h3></CardTitle>
-          <CardText>
-            <div>
+          <CardTitle className="parkCardTitle">{props.parkData.name}</CardTitle>
+
+            <CardText>
               <b>Yelp Rating: </b>
               <span className="parkCardRating">{props.parkData.yelp_rating}</span>
-            </div>
-            <div>
+            </CardText>
+            <CardText>
               <b>Phone: </b>
               <span className="parkCardPhone">{props.parkData.phone == "" ? "N/A" : props.parkData.phone}</span>
-            </div>
-            <div>
+            </CardText>
+            <CardText>
               <b>Location: </b>
               <span className="parkCardLocation">
                 {props.parkData.address} {props.parkData.city}, {props.parkData.state} {props.parkData.zip}
               </span>
-            </div>
-          </CardText>
+            </CardText>
           <a className="btn btn-primary" href={urls.parkURL(props.parkData.id)}>Visit</a>
         </CardBody>
       </span>
