@@ -35,78 +35,83 @@ def shutdown_session(exception=None):
     database.db_session.remove()
 
 
+def render_component(component_name, props=None):
+    if props is None:
+        return render_template("render_component.html", component_name=component_name)
+    return render_template("render_component.html", component_name=component_name, props=json.dumps(props))
+
 @app.route("/test/")
 def test():
-    return render_template("render_component.html", component_name="Multiselect")
+    return render_component("Multiselect")
 
 
 @app.route("/paginationtest")
 def pagination():
-    return render_template("render_component.html", component_name="ModelPagination")
+    return render_component("ModelPagination")
 
 
 @app.route("/")
 def splash():
-    return render_template("render_component.html", component_name="Splash")
+    return render_component("Splash")
 
 
 @app.route("/search/")
 def search():
     query = request.args.get("query", "")
-    return render_template("render_component.html", component_name="Search", props=json.dumps({
-        "query" : query
-    }))
+    return render_component("Search", props={
+        "query": query
+    })
 
 
 @app.route("/dogs/")
 def dog_model():
-    return render_template("render_component.html", component_name="ModelPage", props=json.dumps({
+    return render_component("ModelPage", props={
         "model": "dogs"
-    }))
+    })
 
 
 @app.route("/dog/<dogID>/")
 def dog_details(dogID):
-    return render_template("render_component.html", component_name="DogDetails", props=json.dumps({
+    return render_component("DogDetails", props={
         "dogID": dogID
-    }))
+    })
 
 
 @app.route("/parks/")
 def park_model():
-    return render_template("render_component.html", component_name="ModelPage", props=json.dumps({
+    return render_component("ModelPage", props={
         "model": "parks"
-    }))
+    })
 
 
 @app.route("/park/<parkID>/")
 def park_details(parkID):
-    return render_template("render_component.html", component_name="ParkDetails", props=json.dumps({
+    return render_component("ParkDetails", props={
         "parkID": parkID
-    }))
+    })
 
 
 @app.route("/shelters/")
 def shelter_model():
-    return render_template("render_component.html", component_name="ModelPage", props=json.dumps({
+    return render_component("ModelPage", props={
         "model": "shelters"
-    }))
+    })
 
 
 @app.route("/shelter/<shelterID>/")
 def shelter_details(shelterID):
-    return render_template("render_component.html", component_name="ShelterDetails", props=json.dumps({
+    return render_component("ShelterDetails", props={
         "shelterID": shelterID
-    }))
+    })
 
 
 @app.route("/about/")
-def aboutm():
-    return render_template("render_component.html", component_name="About")
+def about():
+    return render_component("About")
 
 
 @app.route("/about/data/")
-def about():
+def about_data():
     users = deepcopy(about_people_json)
     for user in users:
         users[user]["issues"] = 0
