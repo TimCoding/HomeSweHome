@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card,
   CardBody, CardText,
   CardTitle } from 'reactstrap';
+import {StarsRating} from './stars';
 
 const ParkInfo = (props) => {
   return (
@@ -19,7 +20,7 @@ const ParkInfo = (props) => {
               <b>Phone:</b> {props.parkJSON.phone}
             </span><br/>
             <span >
-              <b>Yelp Rating:</b> {props.parkJSON.yelp_rating}
+              <b>Yelp Rating:</b> <StarsRating rating={props.parkJSON.yelp_rating} />
             </span><br/>
         </CardBody>
       </Card>

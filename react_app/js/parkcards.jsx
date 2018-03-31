@@ -4,6 +4,7 @@ import {
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
 import * as urls from './urls.js';
+import {StarsRating} from "./stars.jsx";
 
 const ParkCard = (props) => {
   return (
@@ -16,7 +17,7 @@ const ParkCard = (props) => {
 
             <CardText>
               <b>Yelp Rating: </b>
-              <span className="parkCardRating">{props.parkData.yelp_rating}</span>
+              <StarsRating rating={props.parkData.yelp_rating} />
             </CardText>
             <CardText>
               <b>Phone: </b>
