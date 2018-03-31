@@ -8,6 +8,8 @@ import {
   NavItem,
   NavLink,
   FormGroup,
+  Form,
+  Input,
   input,
   button} from 'reactstrap';
 import * as urls from './urls.js';
@@ -52,10 +54,10 @@ export class NavBar extends React.Component {
               </NavItem>
             </Nav>
           </Collapse>
-        <form action="/search/">
-          <input type="text" value={this.state.value} name="query"/>
-          <input type="submit" value="Search" />
-        </form>
+        <Form action="/search/">
+          <Input type="text" value={this.state.value} name="query"/>
+          <Input type="submit" value="Search" />
+        </Form>
         </Navbar>
         <footer className="footer">
           <div className="container text-center">

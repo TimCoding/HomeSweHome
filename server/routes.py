@@ -34,24 +34,29 @@ def cache_bust_static(endpoint, values):
 def shutdown_session(exception=None):
     database.db_session.remove()
 
+
 @app.route("/test/")
 def test():
     return render_template("render_component.html", component_name="Multiselect")
+
 
 @app.route("/paginationtest")
 def pagination():
     return render_template("render_component.html", component_name="ModelPagination")
 
+
 @app.route("/")
 def splash():
     return render_template("render_component.html", component_name="Splash")
 
+
 @app.route("/search/")
 def search():
-    query = request.args.get('query')
+    query = request.args.get("query", "")
     return render_template("render_component.html", component_name="Search", props=json.dumps({
         "query" : query
     }))
+
 
 @app.route("/dogs/")
 def dog_model():
@@ -109,8 +114,6 @@ def about():
 
     issue_params = {"state": "all", "per_page": 100}
     issue_list = []
-
-
 
     issues_api_url = "https://api.github.com/repos/TimCoding/HomeSweHome/issues"
 
