@@ -34,10 +34,12 @@ export default class ModelPage extends Component {
 		this.toggleFilter = this.toggleFilter.bind(this);
 		this.toggleSortby = this.toggleSortby.bind(this);
 		this.clickLoadMore = this.clickLoadMore.bind(this);
+		this.scrollHandle = this.scrollHandle.bind(this);
 		// this.selectSortby = this.selectSortby.bind(this)
 	}
 
 	componentDidMount() {
+        window.addEventListener('scroll', this.scrollHandle);
 		this.resultsPaginator.fetchFirstPage()
 			.then(results => this.setState({
 				results: results,
@@ -46,6 +48,10 @@ export default class ModelPage extends Component {
 			.catch(error => this.setState({
 				error: error.message
 			}));
+	}
+
+	componentWillUnmount() {
+        window.removeEventListener('scroll', this.scrollHandle);
 	}
 
 	toggleFilter() {
@@ -72,6 +78,21 @@ export default class ModelPage extends Component {
             .catch(error => this.setState({
                 error: error.message
             }));
+	}
+
+	scrollHandle(event){
+		if (this.state.resultsLoading || !this.resultsPaginator.hasNextPage()) {
+			return;
+		}
+		// https://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
+        let scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+        let scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+
+        let scrolledToBottom = (scrollTop + window.innerHeight) >= scrollHeight;
+
+        if (scrolledToBottom) {
+        	this.clickLoadMore();
+		}
 	}
 
 /*
