@@ -128,7 +128,7 @@ export class ParkDetails extends Component{
 				<hr></hr>
 
 				<Container>
-					<h2>Recommended Shelter</h2>
+					<h2>Nearby Shelters</h2>
 					<Row>
 						{shelterList}
 					</Row>
@@ -138,7 +138,7 @@ export class ParkDetails extends Component{
 				<hr></hr>
 
 				<Container>
-					<h2>Recommended Dogs</h2>
+					<h2>Nearby Dogs</h2>
 					<Row>
 						{dogList}
 					</Row>

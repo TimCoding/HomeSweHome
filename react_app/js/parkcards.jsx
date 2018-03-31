@@ -7,10 +7,16 @@ import * as urls from './urls.js';
 import {StarsRating} from "./stars.jsx";
 
 const ParkCard = (props) => {
+    let img = "";
+    if (props.parkData.image_urls[0] == "") {
+        img = "/static/img/homeswehomelogo.svg";
+    } else {
+        img = props.parkData.image_urls[0]
+    }
   return (
     <div className="cards">
       <Card>
-        <CardImg className="cardImg" src={props.parkData.image_urls[0]} alt="Park image" />
+        <CardImg className="cardImg" src={img} alt="Park image" />
         <span className="hoverText">
         <CardBody>
           <CardTitle className="parkCardTitle">{props.parkData.name}</CardTitle>

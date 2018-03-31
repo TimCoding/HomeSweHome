@@ -9,6 +9,7 @@ import ShelterInfo from './shelterinfo.jsx';
 import ParkCard from './parkcards.jsx';
 import DogCard from './dogcards.jsx';
 import {PawSpinner} from './spinner.jsx';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import * as api from './api.js';
 
@@ -22,16 +23,21 @@ export class ShelterDetails extends Component {
         this.state = {
             shelterJSON: null,
             error: null,
-            dogs: []
+            dogs: [],
+            loadingDogs: true
         };
 
         this.clickLoadMoreDog = this.clickLoadMoreDog.bind(this);
     }
 
     clickLoadMoreDog(){
+        this.setState({
+            loadingDogs: true
+        });
         this.dogPaginator.fetchNextPage()
             .then(dogsJSON => this.setState({
-                dogs: this.state.dogs.concat(dogsJSON)
+                dogs: this.state.dogs.concat(dogsJSON),
+                loadingDogs: false
             }))
             .catch(error => this.setState({
                 error: error.message
@@ -48,7 +54,8 @@ export class ShelterDetails extends Component {
             }));
         this.dogPaginator.fetchFirstPage()
             .then(dogsJSON => this.setState({
-                dogs: this.state.dogs.concat(dogsJSON)
+                dogs: this.state.dogs.concat(dogsJSON),
+                loadingDogs: false
             }))
             .catch(error => this.setState({
                 error: error.message
@@ -91,8 +98,9 @@ export class ShelterDetails extends Component {
             );
         });
         let parkList = (
-            <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner/></h1>
+            <h1 className="text-center"><PawSpinner/></h1>
         );
+
         if (!(this.state.parkJSON == null)) {
             parkList = this.state.parkJSON.map(park => {
                 return (
@@ -101,6 +109,17 @@ export class ShelterDetails extends Component {
                     </Col>
                 );
             })
+        }
+
+        let nextButton = null;
+        if(this.dogPaginator.hasNextPage()){
+            nextButton = (
+                <h1 className="text-center">
+                    <a href="javascript:undefined" onClick={this.clickLoadMoreDog}>
+                        <FontAwesomeIcon icon="angle-down"/>
+                    </a>
+                </h1>
+            );
         }
 
         return (
@@ -141,18 +160,19 @@ export class ShelterDetails extends Component {
                 <hr></hr>
 
                 <Container>
-                    <h2>Recommended Dogs</h2>
+                    <h2>Dogs in {this.state.shelterJSON.name}</h2>
                     <Row>
                         {dogList}
                     </Row>
-                    <button onClick={this.clickLoadMoreDog}>Load More</button>
+                    { this.state.loadingDogs ? <h1 className="text-center"><PawSpinner/></h1> : "" }
+                    {nextButton}
                 </Container>
                 <br/>
 
                 <hr></hr>
 
                 <Container>
-                    <h2>Recommended Parks</h2>
+                    <h2>Nearby Parks</h2>
                     <CardDeck>
                         <Row>
                             {parkList}
