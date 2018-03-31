@@ -9,53 +9,43 @@ import ShelterCard from './sheltercards.jsx'
 import ParkCard from './parkcards.jsx';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
  				 Form, FormGroup, Label, Input } from 'reactstrap';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 export default class ModelPage extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			dogsJSON: null,
-			error: null,
-			sheltersJSON: null,
-			parksJSON: null,
-			filterOpen: false,
-			sortbyOpen: false,
+		if(this.props.model === "dogs"){
+			this.resultsPaginator = new api.Paginator(12, api.fetchDogs);
+		} else if (this.props.model === "shelters") {
+            this.resultsPaginator = new api.Paginator(12, api.fetchShelters);
+		} else if (this.props.model === "parks") {
+            this.resultsPaginator = new api.Paginator(12, api.fetchParks);
 		}
 
-		this.toggleFilter = this.toggleFilter.bind(this)
-		this.toggleSortby = this.toggleSortby.bind(this)
+		this.state = {
+			results: null,
+			resultsLoading: true,
+			error: null,
+			filterOpen: false,
+			sortbyOpen: false,
+		};
+
+		this.toggleFilter = this.toggleFilter.bind(this);
+		this.toggleSortby = this.toggleSortby.bind(this);
+		this.clickLoadMore = this.clickLoadMore.bind(this);
 		// this.selectSortby = this.selectSortby.bind(this)
 	}
 
 	componentDidMount() {
-		if (this.props.model == 'dogs') {
-			api.fetchDogs(12)
-			.then(dogsJSON => this.setState({
-				dogsJSON: dogsJSON
+		this.resultsPaginator.fetchFirstPage()
+			.then(results => this.setState({
+				results: results,
+				resultsLoading: false
 			}))
 			.catch(error => this.setState({
-				error: "Dog Fetching API Error"
+				error: error.message
 			}));
-		} else if (this.props.model == 'parks') {
-			api.fetchParks(12)
-			.then(parksJSON => this.setState({
-				parksJSON: parksJSON
-			}))
-			.catch(error => this.setState({
-				error: "Dog Fetching API Error"
-			}));
-		} else if (this.props.model == 'shelters') {
-			api.fetchShelters(12)
-			.then(sheltersJSON => this.setState({
-				sheltersJSON: sheltersJSON
-			}))
-			.catch(error => this.setState({
-				error: "Dog Fetching API Error"
-			}));
-		} else {
-			this.setState({error: "INVALID MODEL PROP"});
-		}
 	}
 
 	toggleFilter() {
@@ -68,6 +58,20 @@ export default class ModelPage extends Component {
 		this.setState({
 			sortbyOpen: !this.state.sortbyOpen
 		})
+	}
+
+	clickLoadMore() {
+		this.setState({
+			resultsLoading: true
+		});
+        this.resultsPaginator.fetchNextPage()
+            .then(results => this.setState({
+                results: this.state.results.concat(results),
+                resultsLoading: false
+            }))
+            .catch(error => this.setState({
+                error: error.message
+            }));
 	}
 
 /*
@@ -120,8 +124,24 @@ export default class ModelPage extends Component {
 			);
 		}
 
+        let loadMore = [];
+        if(this.state.resultsLoading){
+            loadMore.push(
+                <h1 className="text-center" style={{fontSize: '4.5em'}}><PawSpinner/></h1>
+            );
+        }
+        if(this.resultsPaginator.hasNextPage()){
+            loadMore.push(
+                <h1 className="text-center">
+                    <a href="javascript:undefined" onClick={this.clickLoadMore}>
+                        <FontAwesomeIcon icon="angle-down"/>
+                    </a>
+                </h1>
+            );
+        }
 
-		if (this.props.model == 'dogs') {
+
+		if (this.props.model === 'dogs') {
 			const staticContent = (
 				<div>
 					<NavBar/>
@@ -143,7 +163,7 @@ export default class ModelPage extends Component {
 				</div>
 			);
 
-			if(this.state.dogsJSON == null) {
+			if(this.state.results == null) {
 				return (
 					<div>
 						{staticContent}
@@ -154,19 +174,19 @@ export default class ModelPage extends Component {
 				);
 			}
 
-			let dogList = this.state.dogsJSON.results.map(dog => {
+			let dogList = this.state.results.map(dog => {
 				return (
 					<Col md="3">
 						<DogCard dogData={dog}/>
 					</Col>
 				);
-			})
+			});
 
 			let sortOptions = ["Name"].map(option => {
 				return (
 					<DropdownItem>{option}</DropdownItem>
 				)
-			})
+			});
 
 			let filterOptions = ["breed1", "breed2", "breed3"].map(breed => {
 				return (
@@ -177,7 +197,7 @@ export default class ModelPage extends Component {
 						</Label>
 					</FormGroup>
 				)
-			})
+			});
 
 			return (
 				<div>
@@ -197,12 +217,13 @@ export default class ModelPage extends Component {
 						<Row>
 							{dogList}
 						</Row>
+						{loadMore}
 					</Container>
 				</div>
 			);
 		}
 
-		if (this.props.model == 'parks') {
+		if (this.props.model === 'parks') {
 			const staticContent = (
 				<div>
 					<NavBar/>
@@ -226,7 +247,7 @@ export default class ModelPage extends Component {
 				</div>
 			);
 
-			if(this.state.parksJSON == null) {
+			if(this.state.results == null) {
 				return (
 					<div>
 						{staticContent}
@@ -237,19 +258,19 @@ export default class ModelPage extends Component {
 				);
 			}
 
-			let parkList = this.state.parksJSON.results.map(park => {
+			let parkList = this.state.results.map(park => {
 				return (
 					<Col md="3">
 						<ParkCard parkData={park}/>
 					</Col>
 				);
-			})
+			});
 
 			let sortOptions = ["Name", "Rating"].map(option => {
 				return (
 					<DropdownItem>{option}</DropdownItem>
 				)
-			})
+			});
 
 			let filterOptions = ["> 4 stars", "> 3 stars", "> 2 stars", "City"].map(filter => {
 				return (
@@ -260,7 +281,7 @@ export default class ModelPage extends Component {
 						</Label>
 					</FormGroup>
 				)
-			})
+			});
 
 			return (
 				<div>
@@ -279,12 +300,13 @@ export default class ModelPage extends Component {
 						<Row>
 							{parkList}
 						</Row>
+						{loadMore}
 					</Container>
 				</div>
 			);
 		}
 
-		if (this.props.model == 'shelters') {
+		if (this.props.model === 'shelters') {
 			const staticContent = (
 				<div>
 					<NavBar/>
@@ -304,7 +326,7 @@ export default class ModelPage extends Component {
 				</div>
 			);
 
-			if(this.state.sheltersJSON == null) {
+			if(this.state.results == null) {
 				return (
 					<div>
 						{staticContent}
@@ -315,19 +337,19 @@ export default class ModelPage extends Component {
 				);
 			}
 
-			let shelterList = this.state.sheltersJSON.results.map(shelter => {
+			let shelterList = this.state.results.map(shelter => {
 				return (
 					<Col md="3">
 						<ShelterCard shelterData={shelter}/>
 					</Col>
 				);
-			})
+			});
 
 			let sortOptions = ["Name"].map(option => {
 				return (
 					<DropdownItem>{option}</DropdownItem>
 				)
-			})
+			});
 
 			let filterOptions = ["Radius", "City"].map(filter => {
 				return (
@@ -338,7 +360,7 @@ export default class ModelPage extends Component {
 						</Label>
 					</FormGroup>
 				)
-			})
+			});
 
 			return (
 				<div>
@@ -356,6 +378,7 @@ export default class ModelPage extends Component {
 						<Row>
 							{shelterList}
 						</Row>
+						{loadMore}
 					</Container>
 				</div>
 			);
@@ -364,4 +387,4 @@ export default class ModelPage extends Component {
 	}
 }
 
-window._ModelPage = ModelPage
+window._ModelPage = ModelPage;
