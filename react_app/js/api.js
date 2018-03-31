@@ -63,6 +63,20 @@ export function fetchDogs(limit, offset) {
         .then(throwError)
 }
 
+export function fetchDogBreeds() {
+    return fetch(BASE_API_URL + "dogs/breeds/")
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
+export function fetchDogCities() {
+    return fetch(BASE_API_URL + "dogs/cities/")
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
 export function fetchDogsSearchFull(query, limit, offset) {
     return fetch(BASE_API_URL + "dogs/search/full/" + parameterize({
         "query": query,
@@ -108,6 +122,13 @@ export function fetchShelters(limit, offset) {
         .then(throwError)
 }
 
+export function fetchShelterCities() {
+    return fetch(BASE_API_URL + "shelters/cities/")
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
 export function fetchSheltersSearchFull(query, limit, offset) {
     return fetch(BASE_API_URL + "shelters/search/full/" + parameterize({
         "query": query,
@@ -138,6 +159,13 @@ export function fetchParks(limit, offset) {
         "start": offset || 0,
         "limit": limit  || 10
     }))
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
+export function fetchParkCities() {
+    return fetch(BASE_API_URL + "park/cities/")
         .then(handleErrors)
         .then(response => response.json())
         .then(throwError)
