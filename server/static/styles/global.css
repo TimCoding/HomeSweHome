@@ -63,3 +63,9 @@ body {
   position: absolute;
   opacity: 1;
 }
+
+.dropdown-scroll {
+  position: inherit;
+  max-height:200px;
+  overflow-y: scroll
+}

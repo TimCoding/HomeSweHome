@@ -146,7 +146,7 @@ def get_dogs():
 @convert_error_response
 def get_breeds():
     with make_session() as session:
-        breeds = session.query(Breed.breed).distinct.all()
+        breeds = session.query(Breed.breed).distinct()
         return jsonify({
             "results": [
                 breed[0] for breed in breeds
@@ -159,7 +159,7 @@ def get_breeds():
 @convert_error_response
 def get_dog_cities():
     with make_session() as session:
-        cities = session.query(Dog.city).distinct.all()
+        cities = session.query(Dog.city).distinct()
         return jsonify({
             "results": [
                 city[0] for city in cities

@@ -18,9 +18,9 @@ export default class ModelPage extends Component {
 		if(this.props.model === "dogs"){
 			this.resultsPaginator = new api.Paginator(12, api.fetchDogs);
 		} else if (this.props.model === "shelters") {
-            this.resultsPaginator = new api.Paginator(12, api.fetchShelters);
+      this.resultsPaginator = new api.Paginator(12, api.fetchShelters);
 		} else if (this.props.model === "parks") {
-            this.resultsPaginator = new api.Paginator(12, api.fetchParks);
+      this.resultsPaginator = new api.Paginator(12, api.fetchParks);
 		}
 
 		this.state = {
@@ -29,17 +29,21 @@ export default class ModelPage extends Component {
 			error: null,
 			filterOpen: false,
 			sortbyOpen: false,
+			sortbyValue: ' ',
+			breeds: null,
+			cities: null,
+			// selectedFilters: [],
 		};
 
 		this.toggleFilter = this.toggleFilter.bind(this);
 		this.toggleSortby = this.toggleSortby.bind(this);
 		this.clickLoadMore = this.clickLoadMore.bind(this);
 		this.scrollHandle = this.scrollHandle.bind(this);
-		// this.selectSortby = this.selectSortby.bind(this)
+		// this.handleSortby = this.handleSortby.bind(this);
 	}
 
 	componentDidMount() {
-        window.addEventListener('scroll', this.scrollHandle);
+    window.addEventListener('scroll', this.scrollHandle);
 		this.resultsPaginator.fetchFirstPage()
 			.then(results => this.setState({
 				results: results,
@@ -48,10 +52,26 @@ export default class ModelPage extends Component {
 			.catch(error => this.setState({
 				error: error.message
 			}));
+		if (this.props.model === "dogs") {
+			api.fetchDogBreeds()
+					.then(breeds => this.setState({
+						breeds: breeds.results
+					}))
+					.catch(error => this.setState({
+						error: error.message
+					}));
+			api.fetchDogCities()
+					.then(cities => this.setState({
+						cities: cities.results
+					}))
+					.catch(error => this.setState({
+						error: error.message
+					}));
+		}
 	}
 
 	componentWillUnmount() {
-        window.removeEventListener('scroll', this.scrollHandle);
+      window.removeEventListener('scroll', this.scrollHandle);
 	}
 
 	toggleFilter() {
@@ -95,13 +115,11 @@ export default class ModelPage extends Component {
 		}
 	}
 
-/*
-	selectSortby() {
-		this.setState({
-			value: event.target.innerText
-		});
-	}
-	*/
+	// handleSortby() {
+	// 	this.setState({
+	// 		sortbyValue: event.target.value
+	// 	});
+	// }
 
 	renderFilterDropdown(options) {
 		return (
@@ -111,7 +129,7 @@ export default class ModelPage extends Component {
 				<DropdownToggle caret>
 					Filter
 				</DropdownToggle>
-				<DropdownMenu>
+				<DropdownMenu className="dropdown-scroll">
 					<Col>
 						{options}
 					</Col>
@@ -123,7 +141,8 @@ export default class ModelPage extends Component {
 	renderSortbyDropdown(options) {
 		return (
 			<Dropdown isOpen={this.state.sortbyOpen}
-							  toggle={this.toggleSortby}>
+							  toggle={this.toggleSortby}
+								onChange={this.handleSortby}>
 				<DropdownToggle caret>
 					Sort by
 				</DropdownToggle>
@@ -211,7 +230,8 @@ export default class ModelPage extends Component {
 				)
 			});
 
-			let filterOptions = ["breed1", "breed2", "breed3"].map(breed => {
+
+			let breedsFilter = this.state.breeds.map(breed => {
 				return (
 					<FormGroup check>
 						<Label check>
@@ -222,6 +242,17 @@ export default class ModelPage extends Component {
 				)
 			});
 
+			// let citiesFilter = this.state.cities.map(city => {
+			// 	return (
+			// 		<FormGroup check>
+			// 			<Label check>
+			// 				<Input type="checkbox"/>
+			// 				 {' '}{city}
+			// 			</Label>
+			// 		</FormGroup>
+			// 	)
+			// });
+
 			return (
 				<div>
 					{staticContent}
@@ -230,7 +261,7 @@ export default class ModelPage extends Component {
 						<h2>Dogs</h2>
 						<br/>
 						<Row>
-							{this.renderFilterDropdown(filterOptions)}
+							{this.renderFilterDropdown(breedsFilter)}
 							{this.renderSortbyDropdown(sortOptions)}
 						</Row><br/>
 						<Row>
