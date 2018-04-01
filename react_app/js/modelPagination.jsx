@@ -117,31 +117,12 @@ export default class ModelPagination extends Component {
         </PaginationItem>
         );
     });
-    if(this.state.todos.length == 0) {
-        return (
-            <div>
-                <h2>Dogs</h2>
-                <Container>
-                    <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
-                </Container>
-                <Pagination id="page-numbers">
-					<PaginationItem>
-						<PaginationLink previous key={1} id={1} onClick={this.handleClick}/>
-					</PaginationItem>
-          {renderPageNumbers}
-					<PaginationItem>
-            {/* error where you click last button right away it does the same thing with double clicking with first button*/}
-          	<PaginationLink next key={this.state.max} id={this.state.max} onClick={this.handleClick} />
-        	</PaginationItem>
-        </Pagination>
-            </div>
-        );
-    }
 
     return (
         <div>
 					<Container>
 						<h2>Dogs</h2>
+						{ this.state.todos.length == 0 ? <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1> : "" }
 						<Row>
 	        		        {renderTodos}
 						</Row>
