@@ -3,13 +3,13 @@ import React, {Component} from 'react';
 import {Container, Row, Col} from 'reactstrap';
 import {CardDeck} from 'reactstrap';
 import ShelterContact from './sheltercontact.jsx';
-import GoogleMap from './map.jsx';
 import ShelterHours from './shelterhours.jsx';
 import ShelterInfo from './shelterinfo.jsx';
 import ParkCard from './parkcards.jsx';
 import DogCard from './dogcards.jsx';
 import {PawSpinner} from './spinner.jsx';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+var auth = require('../../auth.json');
 
 import * as api from './api.js';
 
@@ -122,6 +122,11 @@ export class ShelterDetails extends Component {
             );
         }
 
+        let googleMap = "https://www.google.com/maps/embed/v1/place?key=" + auth["embed"]["key"]
+        let gName = (this.state.shelterJSON.name).replace("&", "")
+        googleMap += "&q=" + gName
+        // googleMap += "," + this.state.shelterJSON.city + "+" + this.state.shelterJSON.state
+
         return (
             <div>
                 <NavBar/>
@@ -132,14 +137,14 @@ export class ShelterDetails extends Component {
                     <Row>
                         <Col md="8"
                              style={{width: '100%', height: '400px'}}>
-                            <GoogleMap
-                                initialCenter={{
-                                    lat: this.state.shelterJSON.latitude,
-                                    lng: this.state.shelterJSON.longitude
-                                }}
-                                marker={{lat: this.state.shelterJSON.latitude, lng: this.state.shelterJSON.longitude}}
-                                zoom={17}
-                            />
+                             <html>
+                             <iframe
+                               width="100%"
+                               height="400px"
+                               frameborder="0" style={{border:"0"}}
+                               src={googleMap}>
+                             </iframe>
+                             </html>
                         </Col>
                         <Col md="4">
                             {/* <ShelterHours/> */}
@@ -173,11 +178,9 @@ export class ShelterDetails extends Component {
 
                 <Container>
                     <h2>Nearby Parks</h2>
-                    <CardDeck>
-                        <Row>
-                            {parkList}
-                        </Row>
-                    </CardDeck>
+                      <Row>
+                          {parkList}
+                      </Row>
                 </Container>
                 <br/>
             </div>

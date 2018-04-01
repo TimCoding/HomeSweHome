@@ -8,9 +8,7 @@ import * as urls from './urls.js';
 const DogCard = (props) => {
   let dogBreed = props.dogData.breeds.map(type => {
     return (
-      <div>
-        <li>{type}</li>
-      </div>
+      <li>{type}</li>
     );
   })
 
@@ -20,26 +18,24 @@ const DogCard = (props) => {
         <CardImg className="cardImg"
                  src={props.dogData.image_urls != "" ? props.dogData.image_urls : "/static/img/homeswehomelogo.svg"}
                  alt="Dog image" />
-        <span className="hoverText">
+        <div className="hoverText">
           <CardBody>
             <h4 className="dogCardName">{props.dogData.name}</h4>
             <CardText>
-              <div>
-                <b>Breed: </b>
-                <span className="dogCardBreed">{dogBreed}</span>
-              </div>
-              <div>
-                <b>Housetrained: </b>
-                <span className="dogCardHouseTrained">{props.dogData.housetrained === true ? "Yes" : "No"}</span>
-              </div>
-              <div>
-                <b>Friendly: </b>
-                <span className="dogCardFriendly">{props.dogData.friendly ? "Yes" : "No"}</span>
-              </div>
+              <b>Breed: </b>
+              <span className="dogCardBreed">{dogBreed}</span>
+            </CardText>
+            <CardText>
+              <b>Housetrained: </b>
+              <span className="dogCardHouseTrained">{props.dogData.housetrained === true ? "Yes" : "No"}</span>
+            </CardText>
+            <CardText>
+              <b>Friendly: </b>
+              <span className="dogCardFriendly">{props.dogData.friendly ? "Yes" : "No"}</span>
             </CardText>
             <a className="btn btn-primary" href={urls.dogURL(props.dogData.id)}>Meet {props.dogData.name}</a>
           </CardBody>
-        </span>
+        </div>
       </Card>
     </div>
   );
