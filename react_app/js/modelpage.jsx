@@ -106,7 +106,8 @@ export default class ModelPage extends Component {
 	renderFilterDropdown(options) {
 		return (
 			<Dropdown isOpen={this.state.filterOpen}
-							  toggle={this.toggleFilter}>
+							  toggle={this.toggleFilter}
+								style={{paddingRight: "10px"}}>
 				<DropdownToggle caret>
 					Filter
 				</DropdownToggle>
@@ -121,7 +122,8 @@ export default class ModelPage extends Component {
 
 	renderSortbyDropdown(options) {
 		return (
-			<Dropdown isOpen={this.state.sortbyOpen} toggle={this.toggleSortby}>
+			<Dropdown isOpen={this.state.sortbyOpen}
+							  toggle={this.toggleSortby}>
 				<DropdownToggle caret>
 					Sort by
 				</DropdownToggle>
@@ -228,12 +230,8 @@ export default class ModelPage extends Component {
 						<h2>Dogs</h2>
 						<br/>
 						<Row>
-							<Col md="1">
-								{this.renderFilterDropdown(filterOptions)}
-							</Col>
-							<Col md="1">
-								{this.renderSortbyDropdown(sortOptions)}
-							</Col>
+							{this.renderFilterDropdown(filterOptions)}
+							{this.renderSortbyDropdown(sortOptions)}
 						</Row><br/>
 						<Row>
 							{dogList}
@@ -311,12 +309,8 @@ export default class ModelPage extends Component {
 					<Container>
 						<h2>Parks</h2>
 							<Row>
-								<Col md="1">
-									{this.renderFilterDropdown(filterOptions)}
-								</Col>
-								<Col md="1">
-									{this.renderSortbyDropdown(sortOptions)}
-								</Col>
+								{this.renderFilterDropdown(filterOptions)}
+								{this.renderSortbyDropdown(sortOptions)}
 							</Row><br/>
 						<Row>
 							{parkList}
@@ -389,12 +383,8 @@ export default class ModelPage extends Component {
 					<Container>
 						<h2>Shelters</h2>
 						<Row>
-							<Col md="1">
-								{this.renderFilterDropdown(filterOptions)}
-							</Col>
-							<Col md="1">
-								{this.renderSortbyDropdown(sortOptions)}
-							</Col>
+							{this.renderFilterDropdown(filterOptions)}
+							{this.renderSortbyDropdown(sortOptions)}
 						</Row><br/>
 						<Row>
 							{shelterList}
