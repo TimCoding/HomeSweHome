@@ -42,8 +42,13 @@ export default class ModelPagination extends Component {
 		}
 
     handleClick(event) {
+        var page = Number(event.target.id);
+        if(Number(event.target.id) === 0){
+            page = 1;
+        }else if(Number(event.target.id) === (this.state.max + 1)){
+            page = this.state.max;
+        }
         var mid = (this.state.startPage + this.state.endPage) / 2;
-				var page = Number(event.target.id);
         var shift = page - Math.floor(mid);
         var newStart = this.state.startPage + shift;
         var newEnd = this.state.endPage + shift;
@@ -61,14 +66,14 @@ export default class ModelPagination extends Component {
 					.catch(error => this.setState({
 						error: error.message
 					}));
-				if(newStart < 1){
+				if(newStart < 1 || Number(event.target.id) == 0){
 					newStart = 1;
                     newEnd = max
                     if((newStart + 4) < newEnd){
                         newEnd = this.maxPages > 5 ? 5 : this.maxPages;
                     }
 				}
-				if(newEnd > max){
+				if(newEnd > max || Number(event.target.id) == (this.state.max + 1)){
                     newStart = max - 4;
                     if(newStart < 1){
                         newStart = 1;
@@ -79,7 +84,7 @@ export default class ModelPagination extends Component {
 						todos: dogs,
 						startPage: newStart,
 						endPage: newEnd
-				});
+                });
     }
 
     render() {
@@ -129,12 +134,12 @@ export default class ModelPagination extends Component {
 					</Container>
         <Pagination id="page-numbers">
 					<PaginationItem>
-						<PaginationLink previous key={1} id={1} onClick={this.handleClick}/>
+						<PaginationLink previous key={1} id={0} onClick={this.handleClick}/>
 					</PaginationItem>
           {renderPageNumbers}
 					<PaginationItem>
             {/* error where you click last button right away it does the same thing with double clicking with first button*/}
-          	<PaginationLink next key={this.state.max} id={this.state.max} onClick={this.handleClick} />
+          	<PaginationLink next key={this.state.max} id={this.state.max + 1} onClick={this.handleClick} />
         	</PaginationItem>
         </Pagination>
         </div>
