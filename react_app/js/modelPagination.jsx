@@ -3,13 +3,15 @@ import { Pagination, PaginationItem, PaginationLink, Container, Row, Col } from 
 import * as api from './api.js';
 import DogCard from './dogcards.jsx';
 import {PawSpinner} from './spinner.jsx';
+import ShelterCard from './sheltercards.jsx';
+import ParkCard from './parkcards.jsx';
 
 
 export default class ModelPagination extends Component {
 	constructor(props) {
         super(props);
 				var amtPages = 4;
-				var paginator = new api.Paginator(amtPages, api.fetchShelterDogs, "TX2115");
+                var paginator = new api.Paginator(amtPages, props.call, props.query);
 				this.maxPages = 0;
 				this.paginatorAPI = paginator;
         this.state = {
@@ -25,15 +27,15 @@ export default class ModelPagination extends Component {
 
 		componentDidMount(){
 			this.paginatorAPI.fetchFirstPage()
-				.then((dogsJSON) =>
+				.then((dataJSON) =>
 				{
                     this.maxPages = this.paginatorAPI.totalPages();
 					this.setState({
-						todos: this.state.todos.concat(dogsJSON),
+						todos: this.state.todos.concat(dataJSON),
 						max: this.paginatorAPI.totalPages(),
 						startPage: 1,
                         endPage: this.maxPages > 5 ? 5 : this.maxPages
-					})
+                    })
 				}
 				)
 				.catch(error => this.setState({
@@ -55,11 +57,11 @@ export default class ModelPagination extends Component {
 				var max = this.state.max;
 				var dogs = [];
 				this.paginatorAPI.fetchPage(page - 1)
-					.then((dogsJSON) =>
+					.then((dataJSON) =>
 					{
 						this.setState({
 							/*Rename todos to useful homeswehome related name*/
-							todos: this.state.todos.concat(dogsJSON)
+							todos: this.state.todos.concat(dataJSON)
 						})
 					}
 					)
@@ -126,7 +128,6 @@ export default class ModelPagination extends Component {
     return (
         <div>
 					<Container>
-						<h2>Dogs</h2>
 						{ this.state.todos.length == 0 ? <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1> : "" }
 						<Row>
 	        		        {renderTodos}
@@ -138,7 +139,6 @@ export default class ModelPagination extends Component {
 					</PaginationItem>
           {renderPageNumbers}
 					<PaginationItem>
-            {/* error where you click last button right away it does the same thing with double clicking with first button*/}
           	<PaginationLink next key={this.state.max} id={this.state.max + 1} onClick={this.handleClick} />
         	</PaginationItem>
         </Pagination>
