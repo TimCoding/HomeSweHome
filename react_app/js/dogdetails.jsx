@@ -5,7 +5,7 @@ import {NavBar} from './navbar.jsx';
 import InfoCard from './infocard.jsx';
 import { ControlledCarousel } from './carousel.jsx';
 import ParkCard from './parkcards.jsx';
-import {CardDeck} from 'reactstrap';
+import {CardDeck, CardTitle, CardText, Card, CardBody, Table} from 'reactstrap';
 import * as api from './api.js';
 import {PawSpinner} from './spinner.jsx';
 
@@ -82,6 +82,37 @@ export default class DogDetails extends Component {
 				src: "/../../static/img/homeswehomelogo.svg"
 			}
 		];
+        let tableBody = [];
+        tableBody.push(<tr>
+            <th rowSpan={this.state.dogJSON.breeds.length}>Breeds</th>
+            <td>{this.state.dogJSON.breeds[0]}</td>
+        </tr>);
+        for(let i = 1; i < this.state.dogJSON.breeds.length; i++) {
+            tableBody.push(<tr>
+                <td>{this.state.dogJSON.breeds[i]}</td>
+            </tr>);
+        }
+		tableBody.push(<tr>
+			<th>Altered (Spayed/Neutered)</th>
+			<td>{this.state.dogJSON.altered ? "Yes" : "No"}</td>
+		</tr>);
+        tableBody.push(<tr>
+            <th>Has Shots</th>
+            <td>{this.state.dogJSON.shots ? "Yes" : "No"}</td>
+        </tr>);
+        tableBody.push(<tr>
+            <th>House Trained</th>
+            <td>{this.state.dogJSON.housetrained ? "Yes" : "No"}</td>
+        </tr>);
+		tableBody.push(<tr>
+			<th>Friendly</th>
+			<td>{this.state.dogJSON.friendly ? "Yes" : "No"}</td>
+		</tr>);
+        tableBody.push(<tr>
+            <th>Special Needs</th>
+            <td>{this.state.dogJSON.special_needs ? "Yes" : "No"}</td>
+        </tr>);
+
 
 		return (
 			<div>
@@ -95,8 +126,23 @@ export default class DogDetails extends Component {
 				<Container>
 					<Row className="description_box">
 						<Col md="8">
-							<h5>{this.state.dogJSON.name}'s Description</h5>
-							<p className="description_content">{this.state.dogJSON.description}</p>
+							<Card>
+								<CardBody>
+                                    <CardTitle>
+                                        <h2>{this.state.dogJSON.name}</h2>
+                                    </CardTitle>
+                                    <CardText>
+										<h5>Description:</h5>
+                                        <p className="description_content">{this.state.dogJSON.description}</p>
+                                        <h5>Information:</h5>
+										<Table size="sm">
+											<tbody>
+											{tableBody}
+											</tbody>
+										</Table>
+                                    </CardText>
+								</CardBody>
+							</Card>
 						</Col>
 						<Col md="4">
 							<InfoCard {...this.state.dogJSON.shelter} />
