@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Pagination, PaginationItem, PaginationLink, Container, Row, Col } from 'reactstrap';
 import * as api from './api.js';
 import DogCard from './dogcards.jsx';
+import {PawSpinner} from './spinner.jsx';
 
 
 export default class ModelPagination extends Component {
@@ -17,7 +18,7 @@ export default class ModelPagination extends Component {
           todosPerPage: amtPages,
           startPage: 1,
           endPage: this.maxPages < 5 ? this.maxPages / amtPages : 5,
-					max: this.maxPages
+          max: this.maxPages
         };
         this.handleClick = this.handleClick.bind(this);
       }
@@ -31,7 +32,7 @@ export default class ModelPagination extends Component {
 						todos: this.state.todos.concat(dogsJSON),
 						max: this.paginatorAPI.totalPages(),
 						startPage: 1,
-						endPage: this.maxPages > 5 ? 5 : this.maxPages
+                        endPage: this.maxPages > 5 ? 5 : this.maxPages
 					})
 				}
 				)
@@ -92,7 +93,7 @@ export default class ModelPagination extends Component {
     const renderTodos = currentTodos.map(currentTodos => {
 				return (
 						<Col md="3">
-								<DogCard dogData={currentTodos}/>
+							<DogCard dogData={currentTodos}/>
 						</Col>
 				);
 		});
@@ -116,21 +117,42 @@ export default class ModelPagination extends Component {
         </PaginationItem>
         );
     });
+    if(this.state.todos.length == 0) {
+        return (
+            <div>
+                <h2>Dogs</h2>
+                <Container>
+                    <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
+                </Container>
+                <Pagination id="page-numbers">
+					<PaginationItem>
+						<PaginationLink previous key={1} id={1} onClick={this.handleClick}/>
+					</PaginationItem>
+          {renderPageNumbers}
+					<PaginationItem>
+            {/* error where you click last button right away it does the same thing with double clicking with first button*/}
+          	<PaginationLink next key={this.state.max} id={this.state.max} onClick={this.handleClick} />
+        	</PaginationItem>
+        </Pagination>
+            </div>
+        );
+    }
 
     return (
         <div>
 					<Container>
 						<h2>Dogs</h2>
 						<Row>
-	        		{renderTodos}
+	        		        {renderTodos}
 						</Row>
 					</Container>
         <Pagination id="page-numbers">
 					<PaginationItem>
-						<PaginationLink previous key="1" id="1" onClick={this.handleClick}/>
+						<PaginationLink previous key={1} id={1} onClick={this.handleClick}/>
 					</PaginationItem>
           {renderPageNumbers}
 					<PaginationItem>
+            {/* error where you click last button right away it does the same thing with double clicking with first button*/}
           	<PaginationLink next key={this.state.max} id={this.state.max} onClick={this.handleClick} />
         	</PaginationItem>
         </Pagination>
