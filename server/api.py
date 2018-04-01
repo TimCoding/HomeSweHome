@@ -9,7 +9,7 @@ from server.models import Dog, Shelter, Park, Breed
 from server.database import db_session
 from server.geo import order_zips, ZipNotFoundException
 
-NEARBY_LIMIT = 5
+NEARBY_LIMIT = 8
 
 
 class ResponseError(Exception):
@@ -146,7 +146,7 @@ def get_dogs():
 @convert_error_response
 def get_breeds():
     with make_session() as session:
-        breeds = session.query(Breed.breed).distinct()
+        breeds = session.query(Breed.breed).distinct().all()
         return jsonify({
             "results": [
                 breed[0] for breed in breeds
@@ -159,7 +159,7 @@ def get_breeds():
 @convert_error_response
 def get_dog_cities():
     with make_session() as session:
-        cities = session.query(Dog.city).distinct()
+        cities = session.query(Dog.city).distinct().all()
         return jsonify({
             "results": [
                 city[0] for city in cities
