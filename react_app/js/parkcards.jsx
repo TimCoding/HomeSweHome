@@ -8,7 +8,7 @@ import {StarsRating} from "./stars.jsx";
 
 const ParkCard = (props) => {
     let img = "";
-    if (props.parkData.image_urls[0] == "") {
+    if (props.parkData.image_urls.length == 0) {
         img = "/static/img/homeswehomelogo.svg";
     } else {
         img = props.parkData.image_urls[0]

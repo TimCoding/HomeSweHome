@@ -16,6 +16,7 @@ const InfoCard = (props) => {
     return (
         <div>
             <Card>
+                {props.image_urls.length == 0 ? "" : <CardImg src={props.image_urls[0]} alt="Shelter Image"/>}
                 <CardBody>
                     <CardTitle><p className="infoCardTitle">{props.name}</p></CardTitle>
                     <CardText>Address: <p className="infoCardAddress">{address}</p></CardText>

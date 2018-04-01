@@ -8,7 +8,7 @@ import {Col} from 'reactstrap';
 
 const ShelterCard = (props) => {
   let img = "";
-  if (props.shelterData.image_urls[0] == "") {
+  if (props.shelterData.image_urls.length == 0) {
     img = "/static/img/homeswehomelogo.svg";
   } else {
     img = props.shelterData.image_urls[0]

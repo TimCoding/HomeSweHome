@@ -5,13 +5,13 @@ import { NavBar } from './navbar.jsx';
 
 const items = [
   {
-    src: "/../static/img/dog1.jpg",
+    src: "/static/img/dog1.jpg",
   },
   {
-    src: "/../static/img/dog2.jpg",
+    src: "/static/img/dog2.jpg",
   },
   {
-    src: "/../static/img/dog3.jpg",
+    src: "/static/img/dog3.jpg",
   }
 ];
 

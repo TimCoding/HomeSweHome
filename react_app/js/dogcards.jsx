@@ -16,7 +16,7 @@ const DogCard = (props) => {
     <div className="cards">
       <Card>
         <CardImg className="cardImg"
-                 src={props.dogData.image_urls != "" ? props.dogData.image_urls : "/static/img/homeswehomelogo.svg"}
+                 src={props.dogData.image_urls.length > 0 ? props.dogData.image_urls[0] : "/static/img/homeswehomelogo.svg"}
                  alt="Dog image" />
         <div className="hoverText">
           <CardBody>

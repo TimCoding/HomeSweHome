@@ -45,7 +45,7 @@ class Shelter(Base):
             "adoption_policy": self.adoption_policy,
             "email": self.email,
             "zipcode": self.zipcode,
-            "image_urls": self.image_urls.split("|"),
+            "image_urls": self.image_urls.split("|") if len(self.image_urls) > 0 else [],
             "google_id": self.google_id,
             "google_rating": self.google_rating
         }
@@ -85,7 +85,7 @@ class Park(Base):
             "phone": self.phone_number,
             "description": self.description,
             "zip": self.zipcode,
-            "image_urls": self.image_urls.split("|"),
+            "image_urls": self.image_urls.split("|") if len(self.image_urls) > 0 else [],
             "google_id": self.google_id,
             "google_rating": self.google_rating,
             "yelp_id": self.yelp_id,
@@ -133,7 +133,7 @@ class Dog(Base):
             "state": self.state,
             "description": self.description,
             "zipcode": self.zipcode,
-            "image_urls": self.image_urls.split("|"),
+            "image_urls": self.image_urls.split("|") if len(self.image_urls) > 0 else [],
             "friendly": self.friendly,
             "housetrained": self.housetrained,
             "shots": self.shots,

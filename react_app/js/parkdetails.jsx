@@ -98,7 +98,7 @@ export class ParkDetails extends Component{
 		<div>
 			<NavBar/>
 			<Jumbotron style={{
-					backgroundImage: 'url("' + this.state.parkJSON.image_urls[0] + '")',
+					backgroundImage:  'url("' + (this.state.parkJSON.image_urls.length > 0 ? this.state.parkJSON.image_urls[0] : "/static/img/homeswehomelogo.svg") + '")',
 					backgroundSize: "cover",
 					minHeight:"400px"
 				}}>
@@ -125,7 +125,7 @@ export class ParkDetails extends Component{
 					<br/>
 				</Container>
 
-				<hr></hr>
+				<hr/>
 
 				<Container>
 					<h2>Nearby Shelters</h2>
@@ -135,7 +135,7 @@ export class ParkDetails extends Component{
 					<br/>
 				</Container>
 
-				<hr></hr>
+            	<hr/>
 
 				<Container>
 					<h2>Nearby Dogs</h2>

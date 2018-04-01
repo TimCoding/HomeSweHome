@@ -93,7 +93,7 @@ export default class DogDetails extends Component {
 				<NavBar/>
 				<br/>
 				{/* might need to change this in controlled carousel */}
-				<ControlledCarousel items={this.state.dogJSON.image_urls[0].length != 0 ? items : logo} size={"d-block mx-auto"} style={{height:500}}/>
+				<ControlledCarousel items={this.state.dogJSON.image_urls.length > 0 ? items : logo} size={"d-block mx-auto"} style={{height:500}}/>
 				<br/>
 				<Container>
 					<Row className="description_box">
