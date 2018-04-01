@@ -70,17 +70,12 @@ export default class DogDetails extends Component {
                 </Col>
             );
         })}
-        const items = [
-		  {
-		    src: this.state.dogJSON.image_urls[0],
-		  },
-		  {
-		    src: this.state.dogJSON.image_urls[1],
-		  },
-		  {
-		    src: this.state.dogJSON.image_urls[2],
-		  }
-		];
+        let items = [];
+        for(let i = 0; i < this.state.dogJSON.image_urls.length; i++){
+        	items.push({
+				src: this.state.dogJSON.image_urls[i]
+			});
+		}
 
 		const logo = [
 			{
@@ -93,7 +88,9 @@ export default class DogDetails extends Component {
 				<NavBar/>
 				<br/>
 				{/* might need to change this in controlled carousel */}
-				<ControlledCarousel items={this.state.dogJSON.image_urls.length > 0 ? items : logo} size={"d-block mx-auto"} style={{height:500}}/>
+				<div id="dogCarousel">
+                    <ControlledCarousel items={this.state.dogJSON.image_urls.length > 0 ? items : logo} size={"d-block mx-auto"} style={{height:500}}/>
+				</div>
 				<br/>
 				<Container>
 					<Row className="description_box">
