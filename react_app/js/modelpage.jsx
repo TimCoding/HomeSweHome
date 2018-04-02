@@ -31,10 +31,10 @@ export default class ModelPage extends Component {
 			citiesFilterOpen: false,
 			ratingsFilterOpen: false,
 			orderByOpen: false,
-			sortbyValue: '',
+			orderByValue: '',
 			selectedBreeds: [],
 			selectedCities: [],
-			selectedRatings: []
+			selectedRating: 0
 		};
 
 		this.toggleBreeds = this.toggleBreeds.bind(this);
@@ -145,9 +145,9 @@ export default class ModelPage extends Component {
 	}
 
 	handleOrderBy(event) {
-		alert('order value was selected: ' + event.currentTarget.innerText)
+		// alert('order value was selected: ' + event.currentTarget.innerText)
 		this.setState({
-			sortbyValue: event.currentTarget.innerText
+			orderByValue: event.currentTarget.innerText
 		});
 	}
 
@@ -161,7 +161,7 @@ export default class ModelPage extends Component {
 		} else {
 			this.state.selectedBreeds.push(event.currentTarget.name)
 		}
-		alert('filter value was selected ' + this.state.selectedBreeds)
+		// alert('filter value was selected ' + this.state.selectedBreeds)
 	}
 
 	handleCitiesFilter(event) {
@@ -174,20 +174,14 @@ export default class ModelPage extends Component {
 		} else {
 			this.state.selectedCities.push(event.currentTarget.name)
 		}
-		alert('filter value was selected ' + this.state.selectedCities)
+		// alert('filter value was selected ' + this.state.selectedCities)
 	}
 
 	handleRatingsFilter(event) {
-		if (event.currentTarget.checked == false) {
-			/* remove it */
-			let index = this.state.selectedRatings.indexOf(event.currentTarget.name)
-			if (index > -1) {
-				this.state.selectedRatings.splice(index, 1)
-			}
-		} else {
-			this.state.selectedRatings.push(event.currentTarget.name)
-		}
-		alert('filter value was selected ' + this.state.selectedRatings)
+		// alert('order value was selected: ' + event.currentTarget.innerText)
+		this.setState({
+			orderByValue: parseFloat(event.currentTarget.innerText)
+		});
 	}
 
 	renderBreedsDropdown(options) {
@@ -425,7 +419,7 @@ export default class ModelPage extends Component {
 
 			let orderOptions = ["Name", "Rating"].map(option => {
 				return (
-					<DropdownItem>{option}</DropdownItem>
+					<DropdownItem onClick={this.handleOrderBy}>{option}</DropdownItem>
 				)
 			});
 
@@ -442,16 +436,9 @@ export default class ModelPage extends Component {
 				)
 			});
 
-			let ratingsFilter = ["> 4 stars", "> 3 stars", "> 2 stars", "> 1 star"].map(rating => {
+			let ratingsFilter = [1, 2, 3, 4].map(rating => {
 				return (
-					<FormGroup check>
-						<Label check>
-							<Input type="checkbox"
-										 name={rating}
-										 onClick={this.handleRatingsFilter}/>
-							 {' '}{rating}
-						</Label>
-					</FormGroup>
+					<DropdownItem onClick={this.handleRatingsFilter}>{rating} stars +</DropdownItem>
 				)
 			});
 
