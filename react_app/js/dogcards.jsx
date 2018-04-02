@@ -4,14 +4,21 @@ import {
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
 import * as urls from './urls.js';
+import Highlighter from "react-highlight-words";
+
 
 const DogCard = (props) => {
   let dogBreed = props.dogData.breeds.map(type => {
     return (
-      <li>{type}</li>
+      <li>
+          <Highlighter
+            searchWords={[props.query]}
+            textToHighlight={type}/>
+      </li>
     );
   })
 
+ 
   return (
     <div className="cards">
       <Card>
@@ -20,7 +27,11 @@ const DogCard = (props) => {
                  alt="Dog image" />
         <div className="hoverText">
           <CardBody>
-            <h4 className="dogCardName">{props.dogData.name}</h4>
+            <h4>
+                <Highlighter
+                  searchWords={[props.query]}
+                  textToHighlight={props.dogData.name}/>
+            </h4>
             <CardText>
               <b>Breed: </b>
               <span className="dogCardBreed">{dogBreed}</span>

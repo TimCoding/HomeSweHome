@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 import * as urls from './urls.js';
 import {Col} from 'reactstrap';
+import Highlighter from "react-highlight-words";
 
 const ShelterCard = (props) => {
   let img = "";
@@ -20,7 +21,11 @@ const ShelterCard = (props) => {
         <CardImg className="cardImg" src={img} alt="Card image cap" />
         <div className="hoverText">
         <CardBody>
-          <CardTitle className="shelterCardsTitle">{props.shelterData.name}</CardTitle>
+          <CardTitle className="shelterCardsTitle">
+              <Highlighter
+                searchWords={[props.query]}
+                textToHighlight={props.shelterData.name}/>
+          </CardTitle>
           <CardText>
             <i className="fas fa-paw"></i><b>Email: </b>
             <span className="shelterCardEmail">{props.shelterData.email}</span>

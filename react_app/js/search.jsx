@@ -61,43 +61,6 @@ class Search extends React.Component {
             );
         }
 
-        /* Create static content */
-        var dogStaticContent = (
-            <Row>
-                <Col md="12">
-                    <h2> Dog Results </h2>
-                </Col>
-            </Row>
-        );
-
-        var shelterStaticContent = (
-            <Row>
-                <Col md="12">
-                    <h2> Shelter Results </h2>
-                </Col>
-            </Row>
-        );
-
-        var parkStaticContent = (
-            <Row>
-                <Col md="12">
-                    <h2> Park Results </h2>
-                </Col>
-            </Row>
-        );
-
-        /* Show Spinner */
-        // if (this.state.dogsJSON == null || this.state.parksJSON == null || this.state.sheltersJSON == null) {
-        //     return (
-        //         <div>
-        //             <NavBar/>
-        //             <Container>
-        //                 <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner/></h1>
-        //             </Container>
-        //         </div>
-        //     );
-        // }
-
         /* Create card lists */
         var dogList = [];
         var parkList = [];
@@ -107,7 +70,7 @@ class Search extends React.Component {
             dogList = this.state.dogsJSON.results.map(dog => {
                 return (
                     <Col md="3">
-                        <DogCard dogData={dog}/>
+                        <DogCard dogData={dog} query={this.props.query}/>
                     </Col>
                 );
             });
@@ -124,7 +87,7 @@ class Search extends React.Component {
             parkList = this.state.parksJSON.results.map(park => {
                 return (
                     <Col md="3">
-                        <ParkCard parkData={park}/>
+                        <ParkCard parkData={park} query={this.props.query}/>
                     </Col>
                 );
             });
@@ -141,7 +104,7 @@ class Search extends React.Component {
             shelterList = this.state.sheltersJSON.results.map(shelter => {
                 return (
                     <Col md="3">
-                        <ShelterCard shelterData={shelter}/>
+                        <ShelterCard shelterData={shelter} query={this.props.query}/>
                     </Col>
                 );
             });
@@ -159,17 +122,29 @@ class Search extends React.Component {
             <div>
                 <NavBar/>
                 <Container>
-                    {dogStaticContent}
+                    <Row>
+                        <Col md="12">
+                            <h2> Dog Results </h2>
+                        </Col>
+                    </Row>
                     <Row> {dogList} </Row>
                     { this.state.dogsJSON == null ? <h1 className="text-center"><PawSpinner /></h1> : "" }
                 </Container>
                 <Container>
-                    {shelterStaticContent}
+                    <Row>
+                        <Col md="12">
+                            <h2> Shelter Results </h2>
+                        </Col>
+                    </Row>
                     <Row> {shelterList} </Row>
                     { this.state.sheltersJSON == null ? <h1 className="text-center"><PawSpinner /></h1> : "" }
                 </Container>
                 <Container>
-                    {parkStaticContent}
+                    <Row>
+                        <Col md="12">
+                            <h2> Park Results </h2>
+                        </Col>
+                    </Row>
                     <Row> {parkList} </Row>
                     { this.state.parksJSON == null ? <h1 className="text-center"><PawSpinner /></h1> : ""}
                 </Container>

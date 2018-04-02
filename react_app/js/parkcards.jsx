@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 import * as urls from './urls.js';
 import {StarsRating} from "./stars.jsx";
+import Highlighter from "react-highlight-words";
 
 const ParkCard = (props) => {
     let img = "";
@@ -19,7 +20,11 @@ const ParkCard = (props) => {
         <CardImg className="cardImg" src={img} alt="Park image" />
         <span className="hoverText">
         <CardBody>
-          <CardTitle className="parkCardTitle">{props.parkData.name}</CardTitle>
+          <CardTitle className="parkCardTitle">
+              <Highlighter
+                searchWords={[props.query]}
+                textToHighlight={props.parkData.name}/>
+          </CardTitle>
 
             <CardText>
               <b>Yelp Rating: </b>
@@ -32,7 +37,9 @@ const ParkCard = (props) => {
             <CardText>
               <b>Location: </b>
               <span className="parkCardLocation">
-                {props.parkData.address} {props.parkData.city}, {props.parkData.state} {props.parkData.zip}
+                <Highlighter
+                  searchWords={[props.query]}
+                  textToHighlight={props.parkData.address + " " + props.parkData.city + ", " + props.parkData.state + " " + props.parkData.zip}/>
               </span>
             </CardText>
           <a className="btn btn-primary" href={urls.parkURL(props.parkData.id)}>Visit</a>
