@@ -147,7 +147,7 @@ export default class ModelPagination extends Component {
         <div>
 					<Container>
 						{ this.state.todos.length == 0 && this.state.doneLoading == 0 ? <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1> : "" }
-                        { this.state.todos.length == 0 && this.state.doneLoading == 1 ? <h3>No Results</h3> : <Row>{renderTodos}</Row>}
+                        { this.state.todos.length == 0 && this.state.doneLoading == 1 ? <p>No Results</p> : <Row>{renderTodos}</Row>}
 					</Container>
         { this.state.todos.length == 0 && this.state.doneLoading == 1 ? <p></p> :
         <Pagination id="page-numbers">
