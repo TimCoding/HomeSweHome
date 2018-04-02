@@ -2,7 +2,7 @@ from contextlib import contextmanager
 from functools import wraps
 
 from flask import jsonify, request
-from sqlalchemy import or_
+from sqlalchemy import or_, desc, asc
 
 from server import app
 from server.models import Dog, Shelter, Park, Breed
@@ -167,6 +167,49 @@ def get_dog_cities():
         })
 
 
+@app.route("/api/dogs/search/")
+@retry_once
+@convert_error_response
+def search_dogs():
+    with make_session() as session:
+        start = get_int_arg("start", 0)
+        limit = get_int_arg("limit", 10)
+        if start < 0:
+            return raise_error("The start parameter must be non-negative.")
+        if limit <= 0:
+            return raise_error("The limit parameter must be greater than 0.")
+        breeds_filters = request.args.getlist("breed")
+        cities_filters = request.args.getlist("city")
+        order_by_field = request.args.get("orderby")
+        order_by_order = request.args.get("sort", "ASC").upper()
+        base_query = session.query(Dog).join(Breed)
+        if len(breeds_filters) > 0:
+            base_query = base_query.filter(Breed.breed.in_(breeds_filters))
+        if len(cities_filters) > 0:
+            base_query = base_query.filter(Dog.city.in_(cities_filters))
+        if order_by_field is not None:
+            if order_by_field not in Dog.sortable:
+                return raise_error("The orderby field should be one of {0}.".format(",".join(Dog.sortable)))
+
+            if order_by_order == "ASC":
+                base_query = base_query.order_by(asc(getattr(Dog, order_by_field)))
+            elif order_by_order == "DESC":
+                base_query = base_query.order_by(desc(getattr(Dog, order_by_field)))
+            else:
+                return raise_error("The sort order should be 'ASC' or 'DESC'.")
+
+        count = base_query.count()
+        dogs = base_query.offset(start).limit(limit).all()
+        return jsonify({
+            "start": start,
+            "limit": limit,
+            "total": count,
+            "results": [
+                dog.jsonify() for dog in dogs
+            ]
+        })
+
+
 @app.route("/api/dogs/search/full/")
 @retry_once
 @convert_error_response
@@ -302,6 +345,46 @@ def get_shelter_cities():
         })
 
 
+@app.route("/api/shelters/search/")
+@retry_once
+@convert_error_response
+def search_shelters():
+    with make_session() as session:
+        start = get_int_arg("start", 0)
+        limit = get_int_arg("limit", 10)
+        if start < 0:
+            return raise_error("The start parameter must be non-negative.")
+        if limit <= 0:
+            return raise_error("The limit parameter must be greater than 0.")
+        cities_filters = request.args.getlist("city")
+        order_by_field = request.args.get("orderby")
+        order_by_order = request.args.get("sort", "ASC").upper()
+        base_query = session.query(Shelter)
+        if len(cities_filters) > 0:
+            base_query = base_query.filter(Shelter.city.in_(cities_filters))
+        if order_by_field is not None:
+            if order_by_field not in Shelter.sortable:
+                return raise_error("The orderby field should be one of {0}.".format(",".join(Shelter.sortable)))
+
+            if order_by_order == "ASC":
+                base_query = base_query.order_by(asc(getattr(Shelter, order_by_field)))
+            elif order_by_order == "DESC":
+                base_query = base_query.order_by(desc(getattr(Shelter, order_by_field)))
+            else:
+                return raise_error("The sort order should be 'ASC' or 'DESC'.")
+
+        count = base_query.count()
+        shelters = base_query.offset(start).limit(limit).all()
+        return jsonify({
+            "start": start,
+            "limit": limit,
+            "total": count,
+            "results": [
+                shelter.jsonify() for shelter in shelters
+            ]
+        })
+
+
 @app.route("/api/shelters/search/full/")
 @retry_once
 @convert_error_response
@@ -407,6 +490,53 @@ def get_parks_cities():
         return jsonify({
             "results": [
                 city[0] for city in cities
+            ]
+        })
+
+
+@app.route("/api/parks/search/")
+@retry_once
+@convert_error_response
+def search_parks():
+    with make_session() as session:
+        start = get_int_arg("start", 0)
+        limit = get_int_arg("limit", 10)
+        if start < 0:
+            return raise_error("The start parameter must be non-negative.")
+        if limit <= 0:
+            return raise_error("The limit parameter must be greater than 0.")
+        cities_filters = request.args.getlist("city")
+        rating_lower_bound = request.args.get("rating")
+        order_by_field = request.args.get("orderby")
+        order_by_order = request.args.get("sort", "ASC").upper()
+        base_query = session.query(Park)
+        if rating_lower_bound is not None:
+            try:
+                rating_lower_bound = float(rating_lower_bound)
+            except TypeError:
+                return raise_error("The rating field must be a floating point number.")
+            base_query = base_query.filter(Park.yelp_rating >= rating_lower_bound)
+        if len(cities_filters) > 0:
+            base_query = base_query.filter(Park.city.in_(cities_filters))
+        if order_by_field is not None:
+            if order_by_field not in Park.sortable:
+                return raise_error("The orderby field should be one of {0}.".format(",".join(Park.sortable)))
+
+            if order_by_order == "ASC":
+                base_query = base_query.order_by(asc(getattr(Park, order_by_field)))
+            elif order_by_order == "DESC":
+                base_query = base_query.order_by(desc(getattr(Park, order_by_field)))
+            else:
+                return raise_error("The sort order should be 'ASC' or 'DESC'.")
+
+        count = base_query.count()
+        parks = base_query.offset(start).limit(limit).all()
+        return jsonify({
+            "start": start,
+            "limit": limit,
+            "total": count,
+            "results": [
+                park.jsonify() for park in parks
             ]
         })
 
