@@ -165,7 +165,7 @@ export function fetchParks(limit, offset) {
 }
 
 export function fetchParkCities() {
-    return fetch(BASE_API_URL + "park/cities/")
+    return fetch(BASE_API_URL + "parks/cities/")
         .then(handleErrors)
         .then(response => response.json())
         .then(throwError)

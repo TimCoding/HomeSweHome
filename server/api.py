@@ -294,7 +294,7 @@ def get_shelters():
 @convert_error_response
 def get_shelter_cities():
     with make_session() as session:
-        cities = session.query(Shelter.city).distinct.all()
+        cities = session.query(Shelter.city).distinct()
         return jsonify({
             "results": [
                 city[0] for city in cities
@@ -403,7 +403,7 @@ def get_parks():
 @convert_error_response
 def get_parks_cities():
     with make_session() as session:
-        cities = session.query(Park.city).distinct.all()
+        cities = session.query(Park.city).distinct()
         return jsonify({
             "results": [
                 city[0] for city in cities
