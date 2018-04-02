@@ -22,7 +22,8 @@ export default class ModelPagination extends Component {
           startPage: 1,
           endPage: this.maxPages < 5 ? this.maxPages / amtPages : 5,
           max: this.maxPages,
-          type: props.type
+          type: props.type,
+          doneLoading: 0
         };
         this.handleClick = this.handleClick.bind(this);
       }
@@ -36,7 +37,8 @@ export default class ModelPagination extends Component {
 						todos: this.state.todos.concat(dataJSON),
 						max: this.paginatorAPI.totalPages(),
 						startPage: 1,
-                        endPage: this.maxPages > 5 ? 5 : this.maxPages
+                        endPage: this.maxPages > 5 ? 5 : this.maxPages,
+                        doneLoading: 1
                     })
 				}
 				)
@@ -121,8 +123,7 @@ export default class ModelPagination extends Component {
 				    );
                 }
 				
-		});
-
+        });
     // Logic for displaying page numbers
     const pageNumbers = [];
 
@@ -142,15 +143,13 @@ export default class ModelPagination extends Component {
         </PaginationItem>
         );
     });
-
     return (
         <div>
 					<Container>
-						{ this.state.todos.length == 0 ? <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1> : "" }
-						<Row>
-	        		        {renderTodos}
-						</Row>
+						{ this.state.todos.length == 0 && this.state.doneLoading == 0 ? <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1> : "" }
+                        { this.state.todos.length == 0 && this.state.doneLoading == 1 ? <h3>No Results</h3> : <Row>{renderTodos}</Row>}
 					</Container>
+        { this.state.todos.length == 0 && this.state.doneLoading == 1 ? <p></p> :
         <Pagination id="page-numbers">
 					<PaginationItem>
 						<PaginationLink previous key={1} id={0} onClick={this.handleClick}/>
@@ -160,6 +159,7 @@ export default class ModelPagination extends Component {
           	<PaginationLink next key={this.state.max} id={this.state.max + 1} onClick={this.handleClick} />
         	</PaginationItem>
         </Pagination>
+        }
         </div>
     );
     }
