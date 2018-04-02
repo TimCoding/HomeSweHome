@@ -3,8 +3,9 @@ import {Container, Row, Col} from 'reactstrap';
 import {PawSpinner} from './spinner.jsx';
 import {NavBar} from './navbar.jsx';
 import DogCard from './dogcards.jsx';
-import ShelterCard from './sheltercards.jsx'
+import ShelterCard from './sheltercards.jsx';
 import ParkCard from './parkcards.jsx';
+import ModelPagination from './modelPagination.jsx';
 
 import * as api from './api.js';
 
@@ -117,38 +118,47 @@ class Search extends React.Component {
             }
         }
 
+        /* Create static content */
+        var dogStaticContent = (
+            <Row>
+                <Col md="12">
+                    <h2> Dog Results </h2>
+                </Col>
+            </Row>
+        );
+
+        var shelterStaticContent = (
+            <Row>
+                <Col md="12">
+                    <h2> Shelter Results </h2>
+                </Col>
+            </Row>
+        );
+
+        var parkStaticContent = (
+            <Row>
+                <Col md="12">
+                    <h2> Park Results </h2>
+                </Col>
+            </Row>
+        );
 
         return (
             <div>
-                <NavBar/>
-                <Container>
-                    <Row>
-                        <Col md="12">
-                            <h2> Dog Results </h2>
-                        </Col>
-                    </Row>
-                    <Row> {dogList} </Row>
-                    { this.state.dogsJSON == null ? <h1 className="text-center"><PawSpinner /></h1> : "" }
-                </Container>
-                <Container>
-                    <Row>
-                        <Col md="12">
-                            <h2> Shelter Results </h2>
-                        </Col>
-                    </Row>
-                    <Row> {shelterList} </Row>
-                    { this.state.sheltersJSON == null ? <h1 className="text-center"><PawSpinner /></h1> : "" }
-                </Container>
-                <Container>
-                    <Row>
-                        <Col md="12">
-                            <h2> Park Results </h2>
-                        </Col>
-                    </Row>
-                    <Row> {parkList} </Row>
-                    { this.state.parksJSON == null ? <h1 className="text-center"><PawSpinner /></h1> : ""}
-                </Container>
-            </div>
+            <NavBar/>
+            <Container>
+                {dogStaticContent}
+                <ModelPagination type="dog" call={api.fetchDogsSearchFull} query={this.props.query}/>
+            </Container>
+            <Container>
+                {shelterStaticContent}
+                <ModelPagination type="shelter" call={api.fetchSheltersSearchFull} query={this.props.query}/>
+            </Container>
+            <Container>
+                {parkStaticContent}
+                <ModelPagination type="park" call={api.fetchParksSearchFull} query={this.props.query}/>
+            </Container>
+        </div>
         );
     }
 }

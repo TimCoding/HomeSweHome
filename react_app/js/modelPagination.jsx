@@ -5,6 +5,7 @@ import DogCard from './dogcards.jsx';
 import {PawSpinner} from './spinner.jsx';
 import ShelterCard from './sheltercards.jsx';
 import ParkCard from './parkcards.jsx';
+import Highlighter from "react-highlight-words";
 
 
 export default class ModelPagination extends Component {
@@ -20,7 +21,8 @@ export default class ModelPagination extends Component {
           todosPerPage: amtPages,
           startPage: 1,
           endPage: this.maxPages < 5 ? this.maxPages / amtPages : 5,
-          max: this.maxPages
+          max: this.maxPages,
+          type: props.type
         };
         this.handleClick = this.handleClick.bind(this);
       }
@@ -98,11 +100,27 @@ export default class ModelPagination extends Component {
     const currentTodos = this.state.todos;
 
     const renderTodos = currentTodos.map(currentTodos => {
-				return (
+                if(this.state.type == "dog"){
+                    return (
 						<Col md="3">
-							<DogCard dogData={currentTodos}/>
+							<DogCard dogData={currentTodos} query={this.props.query}/>
 						</Col>
-				);
+
+				    );
+                }else if(this.state.type == "park"){
+                    return (
+						<Col md="3">
+							<ParkCard parkData={currentTodos} query={this.props.query}/>
+						</Col>
+				    );
+                }else if(this.state.type == "shelter"){
+                    return (
+						<Col md="3">
+							<ShelterCard shelterData={currentTodos} query={this.props.query}/>
+						</Col>
+				    );
+                }
+				
 		});
 
     // Logic for displaying page numbers
