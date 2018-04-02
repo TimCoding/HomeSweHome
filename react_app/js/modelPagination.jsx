@@ -32,10 +32,10 @@ export default class ModelPagination extends Component {
 			this.paginatorAPI.fetchFirstPage()
 				.then((dataJSON) =>
 				{
-                    this.maxPages = this.paginatorAPI.totalPages();
+                    this.maxPages = this.paginatorAPI.totalPages() - 1;
 					this.setState({
 						todos: this.state.todos.concat(dataJSON),
-						max: this.paginatorAPI.totalPages(),
+						max: this.paginatorAPI.totalPages() - 1,
 						startPage: 1,
                         endPage: this.maxPages > 5 ? 5 : this.maxPages,
                         doneLoading: 1
@@ -48,6 +48,9 @@ export default class ModelPagination extends Component {
 		}
 
     handleClick(event) {
+				this.setState({
+					doneLoading: 0
+				})
         var page = Number(event.target.id);
         if(Number(event.target.id) === 0){
             page = 1;
@@ -65,7 +68,8 @@ export default class ModelPagination extends Component {
 					{
 						this.setState({
 							/*Rename todos to useful homeswehome related name*/
-							todos: this.state.todos.concat(dataJSON)
+							todos: this.state.todos.concat(dataJSON),
+							doneLoading:1
 						})
 					}
 					)
@@ -89,16 +93,13 @@ export default class ModelPagination extends Component {
 				this.setState({
 						todos: dogs,
 						startPage: newStart,
-						endPage: newEnd
-                });
+						endPage: newEnd,
+        });
     }
 
     render() {
     const { todos, currentPage, todosPerPage, startPage} = this.state;
 
-    // Logic for displaying current todos
-    const indexOfLastTodo = currentPage * todosPerPage;
-    const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
     const currentTodos = this.state.todos;
 
     const renderTodos = currentTodos.map(currentTodos => {
@@ -122,7 +123,7 @@ export default class ModelPagination extends Component {
 						</Col>
 				    );
                 }
-				
+
         });
     // Logic for displaying page numbers
     const pageNumbers = [];
@@ -135,7 +136,6 @@ export default class ModelPagination extends Component {
         return (
         <PaginationItem>
             <PaginationLink
-				key={number}
 	            id={number}
 	            onClick={this.handleClick}>
 						{number}
@@ -146,17 +146,17 @@ export default class ModelPagination extends Component {
     return (
         <div>
 					<Container>
-						{ this.state.todos.length == 0 && this.state.doneLoading == 0 ? <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1> : "" }
+						{ this.state.doneLoading == 0 ? <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1> : "" }
                         { this.state.todos.length == 0 && this.state.doneLoading == 1 ? <p>No Results</p> : <Row>{renderTodos}</Row>}
 					</Container>
-        { this.state.todos.length == 0 && this.state.doneLoading == 1 ? <p></p> :
+        { pageNumbers.length <= 4 && this.state.doneLoading == 1 ? <p></p> :
         <Pagination id="page-numbers">
 					<PaginationItem>
-						<PaginationLink previous key={1} id={0} onClick={this.handleClick}/>
+						<PaginationLink previous id={0} onClick={this.handleClick}/>
 					</PaginationItem>
           {renderPageNumbers}
 					<PaginationItem>
-          	<PaginationLink next key={this.state.max} id={this.state.max + 1} onClick={this.handleClick} />
+          	<PaginationLink next id={this.state.max + 1} onClick={this.handleClick} />
         	</PaginationItem>
         </Pagination>
         }
