@@ -92,6 +92,18 @@ export function fetchDogCities() {
 }
 
 export function fetchDogsSearch(query, limit, offset) {
+    /**
+     * `query` should be in the form:
+     * <code>
+     *     {
+     *         breed: ["breed1", ...],
+     *         city: ["city1", ...],
+     *         orderby: "name",
+     *         sort: "ASC" | "DESC"
+     *     }
+     * </code>
+     * All of these fields are optional
+     */
     let multidict = query;
     multidict["offset"] = offset || 0;
     multidict["limit"] = limit || 10;
@@ -154,6 +166,17 @@ export function fetchShelterCities() {
 }
 
 export function fetchSheltersSearch(query, limit, offset) {
+    /**
+     * `query` should be in the form:
+     * <code>
+     *     {
+     *         city: ["city1", ...],
+     *         orderby: "name",
+     *         sort: "ASC" | "DESC"
+     *     }
+     * </code>
+     * All of these fields are optional
+     */
     let multidict = query;
     multidict["offset"] = offset || 0;
     multidict["limit"] = limit || 10;
@@ -206,6 +229,18 @@ export function fetchParkCities() {
 }
 
 export function fetchParksSearch(query, limit, offset) {
+    /**
+     * `query` should be in the form:
+     * <code>
+     *     {
+     *         city: ["city1", ...],
+     *         rating: 4.5,
+     *         orderby: "name",
+     *         sort: "ASC" | "DESC"
+     *     }
+     * </code>
+     * All of these fields are optional
+     */
     let multidict = query;
     multidict["offset"] = offset || 0;
     multidict["limit"] = limit || 10;
