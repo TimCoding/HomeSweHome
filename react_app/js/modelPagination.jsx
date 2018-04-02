@@ -3,13 +3,15 @@ import { Pagination, PaginationItem, PaginationLink, Container, Row, Col } from 
 import * as api from './api.js';
 import DogCard from './dogcards.jsx';
 import {PawSpinner} from './spinner.jsx';
+import ShelterCard from './sheltercards.jsx';
+import ParkCard from './parkcards.jsx';
 
 
 export default class ModelPagination extends Component {
 	constructor(props) {
         super(props);
 				var amtPages = 4;
-				var paginator = new api.Paginator(amtPages, api.fetchShelterDogs, "TX2115");
+                var paginator = new api.Paginator(amtPages, props.call, props.query);
 				this.maxPages = 0;
 				this.paginatorAPI = paginator;
         this.state = {
@@ -25,15 +27,15 @@ export default class ModelPagination extends Component {
 
 		componentDidMount(){
 			this.paginatorAPI.fetchFirstPage()
-				.then((dogsJSON) =>
+				.then((dataJSON) =>
 				{
                     this.maxPages = this.paginatorAPI.totalPages();
 					this.setState({
-						todos: this.state.todos.concat(dogsJSON),
+						todos: this.state.todos.concat(dataJSON),
 						max: this.paginatorAPI.totalPages(),
 						startPage: 1,
                         endPage: this.maxPages > 5 ? 5 : this.maxPages
-					})
+                    })
 				}
 				)
 				.catch(error => this.setState({
@@ -42,33 +44,38 @@ export default class ModelPagination extends Component {
 		}
 
     handleClick(event) {
+        var page = Number(event.target.id);
+        if(Number(event.target.id) === 0){
+            page = 1;
+        }else if(Number(event.target.id) === (this.state.max + 1)){
+            page = this.state.max;
+        }
         var mid = (this.state.startPage + this.state.endPage) / 2;
-				var page = Number(event.target.id);
         var shift = page - Math.floor(mid);
         var newStart = this.state.startPage + shift;
         var newEnd = this.state.endPage + shift;
 				var max = this.state.max;
 				var dogs = [];
 				this.paginatorAPI.fetchPage(page - 1)
-					.then((dogsJSON) =>
+					.then((dataJSON) =>
 					{
 						this.setState({
 							/*Rename todos to useful homeswehome related name*/
-							todos: this.state.todos.concat(dogsJSON)
+							todos: this.state.todos.concat(dataJSON)
 						})
 					}
 					)
 					.catch(error => this.setState({
 						error: error.message
 					}));
-				if(newStart < 1){
+				if(newStart < 1 || Number(event.target.id) == 0){
 					newStart = 1;
                     newEnd = max
                     if((newStart + 4) < newEnd){
                         newEnd = this.maxPages > 5 ? 5 : this.maxPages;
                     }
 				}
-				if(newEnd > max){
+				if(newEnd > max || Number(event.target.id) == (this.state.max + 1)){
                     newStart = max - 4;
                     if(newStart < 1){
                         newStart = 1;
@@ -79,7 +86,7 @@ export default class ModelPagination extends Component {
 						todos: dogs,
 						startPage: newStart,
 						endPage: newEnd
-				});
+                });
     }
 
     render() {
@@ -117,43 +124,22 @@ export default class ModelPagination extends Component {
         </PaginationItem>
         );
     });
-    if(this.state.todos.length == 0) {
-        return (
-            <div>
-                <h2>Dogs</h2>
-                <Container>
-                    <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
-                </Container>
-                <Pagination id="page-numbers">
-					<PaginationItem>
-						<PaginationLink previous key={1} id={1} onClick={this.handleClick}/>
-					</PaginationItem>
-          {renderPageNumbers}
-					<PaginationItem>
-            {/* error where you click last button right away it does the same thing with double clicking with first button*/}
-          	<PaginationLink next key={this.state.max} id={this.state.max} onClick={this.handleClick} />
-        	</PaginationItem>
-        </Pagination>
-            </div>
-        );
-    }
 
     return (
         <div>
 					<Container>
-						<h2>Dogs</h2>
+						{ this.state.todos.length == 0 ? <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1> : "" }
 						<Row>
 	        		        {renderTodos}
 						</Row>
 					</Container>
         <Pagination id="page-numbers">
 					<PaginationItem>
-						<PaginationLink previous key={1} id={1} onClick={this.handleClick}/>
+						<PaginationLink previous key={1} id={0} onClick={this.handleClick}/>
 					</PaginationItem>
           {renderPageNumbers}
 					<PaginationItem>
-            {/* error where you click last button right away it does the same thing with double clicking with first button*/}
-          	<PaginationLink next key={this.state.max} id={this.state.max} onClick={this.handleClick} />
+          	<PaginationLink next key={this.state.max} id={this.state.max + 1} onClick={this.handleClick} />
         	</PaginationItem>
         </Pagination>
         </div>
