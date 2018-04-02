@@ -19,6 +19,20 @@ function parameterize(params) {
     return "?" + paramStrings.join("&");
 }
 
+function parameterizeMultidict(multidict) {
+    let paramStrings = [];
+    for (const key of Object.keys(multidict)) {
+        if(Array.isArray(multidict[kgey])){
+            for(let i = 0; i < multidict[key].length; i++){
+                paramStrings.append(encodeURIComponent(key) + "=" + encodeURIComponent(multidict[key][i]));
+            }
+        } else {
+            paramStrings.append(encodeURIComponent(key) + "=" + encodeURIComponent(multidict[key]));
+        }
+    }
+    return "?" + paramStrings.join("&");
+}
+
 function handleErrors(response) {
     // force non-500 errors to be thrown
     if (!response.ok) {
@@ -77,6 +91,16 @@ export function fetchDogCities() {
         .then(throwError)
 }
 
+export function fetchDogsSearch(query, limit, offset) {
+    let multidict = query;
+    multidict["offset"] = offset || 0;
+    multidict["limit"] = limit || 10;
+    return fetch(BASE_API_URL + "dogs/search/" + parameterizeMultidict(multidict))
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
 export function fetchDogsSearchFull(query, limit, offset) {
     return fetch(BASE_API_URL + "dogs/search/full/" + parameterize({
         "query": query,
@@ -129,6 +153,16 @@ export function fetchShelterCities() {
         .then(throwError)
 }
 
+export function fetchSheltersSearch(query, limit, offset) {
+    let multidict = query;
+    multidict["offset"] = offset || 0;
+    multidict["limit"] = limit || 10;
+    return fetch(BASE_API_URL + "shelters/search/" + parameterizeMultidict(multidict))
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
 export function fetchSheltersSearchFull(query, limit, offset) {
     return fetch(BASE_API_URL + "shelters/search/full/" + parameterize({
         "query": query,
@@ -171,6 +205,16 @@ export function fetchParkCities() {
         .then(throwError)
 }
 
+export function fetchParksSearch(query, limit, offset) {
+    let multidict = query;
+    multidict["offset"] = offset || 0;
+    multidict["limit"] = limit || 10;
+    return fetch(BASE_API_URL + "parks/search/" + parameterizeMultidict(multidict))
+        .then(handleErrors)
+        .then(response => response.json())
+        .then(throwError)
+}
+
 export function fetchParksSearchFull(query, limit, offset) {
     return fetch(BASE_API_URL + "parks/search/full/" + parameterize({
         "query": query,
@@ -181,8 +225,6 @@ export function fetchParksSearchFull(query, limit, offset) {
         .then(response => response.json())
         .then(throwError)
 }
-
-// TODO: Create search API bindings for models
 
 /**
  * Usage:
