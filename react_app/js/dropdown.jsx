@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Col } from 'reactstrap';
 
 export class Filter extends React.Component {
   constructor(props) {
@@ -21,11 +21,12 @@ export class Filter extends React.Component {
     return (
       <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle caret>
-          Filter
+          {this.props.name}
         </DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem>City</DropdownItem>
-          <DropdownItem>Zip</DropdownItem>
+        <DropdownMenu className="dropdown-scroll">
+          <Col>
+            {this.props.options}
+          </Col>
         </DropdownMenu>
       </Dropdown>
     );

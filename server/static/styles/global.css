@@ -86,6 +86,10 @@ body {
   opacity: 1;
 }
 
+.dropdown {
+  padding-right: 10px
+}
+
 .dropdown-scroll {
   position: inherit;
   max-height:200px;
