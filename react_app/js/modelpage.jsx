@@ -10,6 +10,7 @@ import ParkCard from './parkcards.jsx';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
  				 Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import {StarsRating} from './stars.jsx'
 
 export default class ModelPage extends Component {
 	constructor(props) {
@@ -31,7 +32,6 @@ export default class ModelPage extends Component {
 			citiesFilterOpen: false,
 			ratingsFilterOpen: false,
 			orderByOpen: false,
-			orderByValue: '',
 			selectedBreeds: [],
 			selectedCities: [],
 			selectedRating: 0
@@ -47,6 +47,7 @@ export default class ModelPage extends Component {
 		this.handleBreedsFilter = this.handleBreedsFilter.bind(this);
 		this.handleCitiesFilter = this.handleCitiesFilter.bind(this);
 		this.handleRatingsFilter = this.handleRatingsFilter.bind(this);
+		this.handleSelection = this.handleSelection.bind(this);
 	}
 
 	componentDidMount() {
@@ -124,6 +125,7 @@ export default class ModelPage extends Component {
 		this.setState({
 			breedsFilterOpen: !this.state.breedsFilterOpen
 		})
+		alert("These are the selected breeds: " + this.state.selectedBreeds)
 	}
 
 	toggleCities() {
@@ -145,10 +147,9 @@ export default class ModelPage extends Component {
 	}
 
 	handleOrderBy(event) {
-		// alert('order value was selected: ' + event.currentTarget.innerText)
-		this.setState({
-			orderByValue: event.currentTarget.innerText
-		});
+		this.setState({orderByValue: event.target.innerText}, function () {
+			this.handleSelection()
+		})
 	}
 
 	handleBreedsFilter(event) {
@@ -180,8 +181,54 @@ export default class ModelPage extends Component {
 	handleRatingsFilter(event) {
 		// alert('order value was selected: ' + event.currentTarget.innerText)
 		this.setState({
-			orderByValue: parseFloat(event.currentTarget.innerText)
-		});
+			selectedRating: parseFloat(event.currentTarget.rating)
+		}, function () {
+			this.handleSelection()
+		})
+	}
+
+	handleSelection() {
+		if (this.props.model == "dogs") {
+			let query =
+				{
+						breed: this.state.selectedBreeds,
+						city: this.state.selectedCities,
+						orderby: this.state.orderByValue
+				}
+
+			api.fetchDogsSearch(query)
+					.then(queryResults => this.setState({
+							results: queryResults.results,
+					}))
+					.catch(error => this.setState({
+							error: error.message
+					}));
+		} else if (this.props.model == "parks") {
+			alert(this.state.orderByValue)
+			   let query = {
+					 		rating: this.state.selectedRating,
+			       orderby: this.state.orderByValue,
+			   }
+			api.fetchParksSearch(query)
+					.then(queryResults => this.setState({
+							results: queryResults.results,
+					}))
+					.catch(error => this.setState({
+							error: error.message
+					}));
+		} else if (this.props.model == "shelters") {
+			let query = {
+				  orderby: this.state.orderByValue
+			}
+
+			api.fetchSheltersSearch(query)
+					.then(queryResults => this.setState({
+							results: queryResults.results,
+					}))
+					.catch(error => this.setState({
+							error: error.message
+					}));
+		}
 	}
 
 	renderBreedsDropdown(options) {
@@ -227,9 +274,7 @@ export default class ModelPage extends Component {
 					Ratings
 				</DropdownToggle>
 				<DropdownMenu className="dropdown-scroll">
-					<Col>
-						{options}
-					</Col>
+					{options}
 				</DropdownMenu>
 			</Dropdown>
 		)
@@ -320,7 +365,7 @@ export default class ModelPage extends Component {
 				);
 			});
 
-			let orderOptions = ["Name"].map(option => {
+			let orderOptions = ["name"].map(option => {
 				return (
 					<DropdownItem onClick={this.handleOrderBy}>{option}</DropdownItem>
 				)
@@ -417,7 +462,7 @@ export default class ModelPage extends Component {
 				);
 			});
 
-			let orderOptions = ["Name", "Rating"].map(option => {
+			let orderOptions = ["name", "yelp_rating"].map(option => {
 				return (
 					<DropdownItem onClick={this.handleOrderBy}>{option}</DropdownItem>
 				)
@@ -438,7 +483,10 @@ export default class ModelPage extends Component {
 
 			let ratingsFilter = [1, 2, 3, 4].map(rating => {
 				return (
-					<DropdownItem onClick={this.handleRatingsFilter}>{rating} stars +</DropdownItem>
+					<DropdownItem onClick={this.handleRatingsFilter}
+												rating={rating}>
+												<StarsRating rating={rating}/> and up
+					</DropdownItem>
 				)
 			});
 
@@ -501,9 +549,9 @@ export default class ModelPage extends Component {
 				);
 			});
 
-			let orderOptions = ["Name"].map(option => {
+			let orderOptions = ["name"].map(option => {
 				return (
-					<DropdownItem>{option}</DropdownItem>
+					<DropdownItem onClick={this.handleOrderBy}>{option}</DropdownItem>
 				)
 			});
 

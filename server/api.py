@@ -189,7 +189,7 @@ def search_dogs():
             base_query = base_query.filter(Dog.city.in_(cities_filters))
         if order_by_field is not None:
             if order_by_field not in Dog.sortable:
-                return raise_error("The orderby field should be one of {0}.".format(",".join(Dog.sortable)))
+                return raise_error("The orderby field should be one of {0}".format(",".join(Dog.sortable)))
 
             if order_by_order == "ASC":
                 base_query = base_query.order_by(asc(getattr(Dog, order_by_field)))
