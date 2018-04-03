@@ -35,7 +35,6 @@ export default class ModelPage extends Component {
 			orderByOpen: false,
 			selectedBreeds: [],
 			selectedCities: [],
-			selectedRating: null,
 			checkedVals: {}
 		};
 
@@ -137,7 +136,7 @@ export default class ModelPage extends Component {
 		this.setState({
 			citiesFilterOpen: !this.state.citiesFilterOpen
 		})
-		
+
 		if (this.state.citiesFilterOpen) {
 			this.handleSelection()
 		}
@@ -157,7 +156,7 @@ export default class ModelPage extends Component {
 
 	handleOrderBy(event) {
 		this.setState({orderByValue: event.target.name,
-									 /* sortByValue: event.target.sortBy */}, function () {
+									 sortByValue: event.target.id }, function () {
 			this.handleSelection()
 		})
 	}
@@ -202,7 +201,7 @@ export default class ModelPage extends Component {
       endpoint = api.fetchDogsSearch;
       query["breed"] = this.state.selectedBreeds || [];
     } else if (this.props.model === "shelters") {
-      if(!(this.state.selectedRating == null)) {
+      if(!(this.state.selectedRating == undefined)) {
         query["rating"] = this.state.selectedRating;
       }
       endpoint = api.fetchSheltersSearch;
@@ -213,9 +212,13 @@ export default class ModelPage extends Component {
       return;
     }
 
-    if(!(this.state.orderByValue == null)) {
+    if(!(this.state.orderByValue == undefined)) {
       query["orderby"] = this.state.orderByValue;
     }
+		if(!(this.state.sortByValue == undefined)) {
+			alert(this.state.sortByValue)
+			query["sort"] = this.state.sortByValue;
+		}
     console.log(query);
     this.resultsPaginator = new api.Paginator(12, endpoint, query);
     this.resultsPaginator.fetchFirstPage()
@@ -363,16 +366,16 @@ export default class ModelPage extends Component {
 				);
 			});
 
-			let orderOptions = [["name", "ASC", "Name (A-Z)"], ["name", "DSC", "Name (Z-A)"]].map(option => {
+			let orderOptions = [["name", "ASC", "Name (A-Z)"], ["name", "DESC", "Name (Z-A)"]].map(option => {
 				return (
 					<DropdownItem name={option[0]}
+												id={option[1]}
 												onClick={this.handleOrderBy}>{option[2]}</DropdownItem>
 				)
 			});
 
 
 			let breedsOptions = this.state.breeds.map(breed => {
-				let index = this.state.selectedBreeds.indexOf(event.currentTarget.name)
 				return (
 					<FormGroup check>
 						<Label check>
@@ -465,12 +468,13 @@ export default class ModelPage extends Component {
 				);
 			});
 
-			let orderOptions = [["name", "ASC", "Name (A-Z)"], ["name", "DSC", "Name (Z-A)"],
+			let orderOptions = [["name", "ASC", "Name (A-Z)"], ["name", "DESC", "Name (Z-A)"],
 													["yelp_rating", "ASC", "Lowest-Highest Rating"],
-													["yelp_rating", "DSC", "Highest-Lowest Rating"]].map(option => {
+													["yelp_rating", "DESC", "Highest-Lowest Rating"]].map(option => {
 				return (
 					<DropdownItem onClick={this.handleOrderBy}
 												name={option[0]}
+												id={option[1]}
 												>{option[2]}</DropdownItem>
 				)
 			});
@@ -557,9 +561,10 @@ export default class ModelPage extends Component {
 				);
 			});
 
-			let orderOptions = [["name", "ASC", "Name (A-Z)"], ["name", "DSC", "Name (Z-A)"]].map(option => {
+			let orderOptions = [["name", "ASC", "Name (A-Z)"], ["name", "DESC", "Name (Z-A)"]].map(option => {
 				return (
 					<DropdownItem name={option[0]}
+												id={option[1]}
 												onClick={this.handleOrderBy}>{option[2]}</DropdownItem>
 				)
 			});
