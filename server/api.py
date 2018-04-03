@@ -198,8 +198,9 @@ def search_dogs():
             else:
                 return raise_error("The sort order should be 'ASC' or 'DESC'.")
 
+        base_query = base_query.distinct()
         count = base_query.count()
-        dogs = base_query.distinct().offset(start).limit(limit).all()
+        dogs = base_query.offset(start).limit(limit).all()
         return jsonify({
             "start": start,
             "limit": limit,
@@ -231,8 +232,9 @@ def search_dogs_full():
             zipcode = int(query)
             filters.append(Dog.zipcode == zipcode)
         base_query = base_query.filter(or_(*filters))
+        base_query = base_query.distinct()
         count = base_query.count()
-        dogs = base_query.distinct().offset(start).limit(limit).all()
+        dogs = base_query.offset(start).limit(limit).all()
         return jsonify({
             "start": start,
             "limit": limit,
