@@ -22,12 +22,12 @@ function parameterize(params) {
 function parameterizeMultidict(multidict) {
     let paramStrings = [];
     for (const key of Object.keys(multidict)) {
-        if(Array.isArray(multidict[kgey])){
+        if(Array.isArray(multidict[key])){
             for(let i = 0; i < multidict[key].length; i++){
-                paramStrings.append(encodeURIComponent(key) + "=" + encodeURIComponent(multidict[key][i]));
+                paramStrings.push(encodeURIComponent(key) + "=" + encodeURIComponent(multidict[key][i]));
             }
         } else {
-            paramStrings.append(encodeURIComponent(key) + "=" + encodeURIComponent(multidict[key]));
+            paramStrings.push(encodeURIComponent(key) + "=" + encodeURIComponent(multidict[key]));
         }
     }
     return "?" + paramStrings.join("&");
