@@ -187,48 +187,42 @@ export default class ModelPage extends Component {
 		})
 	}
 
-	handleSelection() {
-		if (this.props.model == "dogs") {
-			let query =
-				{
-						breed: this.state.selectedBreeds,
-						city: this.state.selectedCities,
-						orderby: this.state.orderByValue
-				}
-
-			api.fetchDogsSearch(query)
-					.then(queryResults => this.setState({
-							results: queryResults.results,
-					}))
-					.catch(error => this.setState({
-							error: error.message
-					}));
-		} else if (this.props.model == "parks") {
-			alert(this.state.orderByValue)
-			   let query = {
-					 		rating: this.state.selectedRating,
-			       orderby: this.state.orderByValue,
-			   }
-			api.fetchParksSearch(query)
-					.then(queryResults => this.setState({
-							results: queryResults.results,
-					}))
-					.catch(error => this.setState({
-							error: error.message
-					}));
-		} else if (this.props.model == "shelters") {
-			let query = {
-				  orderby: this.state.orderByValue
+	updateQuery(){
+		let query = {};
+		let endpoint = null;
+        query["city"] = this.state.selectedCities || [];
+		if (this.props.model === "dogs"){
+			endpoint = api.fetchDogsSearch;
+			query["breed"] = this.state.selectedBreeds || [];
+		} else if (this.props.model === "shelter") {
+			if(!(this.state.selectedRating == null)) {
+				query["rating"] = this.state.selectedRating;
 			}
-
-			api.fetchSheltersSearch(query)
-					.then(queryResults => this.setState({
-							results: queryResults.results,
-					}))
-					.catch(error => this.setState({
-							error: error.message
-					}));
+			endpoint = api.fetchSheltersSearch;
+		} else if (this.props.model ===  "park") {
+			endpoint = api.fetchParksSearch;
+		} else {
+			console.error("Shouldn't reach this");
+			return;
 		}
+
+		if(!(this.state.orderByValue == null)) {
+			query["orderby"] = this.state.orderByValue;
+		}
+		console.log(query);
+		this.resultsPaginator = new api.Paginator(12, endpoint, query);
+		this.resultsPaginator.fetchFirstPage()
+            .then(results => this.setState({
+                results: results,
+                resultsLoading: false
+            }))
+            .catch(error => this.setState({
+                error: error.message
+            }));
+	}
+
+	handleSelection() {
+		this.updateQuery();
 	}
 
 	renderBreedsDropdown(options) {

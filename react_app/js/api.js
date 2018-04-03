@@ -105,7 +105,7 @@ export function fetchDogsSearch(query, limit, offset) {
      * All of these fields are optional
      */
     let multidict = query;
-    multidict["offset"] = offset || 0;
+    multidict["start"] = offset || 0;
     multidict["limit"] = limit || 10;
     return fetch(BASE_API_URL + "dogs/search/" + parameterizeMultidict(multidict))
         .then(handleErrors)
@@ -178,7 +178,7 @@ export function fetchSheltersSearch(query, limit, offset) {
      * All of these fields are optional
      */
     let multidict = query;
-    multidict["offset"] = offset || 0;
+    multidict["start"] = offset || 0;
     multidict["limit"] = limit || 10;
     return fetch(BASE_API_URL + "shelters/search/" + parameterizeMultidict(multidict))
         .then(handleErrors)
@@ -242,7 +242,7 @@ export function fetchParksSearch(query, limit, offset) {
      * All of these fields are optional
      */
     let multidict = query;
-    multidict["offset"] = offset || 0;
+    multidict["start"] = offset || 0;
     multidict["limit"] = limit || 10;
     return fetch(BASE_API_URL + "parks/search/" + parameterizeMultidict(multidict))
         .then(handleErrors)
