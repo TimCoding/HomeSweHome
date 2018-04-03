@@ -182,13 +182,13 @@ def search_dogs():
         cities_filters = request.args.getlist("city")
         order_by_field = request.args.get("orderby")
         order_by_order = request.args.get("sort", "ASC").upper()
-        base_query = session.query(Dog).join(Breed)
+        base_query = session.query(Dog)
         if len(breeds_filters) > 0:
-            base_query = base_query.filter(Breed.breed.in_(breeds_filters))
+            base_query = base_query.join(Breed).filter(Breed.breed.in_(breeds_filters))
         if len(cities_filters) > 0:
             base_query = base_query.filter(Dog.city.in_(cities_filters))
         if order_by_field is not None:
-            if order_by_field not in Dog.sortable:
+            if order_by_field nogt in Dog.sortable:
                 return raise_error("The orderby field should be one of {0}".format(",".join(Dog.sortable)))
 
             if order_by_order == "ASC":
@@ -199,7 +199,7 @@ def search_dogs():
                 return raise_error("The sort order should be 'ASC' or 'DESC'.")
 
         count = base_query.count()
-        dogs = base_query.offset(start).limit(limit).all()
+        dogs = base_query.distinct().offset(start).limit(limit).all()
         return jsonify({
             "start": start,
             "limit": limit,
