@@ -217,8 +217,12 @@ export default class ModelPage extends Component {
       query["orderby"] = this.state.orderByValue;
     }
     console.log(query);
-    this.resultsPaginator = new api.Paginator(12, endpoint, query);
-    this.resultsPaginator.fetchFirstPage()
+    this.setState({
+		resultsLoading: true,
+		results: []
+	}, () => {
+        this.resultsPaginator = new api.Paginator(12, endpoint, query);
+        this.resultsPaginator.fetchFirstPage()
             .then(results => this.setState({
                 results: results,
                 resultsLoading: false
@@ -226,6 +230,8 @@ export default class ModelPage extends Component {
             .catch(error => this.setState({
                 error: error.message
             }));
+	});
+
   }
 
   handleSelection() {
