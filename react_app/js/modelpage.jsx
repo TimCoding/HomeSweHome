@@ -29,6 +29,8 @@ export default class ModelPage extends Component {
 			results: null,
 			resultsLoading: true,
 			error: null,
+			breeds:[],
+			cities:[],
 			breedsFilterOpen: false,
 			citiesFilterOpen: false,
 			ratingsFilterOpen: false,

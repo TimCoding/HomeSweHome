@@ -25,27 +25,33 @@ const ParkCard = (props) => {
                 searchWords={[props.query]}
                 textToHighlight={props.parkData.name}/>
           </CardTitle>
-
-            <CardText>
-              <b>Yelp Rating: </b>
-              <StarsRating rating={props.parkData.yelp_rating} />
-            </CardText>
-            <CardText>
-              <b>Phone: </b>
-              <span className="parkCardPhone">{props.parkData.phone == "" ? "N/A" : props.parkData.phone}</span>
-            </CardText>
-            <CardText>
-              <b>Location: </b>
-              <span className="parkCardLocation">
-                <Highlighter
-                  searchWords={[props.query]}
-                  textToHighlight={props.parkData.address + " " + props.parkData.city + ", " + props.parkData.state + " " + props.parkData.zip}/>
-              </span>
-            </CardText>
+          <CardText>
+            <b>Yelp Rating: </b>
+            <StarsRating rating={props.parkData.yelp_rating} />
+          </CardText>
+          <CardText>
+            <b>Phone: </b>
+            <span className="parkCardPhone">{props.parkData.phone == "" ? "N/A" : props.parkData.phone}</span>
+          </CardText>
+          <CardText>
+            <b>Location: </b>
+            <span className="parkCardLocation">
+              <Highlighter
+                searchWords={[props.query]}
+                textToHighlight={props.parkData.address + " " + props.parkData.city + ", " + props.parkData.state + " " + props.parkData.zip}/>
+            </span>
+          </CardText>
           <a className="btn btn-primary" href={urls.parkURL(props.parkData.id)}>Visit</a>
         </CardBody>
       </span>
       </Card>
+      <div hidden="true"> {/*This div is used for testing purposes*/}
+        <p className="testQuery">{props.query}</p>
+        <p className="testName">{props.parkData.name}</p>
+        <p className="testAddress">{props.parkData.address + " " + props.parkData.city + ", " + props.parkData.state + " " + props.parkData.zip}</p>
+        <p className="testPhone">{props.parkData.phone}</p>
+        <p className="testRating">{props.parkData.yelp_rating}</p>
+      </div>
     </div>
   );
 };

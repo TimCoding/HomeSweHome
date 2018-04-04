@@ -28,7 +28,7 @@ const DogCard = (props) => {
         <div className="hoverText">
           <CardBody>
             <h4>
-                <Highlighter
+                <Highlighter className="dogCardName"
                   searchWords={[props.query]}
                   textToHighlight={props.dogData.name}/>
             </h4>
@@ -48,6 +48,12 @@ const DogCard = (props) => {
           </CardBody>
         </div>
       </Card>
+      <div hidden="true"> {/*This div is used for testing purposes*/}
+        <p className="testQuery">{props.query}</p>
+        <p className="testName">{props.dogData.name}</p>
+        <p className="testHouseTrained">{props.dogData.housetrained}</p>
+        <p className="testFriendly">{props.dogData.friendly}</p>
+      </div>
     </div>
   );
 };
