@@ -65,7 +65,7 @@ export default class DogDetails extends Component {
         if(!(this.state.parkJSON == null)){
          parkList = this.state.parkJSON.map(park => {
             return (
-                <Col md="4">
+                <Col md="3">
                     <ParkCard parkData={park}/>
                 </Col>
             );
@@ -153,11 +153,9 @@ export default class DogDetails extends Component {
 				<br/>
 				<hr/>
 				<h2>Nearby Parks</h2>
-					<CardDeck>
-						<Row>
-							{parkList}
-						</Row>
-					</CardDeck>
+				<Row>
+					{parkList}
+				</Row>
 				</Container>
 			</div>
 		);
