@@ -54,7 +54,7 @@ class Search extends React.Component {
         if (!(this.state.error == null)) {
             return (
                 <div>
-                    <NavBar/>
+                    <NavBar default_query={this.props.query}/>
                     <Container>
                         <h1 className="text-center text-danger">{this.state.error}</h1>
                     </Container>
@@ -145,7 +145,11 @@ class Search extends React.Component {
 
         return (
             <div>
-            <NavBar/>
+            <NavBar default_query={this.props.query}/>
+                <Container>
+                    <h1>Results for "{this.props.query}"</h1>
+                    <hr/>
+                </Container>
             <Container>
                 {dogStaticContent}
                 <ModelPagination type="dog" call={api.fetchDogsSearchFull} query={this.props.query}/>

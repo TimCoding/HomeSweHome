@@ -55,7 +55,7 @@ export class NavBar extends React.Component {
             </Nav>
           </Collapse>
         <Form action="/search/">
-          <Input type="text" value={this.state.value} name="query"/>
+          <Input type="text" defaultValue={this.props.default_query} name="query"/>
           <Input type="submit" value="Search" />
         </Form>
         </Navbar>
