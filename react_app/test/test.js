@@ -16,12 +16,27 @@ import {CarouselItem} from 'reactstrap';
 import InfoCard from '../js/infocard.jsx'
 Enzyme.configure({ adapter: new Adapter() });
 
+describe('Query Prop', () => {
+	const dogsJSON = {name:"Tic", breeds:["Pit Bull Terrier"], image_urls:[], housetrained:"false", friendly:"true"}
+	const dogCardWrapper = shallow(<DogCard dogData={dogsJSON} query="corgi"/>)
+	const parkJSON = {name:"Park Name", image_urls:["src"], yelp_rating:"3", phone:"123-345-5678", address:"address", city:"city",
+				state:"state", zip:"zip"}
+	const parkCardWrapper = shallow(<ParkCard parkData={parkJSON} query="Park123"/>)
+	const shelterJSON = {image_urls:["src"], name:"Shelter Name", email:"email", phone:null}
+	const shelterCardWrapper = shallow(<ShelterCard shelterData={shelterJSON} query="Dog Shelter"/>)
 
+	it('passes query to DogCard', () => {
+		 expect(dogCardWrapper.find('.testQuery').text()).to.equal("corgi")
+	})
 
-const navbarWrapper = shallow(<NavBar/>)
-const jsonReviews = { adoption_policy:"test", mission:"test" }
-// const reviewsWrapper = shallow(<Reviews desc = {jsonReviews} />)
+	it('passes query to ParkCard', () => {
+		 expect(parkCardWrapper.find('.testQuery').text()).to.equal("Park123")
+	})
 
+	it('passes query to ShelterCard', () => {
+		 expect(shelterCardWrapper.find('.testQuery').text()).to.equal("Dog Shelter")
+	})
+})
 
 describe('Splash Component', () => {
 	const splashWrapper = shallow(<Splash/>)
@@ -31,15 +46,17 @@ describe('Splash Component', () => {
 	})
 })
 
-describe('Model Component', () => {
-	const modelWrapper = shallow(<ModelPage/>)
+// describe('Model Component', () => {
+// 	const modelWrapper = shallow(<ModelPage/>)
 
-	it('render component', () => {
-		expect(modelWrapper).to.have.length(1)
-	})
-})
+// 	it('render component', () => {
+// 		expect(modelWrapper).to.have.length(1)
+// 	})
+// })
 
 describe('Navbar Component', () => {
+	const navbarWrapper = shallow(<NavBar/>)
+
 	it('render navbar', () => {
 		expect(navbarWrapper).to.have.length(1)
 	})
@@ -58,7 +75,7 @@ describe('ShelterInfo Component', () => {
 })
 
 describe('InfoCard Component', () => {
-	const infoCardWrapper = shallow(<InfoCard name={"Adoption Center"} address={"address"} phone={"123"} />)
+	const infoCardWrapper = shallow(<InfoCard name={"Adoption Center"} address={"address"} phone={"123"} image_urls={[]}/>)
 
 	it('render infocard', () => {
 		expect(infoCardWrapper.find('.infoCardTitle').text()).to.equal("Adoption Center")
@@ -79,14 +96,13 @@ describe('ShelterContact Component', () =>{
 })
 
 describe('DogCard Component', () => {
-	const dogsJSON = {name:"Tic", breeds:["Pit Bull Terrier"], housetrained:false, friendly:true}
+	const dogsJSON = {name:"Tic", breeds:["Pit Bull Terrier"], image_urls:[], housetrained:"false", friendly:"true"}
 	const dogCardWrapper = shallow(<DogCard dogData={dogsJSON}/>)
 
 	it ('render dogcard', () => {
-		expect(dogCardWrapper.find('.dogCardName').text()).to.equal("Tic")
-		expect(dogCardWrapper.find('.dogCardBreed').text()).to.equal("Pit Bull Terrier")
-		expect(dogCardWrapper.find('.dogCardHouseTrained').text()).to.equal("No")
-		expect(dogCardWrapper.find('.dogCardFriendly').text()).to.equal("Yes")
+		expect(dogCardWrapper.find('.testName').text()).to.equal("Tic")
+		expect(dogCardWrapper.find('.testHouseTrained').text()).to.equal("false")
+		expect(dogCardWrapper.find('.testFriendly').text()).to.equal("true")
 	})
 })
 
@@ -96,10 +112,10 @@ describe('ParkCard Component', () => {
 	const parkCardWrapper = shallow(<ParkCard parkData={parkJSON}/>)
 
 	it ('render parkcard', () => {
-		expect(parkCardWrapper.find('.parkCardTitle').text()).to.equal("Park Name")
-		expect(parkCardWrapper.find('.parkCardRating').text()).to.equal("3")
-		expect(parkCardWrapper.find('.parkCardPhone').text()).to.equal("123-345-5678")
-		expect(parkCardWrapper.find('.parkCardLocation').text()).to.equal("address city, state zip")
+		expect(parkCardWrapper.find('.testName').text()).to.equal("Park Name")
+		expect(parkCardWrapper.find('.testRating').text()).to.equal("3")
+		expect(parkCardWrapper.find('.testPhone').text()).to.equal("123-345-5678")
+		expect(parkCardWrapper.find('.testAddress').text()).to.equal("address city, state zip")
 	})
 })
 
@@ -108,9 +124,9 @@ describe('ShelterCard Component', () => {
 	const shelterCardWrapper = shallow(<ShelterCard shelterData={shelterJSON}/>)
 
 	it ('render sheltercard', () => {
-		expect(shelterCardWrapper.find('.shelterCardsTitle').text()).to.equal("Shelter Name")
-		expect(shelterCardWrapper.find('.shelterCardEmail').text()).to.equal("email")
-		expect(shelterCardWrapper.find('.shelterCardPhone').text()).to.equal("")
+		expect(shelterCardWrapper.find('.testName').text()).to.equal("Shelter Name")
+		expect(shelterCardWrapper.find('.testEmail').text()).to.equal("email")
+		expect(shelterCardWrapper.find('.testPhone').text()).to.equal("")
 	})
 })
 
@@ -130,6 +146,3 @@ describe('Carousel Component', () => {
 //     expect(parkDetailsWrapper.find('.PawSpinner')).to.have.length(1)
 //   })
 // })
-// Rebekkah: spinner, shelterdetails, map
-// Godfrey: shelterinfo, reviews, DogDetails
-// Emily: carousel, parkdetails
