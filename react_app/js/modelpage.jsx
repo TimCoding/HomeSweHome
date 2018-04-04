@@ -192,7 +192,7 @@ export default class ModelPage extends Component {
 
 	handleRatingsFilter(event) {
 		this.setState({
-			selectedRating: parseFloat(event.target.name)
+			selectedRating: event.currentTarget.name
 		}, function () {
 			this.updateQuery()
 		})
@@ -381,7 +381,9 @@ export default class ModelPage extends Component {
 				return (
 					<DropdownItem name={option[0]}
 												id={option[1]}
-												onClick={this.handleOrderBy}>{option[2]}</DropdownItem>
+												onClick={this.handleOrderBy}
+												style={{fontWeight: (this.state.orderByValue == option[0] &&
+																						 this.state.sortByValue ==  option[1]) ? "bold" : "normal"}}>{option[2]}</DropdownItem>
 				)
 			});
 
@@ -488,7 +490,8 @@ export default class ModelPage extends Component {
 				return (
 					<DropdownItem name={option[0]}
 												id={option[1]}
-												onClick={this.handleOrderBy}>
+												onClick={this.handleOrderBy}
+												style={{fontWeight: (this.state.orderByValue == option[0] && this.state.sortByValue == option[1] ? "bold" : "normal") }}>
 												{option[2]}</DropdownItem>
 				)
 			});
@@ -511,7 +514,8 @@ export default class ModelPage extends Component {
 			let ratingsFilter = [5, 4, 3, 2, 1].map(rating => {
 				return (
 					<DropdownItem onClick={this.handleRatingsFilter}
-												name={rating}>
+												name={rating}
+												style={{fontWeight: this.state.selectedRating == rating ? "bold" : "normal"}}>
 												<StarsRating rating={rating}/> and up</DropdownItem>
 				)
 			});
@@ -580,7 +584,8 @@ export default class ModelPage extends Component {
 				return (
 					<DropdownItem name={option[0]}
 												id={option[1]}
-												onClick={this.handleOrderBy}>{option[2]}</DropdownItem>
+												onClick={this.handleOrderBy}
+												style={{fontWeight: (this.state.orderByValue == option[0] && this.state.sortByValue == option[1]) ? "bold" : "normal"}}>{option[2]}</DropdownItem>
 				)
 			});
 
