@@ -153,7 +153,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d5c2678a-710f-46e4-8caa-ac6ad874705a",
+						"id": "6196e3b8-5d4a-4d65-a04f-369b824705f6",
 						"type": "text/javascript",
 						"exec": [
 							"",
@@ -174,23 +174,23 @@
 							"",
 							"pm.test(\"Your test name\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.results[2].name).to.eql(\"Cappuccino\");",
-							"    pm.expect(jsonData.results[2].shelter_id).to.eql(\"TX2237\");",
-							"    pm.expect(jsonData.results[2].id).to.eql(41122187);",
+							"    pm.expect(jsonData.results[2].name).to.eql(\"Drakie\");",
+							"    pm.expect(jsonData.results[2].shelter_id).to.eql(\"TX1221\");",
+							"    pm.expect(jsonData.results[2].id).to.eql(40823192);",
 							"});",
 							"",
 							"pm.test(\"Your test name\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.results[3].name).to.eql(\"Drakie\");",
-							"    pm.expect(jsonData.results[3].shelter_id).to.eql(\"TX1221\");",
-							"    pm.expect(jsonData.results[3].id).to.eql(40823192);",
+							"    pm.expect(jsonData.results[3].name).to.eql(\"Maya\");",
+							"    pm.expect(jsonData.results[3].shelter_id).to.eql(\"TX2237\");",
+							"    pm.expect(jsonData.results[3].id).to.eql(41099665);",
 							"});",
 							"",
 							"pm.test(\"Your test name\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.results[4].name).to.eql(\"Maya\");",
+							"    pm.expect(jsonData.results[4].name).to.eql(\"Cappuccino\");",
 							"    pm.expect(jsonData.results[4].shelter_id).to.eql(\"TX2237\");",
-							"    pm.expect(jsonData.results[4].id).to.eql(41099665);",
+							"    pm.expect(jsonData.results[4].id).to.eql(41122187);",
 							"});",
 							"",
 							"pm.test(\"Status code is 200\", function () {",
@@ -727,6 +727,456 @@
 						"100000",
 						"nearby",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test for Shelter Cities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a32ac361-b237-4a18-8c66-da21b90e860f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Test City Value 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0]).to.eql(\"Spring\");",
+							"});",
+							"",
+							"pm.test(\"Test City Value 2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[1]).to.eql(\"Coppell\");",
+							"});",
+							"",
+							"pm.test(\"Test City Value 3\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[2]).to.eql(\"Plano\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/shelters/cities",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"shelters",
+						"cities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test for Park Cities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0cb4ea7-545f-46a8-8f9b-efc70d8d8c09",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Check city value 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0]).to.eql(\"Addison\");",
+							"});",
+							"",
+							"pm.test(\"Check city value 2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[1]).to.eql(\"Allen\");",
+							"});",
+							"",
+							"pm.test(\"Check city value 3\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[2]).to.eql(\"Carrollton\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/parks/cities",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"parks",
+						"cities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test for Dog Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b50bb935-c5fa-4980-b2c2-bb9eb0867d8e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Test Dog Name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].name).to.eql(\"CiCi\");",
+							"});",
+							"",
+							"pm.test(\"Test Dog Shelter ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].shelter_id).to.eql(\"TX1713\");",
+							"});",
+							"",
+							"pm.test(\"Test Dog Zipcode\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].zipcode).to.eql(77007);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/dogs/search/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"dogs",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test for Dog Search Full",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0cf6d422-b804-4cc4-9d17-092834b2b295",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Test Dog Name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].name).to.eql(\"Austin\");",
+							"});",
+							"",
+							"pm.test(\"Test Dog City\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].city).to.eql(\"Houston\");",
+							"});",
+							"",
+							"pm.test(\"Test Dog Shelter ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].shelter_id).to.eql(\"TX1261\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/dogs/search/full?query=pit",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"dogs",
+						"search",
+						"full"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "pit"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test for Shelter Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d7ac54ee-2cf5-4383-b715-31d11b8858c9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Test Shelter ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].id).to.eql(\"TX2237\");",
+							"});",
+							"",
+							"pm.test(\"Test City\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].city).to.eql(\"Addison\");",
+							"});",
+							"",
+							"pm.test(\"Test Name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].name).to.eql(\"Town of Addison\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/shelters/search/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"shelters",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test for Shelter Search Full",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ee3889b-9c64-4727-b7d8-e294cee48601",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Test Shelter ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].id).to.eql(\"TX2237\");",
+							"});",
+							"",
+							"pm.test(\"Test City\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].city).to.eql(\"Addison\");",
+							"});",
+							"",
+							"pm.test(\"Test Name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].name).to.eql(\"Town of Addison\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/shelters/search/full?query=Addison",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"shelters",
+						"search",
+						"full"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "Addison"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test for Parks Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff12fa90-9517-46bf-8fa1-e5b5361435fc",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Park Name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].name).to.eql(\"Addison Circle Park\");",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Park City\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].city).to.eql(\"Addison\");",
+							"});",
+							"",
+							"pm.test(\"Park Zipcode\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].zip).to.eql(75001);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/parks/search/",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"parks",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test for Parks Search Full",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d40ddc1a-093e-41b6-97ee-addc9bea0a08",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Park Name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].name).to.eql(\"Addison Circle Park\");",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Park City\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].city).to.eql(\"Addison\");",
+							"});",
+							"",
+							"pm.test(\"Park Zipcode\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results[0].zip).to.eql(75001);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://homeswehome.me/api/parks/search/full?query=Addison",
+					"protocol": "http",
+					"host": [
+						"homeswehome",
+						"me"
+					],
+					"path": [
+						"api",
+						"parks",
+						"search",
+						"full"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "Addison"
+						}
 					]
 				}
 			},
