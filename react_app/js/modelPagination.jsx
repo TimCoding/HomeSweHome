@@ -17,7 +17,6 @@ export default class ModelPagination extends Component {
 				this.paginatorAPI = paginator;
         this.state = {
 					todos: [],
-          currentPage: 1,
           todosPerPage: amtPages,
           startPage: 1,
           endPage: this.maxPages < 5 ? this.maxPages / amtPages : 5,
@@ -34,10 +33,10 @@ export default class ModelPagination extends Component {
 			this.paginatorAPI.fetchFirstPage()
 				.then((dataJSON) =>
 				{
-                    this.maxPages = this.paginatorAPI.totalPages() - 1;
+                    this.maxPages = this.paginatorAPI.totalPages();
 					this.setState({
 						todos: this.state.todos.concat(dataJSON),
-						max: this.paginatorAPI.totalPages() - 1,
+						max: this.paginatorAPI.totalPages(),
 						startPage: 1,
                         endPage: this.maxPages > 5 ? 5 : this.maxPages,
                         ending: this.paginatorAPI.totalPages(),
@@ -51,7 +50,7 @@ export default class ModelPagination extends Component {
         }
         
     goEnd(event) {
-        this.paginatorAPI.fetchPage(this.state.max - 1)
+        this.paginatorAPI.fetchLastPage()
         .then((dataJSON) => {
             this.setState({
                 todos: []
@@ -105,10 +104,12 @@ export default class ModelPagination extends Component {
         //            // alert(this.state.endPage);
         //         })
         }else{
+            this.paginatorAPI.current = page - 1;
                     //alert("CURRENT newEND: " + newEnd);
-                    this.paginatorAPI.fetchPage(page - 1)
+                    this.paginatorAPI.fetchCurrentPage()
                         .then((dataJSON) =>
                         {
+
                             var mid = (this.state.startPage + this.state.endPage) / 2;
                             var shift = page - Math.floor(mid);
                             newStart = this.state.startPage + shift;
@@ -144,7 +145,7 @@ export default class ModelPagination extends Component {
     }
 
     render() {
-    const { todos, currentPage, todosPerPage, startPage} = this.state;
+    const { todos, todosPerPage, startPage} = this.state;g
 
     const currentTodos = this.state.todos;
 
@@ -178,7 +179,18 @@ export default class ModelPagination extends Component {
         pageNumbers.push(i);
     }
 
-    const renderPageNumbers = pageNumbers.map(number => {
+    let renderPageNumbers = pageNumbers.map(number => {
+        if(number === this.paginatorAPI.getCurrentPageNumber() + 1) {
+            return (
+                <PaginationItem active>
+                    <PaginationLink
+                        id={number}
+                        onClick={this.handleClick}>
+                        {number}
+                    </PaginationLink>
+                </PaginationItem>
+            );
+        }
         return (
         <PaginationItem>
             <PaginationLink
