@@ -179,7 +179,7 @@ export default class ModelPage extends Component {
 
 	handleRatingsFilter(event) {
 		this.setState({
-			selectedRating: parseFloat(event.currentTarget.rating)
+			selectedRating: parseFloat(event.target.name)
 		}, function () {
 			this.handleSelection()
 		})
@@ -193,17 +193,16 @@ export default class ModelPage extends Component {
       endpoint = api.fetchDogsSearch;
       query["breed"] = this.state.selectedBreeds || [];
     } else if (this.props.model === "shelters") {
-      if(!(this.state.selectedRating == undefined)) {
-        query["rating"] = this.state.selectedRating;
-      }
       endpoint = api.fetchSheltersSearch;
     } else if (this.props.model ===  "parks") {
+			if(!(this.state.selectedRating == undefined)) {
+				query["rating"] = this.state.selectedRating;
+			}
       endpoint = api.fetchParksSearch;
     } else {
       console.error("Shouldn't reach this");
       return;
     }
-
     if(!(this.state.orderByValue == undefined)) {
       query["orderby"] = this.state.orderByValue;
     }
@@ -493,10 +492,10 @@ export default class ModelPage extends Component {
 				)
 			});
 
-			let ratingsFilter = [4, 3, 2, 1].map(rating => {
+			let ratingsFilter = [5, 4, 3, 2, 1].map(rating => {
 				return (
 					<DropdownItem onClick={this.handleRatingsFilter}
-												rating={rating}>
+												name={rating}>
 												<StarsRating rating={rating}/> and up</DropdownItem>
 				)
 			});

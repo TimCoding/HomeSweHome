@@ -150,6 +150,8 @@ export default class DogDetails extends Component {
 					</Row>
 				</Container>
 				<Container>
+				<br/>
+				<hr/>
 				<h2>Nearby Parks</h2>
 					<CardDeck>
 						<Row>
