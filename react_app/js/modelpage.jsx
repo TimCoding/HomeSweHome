@@ -8,7 +8,7 @@ import DogCard from './dogcards.jsx';
 import ShelterCard from './sheltercards.jsx'
 import ParkCard from './parkcards.jsx';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
- 				 Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+ 				 Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {StarsRating} from './stars.jsx'
 import {Filter} from './dropdown.jsx'
@@ -48,7 +48,8 @@ export default class ModelPage extends Component {
 		this.handleBreedsFilter = this.handleBreedsFilter.bind(this);
 		this.handleCitiesFilter = this.handleCitiesFilter.bind(this);
 		this.handleRatingsFilter = this.handleRatingsFilter.bind(this);
-		this.handleSelection = this.handleSelection.bind(this);
+		this.updateQuery = this.updateQuery.bind(this);
+		this.handleReset = this.handleReset.bind(this);
 	}
 
 	componentDidMount() {
@@ -146,10 +147,22 @@ export default class ModelPage extends Component {
 		})
 	}
 
+	handleReset(event) {
+		this.setState({orderByValue: undefined,
+									sortByValue: undefined,
+									selectedBreeds: [],
+									selectedCities: [],
+									checkedVals: {},
+									selectedRating: undefined},
+				 function () {
+					 this.updateQuery()
+				 })
+	}
+
 	handleOrderBy(event) {
 		this.setState({orderByValue: event.target.name,
 									 sortByValue: event.target.id }, function () {
-			this.handleSelection()
+			this.updateQuery()
 		})
 	}
 
@@ -181,7 +194,7 @@ export default class ModelPage extends Component {
 		this.setState({
 			selectedRating: parseFloat(event.target.name)
 		}, function () {
-			this.handleSelection()
+			this.updateQuery()
 		})
 	}
 
@@ -225,10 +238,6 @@ export default class ModelPage extends Component {
             }));
 	});
 
-  }
-
-  handleSelection() {
-    this.updateQuery();
   }
 
 	renderBreedsDropdown(options) {
@@ -288,6 +297,12 @@ export default class ModelPage extends Component {
 					{options}
 				</DropdownMenu>
 			</Dropdown>
+		)
+	}
+
+	renderReset() {
+		return (
+			<Button onClick={this.handleReset}>Reset Filters</Button>
 		)
 	}
 
@@ -379,7 +394,7 @@ export default class ModelPage extends Component {
 										 name={breed}
 										 defaultChecked={this.state.checkedVals[breed] != undefined ? this.state.checkedVals[breed] : false}
 										 onClick={this.handleBreedsFilter}
-										 onChange={this.handleSelection}/>
+										 onChange={this.updateQuery}/>
 									 {' '}{breed}
 						</Label>
 					</FormGroup>
@@ -394,7 +409,7 @@ export default class ModelPage extends Component {
 										 name={city}
 										 defaultChecked={this.state.checkedVals[city] != undefined ? this.state.checkedVals[city] : false}
 										 onClick={this.handleCitiesFilter}
-										 onChange={this.handleSelection}/>
+										 onChange={this.updateQuery}/>
 							 {' '}{city}
 						</Label>
 					</FormGroup>
@@ -413,6 +428,7 @@ export default class ModelPage extends Component {
 							{/*<Filter name={"Breeds"} options={breedsFilter}/>*/}
 							{this.renderCitiesDropdown(citiesOptions)}
 							{this.renderOrderByDropdown(orderOptions)}
+							{this.renderReset()}
 						</Row><br/>
 						<Row>
 							{dogList}
@@ -485,7 +501,7 @@ export default class ModelPage extends Component {
 										 defaultChecked={this.state.checkedVals[city] != undefined ? this.state.checkedVals[city] : false}
 										 name={city}
 										 onClick={this.handleCitiesFilter}
-										 onChange={this.handleSelection}/>
+										 onChange={this.updateQuery}/>
 							 {' '}{city}
 						</Label>
 					</FormGroup>
@@ -510,6 +526,7 @@ export default class ModelPage extends Component {
 								{this.renderCitiesDropdown(citiesFilter)}
 								{this.renderRatingsDropdown(ratingsFilter)}
 								{this.renderOrderByDropdown(orderOptions)}
+								{this.renderReset()}
 							</Row><br/>
 						<Row>
 							{parkList}
@@ -575,7 +592,7 @@ export default class ModelPage extends Component {
 								     name={city}
 										 defaultChecked={this.state.checkedVals[city] != undefined ? this.state.checkedVals[city] : false}
 										 onClick={this.handleCitiesFilter}
-										 onChange={this.handleSelection}/>
+										 onChange={this.updateQuery}/>
 							 {' '}{city}
 						</Label>
 					</FormGroup>
@@ -590,6 +607,7 @@ export default class ModelPage extends Component {
 						<Row>
 							{this.renderCitiesDropdown(citiesOptions)}
 							{this.renderOrderByDropdown(orderOptions)}
+							{this.renderReset()}
 						</Row><br/>
 						<Row>
 							{shelterList}
