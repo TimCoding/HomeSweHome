@@ -145,7 +145,7 @@ export default class ModelPagination extends Component {
     }
 
     render() {
-    const { todos, todosPerPage, startPage} = this.state;g
+    const { todos, todosPerPage, startPage} = this.state;
 
     const currentTodos = this.state.todos;
 
