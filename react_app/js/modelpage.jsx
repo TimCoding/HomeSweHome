@@ -126,20 +126,12 @@ export default class ModelPage extends Component {
 		this.setState({
 			breedsFilterOpen: !this.state.breedsFilterOpen
 		})
-
-		if (this.state.breedsFilterOpen) {
-			this.handleSelection()
-		}
 	}
 
 	toggleCities() {
 		this.setState({
 			citiesFilterOpen: !this.state.citiesFilterOpen
 		})
-
-		if (this.state.citiesFilterOpen) {
-			this.handleSelection()
-		}
 	}
 
 	toggleRatings() {
@@ -216,7 +208,6 @@ export default class ModelPage extends Component {
       query["orderby"] = this.state.orderByValue;
     }
 		if(!(this.state.sortByValue == undefined)) {
-			alert(this.state.sortByValue)
 			query["sort"] = this.state.sortByValue;
 		}
     console.log(query);
@@ -388,7 +379,8 @@ export default class ModelPage extends Component {
 							<Input type="checkbox"
 										 name={breed}
 										 defaultChecked={this.state.checkedVals[breed] != undefined ? this.state.checkedVals[breed] : false}
-										 onClick={this.handleBreedsFilter}/>
+										 onClick={this.handleBreedsFilter}
+										 onChange={this.handleSelection}/>
 									 {' '}{breed}
 						</Label>
 					</FormGroup>
@@ -400,9 +392,10 @@ export default class ModelPage extends Component {
 					<FormGroup check>
 						<Label check>
 							<Input type="checkbox"
-										 onClick={this.handleCitiesFilter}
+										 name={city}
 										 defaultChecked={this.state.checkedVals[city] != undefined ? this.state.checkedVals[city] : false}
-										 name={city}/>
+										 onClick={this.handleCitiesFilter}
+										 onChange={this.handleSelection}/>
 							 {' '}{city}
 						</Label>
 					</FormGroup>
@@ -478,10 +471,10 @@ export default class ModelPage extends Component {
 													["yelp_rating", "ASC", "Lowest-Highest Rating"],
 													["yelp_rating", "DESC", "Highest-Lowest Rating"]].map(option => {
 				return (
-					<DropdownItem onClick={this.handleOrderBy}
-												name={option[0]}
+					<DropdownItem name={option[0]}
 												id={option[1]}
-												>{option[2]}</DropdownItem>
+												onClick={this.handleOrderBy}>
+												{option[2]}</DropdownItem>
 				)
 			});
 
@@ -490,9 +483,10 @@ export default class ModelPage extends Component {
 					<FormGroup check>
 						<Label check>
 							<Input type="checkbox"
-										 onClick={this.handleCitiesFilter}
 										 defaultChecked={this.state.checkedVals[city] != undefined ? this.state.checkedVals[city] : false}
-										 name={city}/>
+										 name={city}
+										 onClick={this.handleCitiesFilter}
+										 onChange={this.handleSelection}/>
 							 {' '}{city}
 						</Label>
 					</FormGroup>
@@ -503,8 +497,7 @@ export default class ModelPage extends Component {
 				return (
 					<DropdownItem onClick={this.handleRatingsFilter}
 												rating={rating}>
-												<StarsRating rating={rating}/> and up
-					</DropdownItem>
+												<StarsRating rating={rating}/> and up</DropdownItem>
 				)
 			});
 
@@ -581,7 +574,9 @@ export default class ModelPage extends Component {
 						<Label check>
 							<Input type="checkbox"
 								     name={city}
-										 defaultChecked={this.state.checkedVals[city] != undefined ? this.state.checkedVals[city] : false}/>
+										 defaultChecked={this.state.checkedVals[city] != undefined ? this.state.checkedVals[city] : false}
+										 onClick={this.handleCitiesFilter}
+										 onChange={this.handleSelection}/>
 							 {' '}{city}
 						</Label>
 					</FormGroup>
