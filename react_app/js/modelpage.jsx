@@ -372,12 +372,20 @@ export default class ModelPage extends Component {
 			}
 
 			let dogList = this.state.results.map(dog => {
-				return (
-					<Col md="3">
-						<DogCard dogData={dog}/>
-					</Col>
-				);
+					return (
+							<Col md="3">
+									<DogCard dogData={dog}/>
+							</Col>
+					);
 			});
+			if (this.state.results.length == 0) {
+					dogList = (
+							<Col md="12">
+									<p> No Results </p>
+							</Col>
+					);
+			}
+
 
 			let orderOptions = [["name", "ASC", "Name (A-Z)"], ["name", "DESC", "Name (Z-A)"]].map(option => {
 				return (
@@ -486,6 +494,14 @@ export default class ModelPage extends Component {
 				);
 			});
 
+			if (this.state.results.length == 0) {
+					parkList = (
+							<Col md="12">
+									<p> No Results </p>
+							</Col>
+					);
+			}
+
 			let orderOptions = [["name", "ASC", "Name (A-Z)"], ["name", "DESC", "Name (Z-A)"],
 													["yelp_rating", "ASC", "Lowest-Highest Rating"],
 													["yelp_rating", "DESC", "Highest-Lowest Rating"]].map(option => {
@@ -581,6 +597,14 @@ export default class ModelPage extends Component {
 					</Col>
 				);
 			});
+
+			if (this.state.results.length == 0) {
+					shelterList = (
+							<Col md="12">
+									<p> No Results </p>
+							</Col>
+					);
+			}
 
 			let orderOptions = [["name", "ASC", "Name (A-Z)"], ["name", "DESC", "Name (Z-A)"]].map(option => {
 				return (
