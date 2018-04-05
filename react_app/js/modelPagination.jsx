@@ -74,6 +74,11 @@ export default class ModelPagination extends Component {
             doneLoading: 0,
             todos: []
         })
+        // to handle if user clicks more than one page
+        // and stop from loading another set of cards right away
+        if (!this.state.doneLoading) {
+			return;
+		}
         var page = Number(event.target.id);
         var newStart = 0; 
         var newEnd = 0;
