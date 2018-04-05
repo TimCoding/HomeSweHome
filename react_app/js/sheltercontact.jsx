@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import * as urls from './urls.js';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 const ShelterContact = (props) => {
  return (
@@ -21,6 +23,8 @@ const ShelterContact = (props) => {
               <span className="shelterPhone"> {props.shelterJSON.phone}</span>
            </span>
            <br/>
+             <a href={urls.petfinderShelterURL(props.shelterJSON.id)}
+                className="btn btn-outline-primary"><FontAwesomeIcon icon="paw"/> Visit this shelter on PetFinder!</a>
            {/*<span className="text-muted">Yelp Rating: </span>*/}
          </Col>
        </Row>
