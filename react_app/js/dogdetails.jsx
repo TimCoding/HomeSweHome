@@ -8,6 +8,8 @@ import ParkCard from './parkcards.jsx';
 import {CardDeck, CardTitle, CardText, Card, CardBody, Table} from 'reactstrap';
 import * as api from './api.js';
 import {PawSpinner} from './spinner.jsx';
+import * as urls from './urls.js';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 export default class DogDetails extends Component {
 	constructor(props) {
@@ -140,6 +142,8 @@ export default class DogDetails extends Component {
 													{tableBody}
 												</tbody>
 											</Table>
+                                            <a href={urls.petfinderDogURL(this.state.dogJSON.id)}
+											className="btn btn-outline-primary"><FontAwesomeIcon icon="paw"/> Visit this dog on PetFinder!</a>
 										</CardText>
 									</CardBody>
 								</Card>

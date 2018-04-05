@@ -3,6 +3,8 @@ import { Card,
   CardBody, CardText,
   CardTitle } from 'reactstrap';
 import {StarsRating} from './stars';
+import * as urls from './urls.js';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 const ParkInfo = (props) => {
   return (
@@ -22,6 +24,9 @@ const ParkInfo = (props) => {
             <span >
               <b>Yelp Rating:</b> <StarsRating rating={props.parkJSON.yelp_rating} />
             </span><br/>
+            <br/>
+            <a href={urls.yelpParkURL(props.parkJSON.yelp_id)}
+               className="btn btn-outline-danger"><FontAwesomeIcon icon={["fab", "yelp"]}/> Visit this park on Yelp!</a>
         </CardBody>
       </Card>
     </div>

@@ -44,3 +44,15 @@ export function searchURL(query) {
     }
     return BASE_URL + "search/" + end;
 }
+
+export function petfinderDogURL(dogID){
+    return "https://www.petfinder.com/dog/name-" + dogID + "/tx/city/shelter-tx0/";
+}
+
+export function petfinderShelterURL(shelterID){
+    return "https://www.petfinder.com/member/us/tx/city/shelter-" + shelterID + "/";
+}
+
+export function yelpParkURL(yelpParkID){
+    return "https://www.yelp.com/biz/" + yelpParkID;
+}

@@ -21,7 +21,7 @@ const InfoCard = (props) => {
                     <CardTitle><p className="infoCardTitle">{props.name}</p></CardTitle>
                     <CardText>Address: <p className="infoCardAddress">{address}</p></CardText>
                     <CardText>Phone Number: <p className="infoCardPhone">{props.phone}</p></CardText>
-                    <a className="btn btn-primary" href={urls.shelterURL(props.id)}>Adopt Me Please</a>
+                    <a className="btn btn-primary" href={urls.shelterURL(props.id)}>Visit this Shelter</a>
                    
                 </CardBody>
             </Card>
