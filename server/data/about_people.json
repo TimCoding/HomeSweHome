@@ -2,7 +2,7 @@
   "dav-s":{
     "name": "Davis Robertson",
     "image_url": "/static/img/davis_dog.jpg",
-    "unit_tests": 8,
+    "unit_tests": 10,
     "description": "Davis is a sophomore studying Computer Science at The University of Texas at Austin. He enjoys Competitive Programming and eating food.",
     "role": "Davis is responsible for much of the backend work as well as frontend-backend integration.",
     "fav_dog": "Greyhound"

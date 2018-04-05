@@ -2,6 +2,7 @@ import unittest
 
 import server.geo as geo
 import server.scraper as scraper
+import server.api as api
 
 
 class TestGeoMethods(unittest.TestCase):
@@ -10,8 +11,8 @@ class TestGeoMethods(unittest.TestCase):
         texas_zip = 75001
         self.assertIn(texas_zip, geo.zip_locs)
         zip_loc = geo.zip_locs[texas_zip]
-        self.assertAlmostEqual(zip_loc[0], 32.960047, places=10)
-        self.assertAlmostEqual(zip_loc[1], -96.838522, places=10)
+        self.assertAlmostEqual(zip_loc[0], 32.96129, places=7)
+        self.assertAlmostEqual(zip_loc[1], -96.83751, places=7)
 
     def test_haversine(self):
         self.assertAlmostEqual(
@@ -25,7 +26,7 @@ class TestGeoMethods(unittest.TestCase):
 
     def test_zip_distance(self):
         self.assertAlmostEqual(geo.get_zip_distance(77379, 77379), 0.0)
-        self.assertAlmostEqual(geo.get_zip_distance(75001, 75002), 25.842170688060058)
+        self.assertAlmostEqual(geo.get_zip_distance(75001, 75002), 24.66684714757283)
 
     def test_zip_distance_comparator(self):
         source = 75001
@@ -50,7 +51,7 @@ class TestGeoMethods(unittest.TestCase):
         )
         self.assertListEqual(
             geo.zips_in_radius(source, 5.0),
-            [75001, 75244, 75248, 75254, 75287]
+            [75001, 75066, 75287, 75244, 75254, 75248]
         )
         all_zips = set(geo.zip_locs.keys())
         u_zips = set(geo.zips_in_radius(source, 9999.0))
@@ -85,6 +86,51 @@ class TestScraperMethods(unittest.TestCase):
         self.assertTrue(uq.empty())
         uq.put(2)
         self.assertTrue(uq.empty())
+
+
+class TestApiMethods(unittest.TestCase):
+
+    def test_retry_once(self):
+        times_called = [0]
+
+        @api.retry_once
+        def func1():
+            times_called[0] += 1
+
+        func1()
+        self.assertEqual(times_called[0], 1)
+
+        times_called = [0]
+
+        @api.retry_once
+        def func2():
+            times_called[0] += 1
+            raise Exception("TESTING - If this is being thrown in a test, do not worry. This is intentional.")
+
+        with self.assertRaises(Exception):
+            func2()
+
+        self.assertEqual(times_called[0], 2)
+
+    def test_convert_error_response(self):
+        @api.convert_error_response
+        def func1():
+            return 123
+
+        self.assertEqual(func1(), 123)
+
+        @api.convert_error_response
+        def func2():
+            raise Exception("TESTING - IGNORE")
+
+        with self.assertRaises(Exception):
+            func2()
+
+        @api.convert_error_response
+        def func3():
+            raise api.ResponseError("TESTING", "response")
+
+        self.assertEqual(func3(), "response")
 
 
 if __name__ == "__main__":
