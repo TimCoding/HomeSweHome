@@ -9,18 +9,18 @@ from selenium.webdriver.common.action_chains import ActionChains
 import unittest, time, re
 
 class GUITest(unittest.TestCase):
-    # def setUp(self):
+    def setUp(self):
         '''
         assumption: using firefox webdriver assuming machine running guitest.py
         has geckodriver installed and path is /path/to/geckodriver
         '''
         # self.driver = webdriver.Firefox()
-        driver = webdriver.Chrome("C:\webdrivers\chromedriver.exe")
+        self.driver = webdriver.Chrome("C:\webdrivers\chromedriver.exe")
         # self.driver = webdriver.Chrome("/Users/rebekkahkoo/Downloads/chromedriver")
         # self.driver.get('http://homeswehome.me/')
-        driver.get('http://localhost:5000/')
+        self.driver.get('http://localhost:5000/')
 
-    # def test_links(self):
+    def test_links(self):
         '''
         splash -> dogs model page -> dog details for Tic
         -> Tic's shelter details page -> park nearby Tic details page
@@ -29,7 +29,7 @@ class GUITest(unittest.TestCase):
         -> dog nearby park (Drakie) details page -> shelter models page
         -> shelter details page -> neaby dog details page (Cappuccino) -> splash
         '''
-        # # driver = self.driver
+        driver = self.driver
         driver.find_element_by_link_text("Dogs").click()
         time.sleep(5)
         element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[2]/div[2]/div[1]/div/div/img")
@@ -56,6 +56,8 @@ class GUITest(unittest.TestCase):
         time.sleep(2)
         driver.find_element_by_link_text("Visit this park on Yelp!").click()
         driver.back()
+
+        #parks
         driver.find_element_by_link_text("Parks").click()
         time.sleep(3)
 
@@ -86,6 +88,7 @@ class GUITest(unittest.TestCase):
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
         hover.perform()
         driver.find_element_by_link_text("Meet Cappuccino").click()
+
         # home 
         driver.find_element_by_class_name("navbar-brand").click()
 
@@ -180,8 +183,8 @@ class GUITest(unittest.TestCase):
         time.sleep(2)
         driver.find_element_by_link_text("About").click()
 
-    # def tear_down(self):
-    #     self.driver.quit()
+    def tear_down(self):
+        self.driver.quit()
 
-# if __name__ == "__main__":
-#     unittest.main()
+if __name__ == "__main__":
+    unittest.main()
