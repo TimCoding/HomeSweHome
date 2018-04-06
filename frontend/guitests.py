@@ -14,21 +14,13 @@ class GUITest(unittest.TestCase):
         assumption: using firefox webdriver assuming machine running guitest.py
         has geckodriver installed and path is /path/to/geckodriver
         '''
-        # self.driver = webdriver.Firefox()
-        self.driver = webdriver.Chrome("C:\webdrivers\chromedriver.exe")
+        self.driver = webdriver.Firefox()
+        # self.driver = webdriver.Chrome("C:\webdrivers\chromedriver.exe")
         # self.driver = webdriver.Chrome("/Users/rebekkahkoo/Downloads/chromedriver")
-        # self.driver.get('http://homeswehome.me/')
-        self.driver.get('http://localhost:5000/')
+        self.driver.get('http://homeswehome.me/')
+        # self.driver.get('http://localhost:5000/')
 
     def test_links(self):
-        '''
-        splash -> dogs model page -> dog details for Tic
-        -> Tic's shelter details page -> park nearby Tic details page
-        -> Parks model page -> park details page
-        -> shelter nearby park details page -> back to park details page
-        -> dog nearby park (Drakie) details page -> shelter models page
-        -> shelter details page -> neaby dog details page (Cappuccino) -> splash
-        '''
         driver = self.driver
         driver.find_element_by_link_text("Dogs").click()
         time.sleep(5)
@@ -46,7 +38,7 @@ class GUITest(unittest.TestCase):
         time.sleep(2)
         driver.find_element_by_link_text("Visit this shelter on PetFinder!").click()
         driver.back()
-        time.sleep(2)        
+        time.sleep(2)
         element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[6]/div/div[1]/div/div/img")
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
         hover.perform()
@@ -89,7 +81,7 @@ class GUITest(unittest.TestCase):
         hover.perform()
         driver.find_element_by_link_text("Meet Cappuccino").click()
 
-        # home 
+        # home
         driver.find_element_by_class_name("navbar-brand").click()
 
         # specific dog search test: Velcro
@@ -119,7 +111,7 @@ class GUITest(unittest.TestCase):
         driver.find_element_by_xpath("//*[@id='content']/div/div[2]/div[1]/div[1]/button").click()
         time.sleep(2)
         driver.find_element_by_xpath("//*[@id='content']/div/div[2]/div[1]/button").click()
-        
+
         # parks filter test: click order by: a-z , z-a, highest-lowest rating, and lowest-highest rating,
         # click ratings: 5 stars and up, 1 star and up, click cities: comfort and calliham, reset
         driver.find_element_by_link_text("Parks").click()
@@ -162,7 +154,7 @@ class GUITest(unittest.TestCase):
         driver.find_element_by_name("Carrollton").click()
         time.sleep(2)
         driver.find_element_by_xpath(" //*[@id='content']/div/div[2]/div[1]/button").click()
-       
+
         # pagination test: search ad, click last page arrow, click 34, click 32, hover over 2nd dog,
         # click samantha
         driver.find_element_by_xpath("//*[@id='content']/div/div[1]/div[1]/nav/form/input[1]").send_keys('aD')

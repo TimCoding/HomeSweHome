@@ -378,7 +378,7 @@ export default class ModelPage extends Component {
 							</Col>
 					);
 			});
-			if (this.state.results.length == 0) {
+			if (!this.state.resultsLoading && this.state.results.length == 0) {
 					dogList = (
 							<Col md="12">
 									<p> No Results </p>
@@ -494,7 +494,7 @@ export default class ModelPage extends Component {
 				);
 			});
 
-			if (this.state.results.length == 0) {
+			if (!this.state.resultsLoading && this.state.results.length == 0) {
 					parkList = (
 							<Col md="12">
 									<p> No Results </p>
@@ -598,7 +598,7 @@ export default class ModelPage extends Component {
 				);
 			});
 
-			if (this.state.results.length == 0) {
+			if (!this.state.resultsLoading && this.state.results.length == 0) {
 					shelterList = (
 							<Col md="12">
 									<p> No Results </p>
