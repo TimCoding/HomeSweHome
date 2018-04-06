@@ -791,7 +791,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f0cb4ea7-545f-46a8-8f9b-efc70d8d8c09",
+						"id": "5a2c9deb-90c3-4f15-b867-df554e7b9c4b",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -802,17 +802,17 @@
 							"",
 							"pm.test(\"Check city value 1\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.results[0]).to.eql(\"Addison\");",
+							"    pm.expect(jsonData.results[0]).to.eql(\"Houston\");",
 							"});",
 							"",
 							"pm.test(\"Check city value 2\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.results[1]).to.eql(\"Allen\");",
+							"    pm.expect(jsonData.results[1]).to.eql(\"Addison\");",
 							"});",
 							"",
 							"pm.test(\"Check city value 3\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.results[2]).to.eql(\"Carrollton\");",
+							"    pm.expect(jsonData.results[2]).to.eql(\"Allen\");",
 							"});"
 						]
 					}
