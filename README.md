@@ -55,6 +55,10 @@ updated automatically.
 
 Testing is split into 4 categories: 
 
+**NOTE:** many of these tests may not work if trying on a local machine.
+This is because you need to have an `auth.json` that includes authorization information
+for all the APIs and databases.
+
 ### API Tests
 
 ```bash
