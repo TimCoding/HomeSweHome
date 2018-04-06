@@ -51,6 +51,48 @@ This will lauch a process that continually watches for changes on your React fil
 a new `bundle.js` on save. If you have the server on development mode, the file should be
 updated automatically.
 
+## Testing
+
+Testing is split into 4 categories: 
+
+### API Tests
+
+```bash
+# make sure you have newman installed
+newman run Postman.json
+```
+
+Alternatively, you can load `Postman.json` into the Postman GUI.
+
+### Backend Python Tests
+
+To run:
+
+```bash
+python3 -m unittest server_tests
+```
+
+### Frontend GUI Tests
+
+First download a Selenium driver for the browser of your choice.
+
+```bash
+cd frontend
+# edit guitests.py to have the path to your Selenium driver
+python3 guitests.py
+```
+
+### Frontend Code Tests
+
+To run:
+
+```bash
+cd react_app
+npm install
+npm run build
+npm run test
+```
+
 ## Production
 
 Ensure that you have already completed the "Set Up" step. Then run this in the project root:
