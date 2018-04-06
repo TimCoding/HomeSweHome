@@ -11,12 +11,14 @@ import unittest, time, re
 class GUITest(unittest.TestCase):
     def setUp(self):
         '''
-        assumption: using firefox webdriver assuming machine running guitest.py
-        has geckodriver installed and path is /path/to/geckodriver
+        assumption: using Chrome to run test; replace PATH_TO_CHROMEDRIVER
+        with path to chromedriver on machine running guitests.py
         '''
-        self.driver = webdriver.Firefox()
+        # self.driver = webdriver.Firefox()
         # self.driver = webdriver.Chrome("C:\webdrivers\chromedriver.exe")
         # self.driver = webdriver.Chrome("/Users/rebekkahkoo/Downloads/chromedriver")
+
+        #self.driver = webdriver.Chrome("PATH_TO_CHROMEDRIVER")
         self.driver.get('http://homeswehome.me/')
         # self.driver.get('http://localhost:5000/')
 
