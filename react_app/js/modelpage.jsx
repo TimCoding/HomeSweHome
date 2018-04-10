@@ -434,14 +434,15 @@ export default class ModelPage extends Component {
 					<Container>
 
 						<h2>Dogs</h2>
-						<br/>
+						<Col md="12">
 						<Row>
 							{this.renderBreedsDropdown(breedsOptions)}
 							{/*<Filter name={"Breeds"} options={breedsFilter}/>*/}
 							{this.renderCitiesDropdown(citiesOptions)}
 							{this.renderOrderByDropdown(orderOptions)}
 							{this.renderReset()}
-						</Row><br/>
+							</Row><br/>
+						</Col>
 						<Row>
 							{dogList}
 						</Row>
@@ -541,15 +542,17 @@ export default class ModelPage extends Component {
 			return (
 				<div>
 					{staticContent}
-					<hr></hr>
+					
 					<Container>
 						<h2>Parks</h2>
-							<Row>
-								{this.renderCitiesDropdown(citiesFilter)}
-								{this.renderRatingsDropdown(ratingsFilter)}
-								{this.renderOrderByDropdown(orderOptions)}
-								{this.renderReset()}
-							</Row><br/>
+							<Col md="12">
+								<Row>
+									{this.renderCitiesDropdown(citiesFilter)}
+									{this.renderRatingsDropdown(ratingsFilter)}
+									{this.renderOrderByDropdown(orderOptions)}
+									{this.renderReset()}
+								</Row>
+							</Col><br/>
 						<Row>
 							{parkList}
 						</Row>
@@ -635,11 +638,13 @@ export default class ModelPage extends Component {
 					{staticContent}
 					<Container>
 						<h2>Shelters</h2>
-						<Row>
-							{this.renderCitiesDropdown(citiesOptions)}
-							{this.renderOrderByDropdown(orderOptions)}
-							{this.renderReset()}
-						</Row><br/>
+						<Col md="12">
+							<Row>
+								{this.renderCitiesDropdown(citiesOptions)}
+								{this.renderOrderByDropdown(orderOptions)}
+								{this.renderReset()}
+							</Row>
+						</Col> <br/>
 						<Row>
 							{shelterList}
 						</Row>
