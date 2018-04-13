@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Button, Container, Row, Col } from 'reactstrap';
 import {NavBar} from './navbar.jsx';
 import InfoCard from './infocard.jsx';
 import { ControlledCarousel } from './carousel.jsx';
@@ -18,14 +18,37 @@ export default class DogDetails extends Component {
 		this.state = {
 			dogJSON: null,
 			error: null,
+			desc: null,
+			desc2: null,
+			description: null,
+			readMore: true
+		}
+		this.readMore = this.readMore.bind(this);
+	}
+
+	readMore(event){
+		if(this.state.readMore){
+			this.setState({
+				readMore: false,
+				description: this.state.desc2
+			})
+		} else {
+			this.setState({
+				readMore: true,
+				description: this.state.desc
+			})
 		}
 	}
 
 	componentDidMount() {
 		api.fetchDog(this.props.dogID)
 		.then(dogJSON => this.setState({
-			dogJSON: dogJSON
-		}))
+			dogJSON: dogJSON,
+			desc : dogJSON.description.split(" ").slice(0, 150).join(" "),
+			desc2 : dogJSON.description,
+			description : dogJSON.description.split(" ").slice(0, 150).join(" ")
+		})
+	)
 		.catch(error => this.setState({
 			error: error.message
 		}));
@@ -39,6 +62,7 @@ export default class DogDetails extends Component {
 	}
 
 	render() {
+
 		if(!(this.state.error == null)){
 			return (
 				<div>
@@ -135,7 +159,8 @@ export default class DogDetails extends Component {
 										</CardTitle>
 										<CardText>
 											<h5>Description:</h5>
-											<p className="description_content">{this.state.dogJSON.description}</p>
+											<p className="description_content">{this.state.description}</p>
+											{this.state.desc2.split(" ").length > 150 ? <Button color="primary" onClick={this.readMore}>{this.state.readMore ? "Read More" : "Read Less"}</Button> : ''}
 											<h5>Information:</h5>
 											<Table size="sm">
 												<tbody>
