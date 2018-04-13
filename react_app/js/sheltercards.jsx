@@ -19,9 +19,9 @@ const ShelterCard = (props) => {
     <div className="cards">
       <Card>
         <CardImg className="cardImg" src={img} alt="Card image cap" />
-        <div className="hoverText">
+        <div id="hiddenText" className="hoverText">
         <CardBody>
-          <CardTitle className="shelterCardsTitle">
+          <CardTitle>
               <Highlighter
                 searchWords={[props.query]}
                 textToHighlight={props.shelterData.name}/>
@@ -32,9 +32,16 @@ const ShelterCard = (props) => {
           </CardText>
           <CardText>
             <i className="fas fa-paw"></i><b>Phone: </b>
-            <span className="shelterCardPhone">{props.shelterData.phone == null ? "N/A" : props.shelterData.phone}</span>
+            <span className="shelterCardPhone">
+              {(props.shelterData.phone == "") || (props.shelterData.phone == null) ? "N/A" : props.shelterData.phone}
+            </span>
           </CardText>
-          <a className="btn btn-primary" href={urls.shelterURL(props.shelterData.id)}>Visit</a>
+          <CardText>
+            <span className="shelterAddress"><b>Address: </b>
+              {props.shelterData.address != null ? props.shelterData.address : props.shelterData.city +", "+ props.shelterData.state}
+            </span>
+          </CardText>
+          <a className="button btn btn-primary" href={urls.shelterURL(props.shelterData.id)}>Visit</a>
           </CardBody>
         </div>
       </Card>
