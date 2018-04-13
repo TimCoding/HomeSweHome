@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import React, {Component} from 'react';
 import {Container, Row, Col, Jumbotron} from 'reactstrap';
 import {NavBar} from './navbar.jsx';
-import {ControlledCarousel} from './carousel.jsx';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {PawSpinner} from './spinner.jsx';
 
 
@@ -129,7 +129,7 @@ export default class About extends Component {
                     <h2 className="text-center">We all love dogs, right?</h2>
                     <Row>
                         <div className="col-lg-10 offset-lg-1">
-                            <h4><i className="fas fa-paw"></i> The Overview</h4>
+                            <h4><FontAwesomeIcon icon="paw"/> The Overview</h4>
                             <p className="text-justify">Welcome all dog lovers! If you are looking to discover a new
                                 dog, shelter, or park,
                                 you have come to the right place! <span className="font-italics">HomeSweHome</span> is
@@ -142,7 +142,7 @@ export default class About extends Component {
 
                             <hr/>
 
-                            <h4><i className="fas fa-database"></i> The Data</h4>
+                            <h4><FontAwesomeIcon icon="database"/> The Data</h4>
                             <p>There are many challenges that face us when acquiring and processing this disparate data.
                                 We pull from the following resources:</p>
                             <ul>
@@ -184,7 +184,7 @@ export default class About extends Component {
 
                             <hr/>
 
-                            <h4><i className="fas fa-list-ol"></i> The Stats</h4>
+                            <h4><FontAwesomeIcon icon="list-ol"/> The Stats</h4>
                             <div className="container">
                                 <table className="table">
                                     <tr>
@@ -204,26 +204,26 @@ export default class About extends Component {
 
                             <hr/>
 
-                            <h4><i className="fas fa-wrench"></i> The Tools</h4>
+                            <h4><FontAwesomeIcon icon="wrench"/> The Tools</h4>
                             <p>Many new tools other than the previously stated ones were used in the creation of this
                                 site. Including but not limited to:</p>
-                            <ul>
-                                <li>Slack:</li>
+                            <ul className="fa-ul">
+                                <li><FontAwesomeIcon icon={["fab", "slack"]} listItem /> <a href="https://slack.com/">Slack</a>:</li>
                                 <ul>
                                     <li>Group collaboration and file sharing</li>
                                     <li>GitHub integration for tracking activity</li>
                                 </ul>
-                                <li>Amazon EC2:</li>
+                                <li><FontAwesomeIcon icon={["fab", "aws"]} listItem /> <a href="https://aws.amazon.com/ec2/">Amazon EC2</a>:</li>
                                 <ul>
                                     <li>Hosting of server</li>
                                     <li>Installation and custom options for running in production</li>
                                 </ul>
-                                <li>Namecheap:</li>
+                                <li><FontAwesomeIcon icon="address-card" listItem /> <a href="https://www.namecheap.com/">Namecheap</a>:</li>
                                 <ul>
                                     <li>Domain registration</li>
                                     <li>DNS Configuration</li>
                                 </ul>
-                                <li>Python Requests Library:</li>
+                                <li><FontAwesomeIcon icon={["fab", "python"]} listItem /> <a href="http://docs.python-requests.org/en/master/">Python Requests Library</a>:</li>
                                 <ul>
                                     <li>Used to make API calls to GitHub for about page</li>
                                     <li>Will be used to make API calls for scraping other data</li>
@@ -232,7 +232,7 @@ export default class About extends Component {
 
                             <hr/>
 
-                            <h4><i className="fas fa-link"></i> The Links</h4>
+                            <h4><FontAwesomeIcon icon="link"/> The Links</h4>
                             <ul>
                                 <li><a href="https://github.com/TimCoding/HomeSweHome/">GitHub Project</a></li>
                                 <li>GitBook:</li>
