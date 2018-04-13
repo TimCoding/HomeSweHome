@@ -32,7 +32,7 @@ const ShelterCard = (props) => {
           </CardText>
           <CardText>
             <i className="fas fa-paw"></i><b>Phone: </b>
-            <span className="shelterCardPhone">{props.shelterData.phone == "" ? "N/A" : props.shelterData.phone}</span>
+            <span className="shelterCardPhone">{props.shelterData.phone == null ? "N/A" : props.shelterData.phone}</span>
           </CardText>
           <a className="btn btn-primary" href={urls.shelterURL(props.shelterData.id)}>Visit</a>
           </CardBody>

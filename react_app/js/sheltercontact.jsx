@@ -20,7 +20,7 @@ const ShelterContact = (props) => {
            </span>
            <br/>
            <span className="text-muted">Phone:
-              <span className="shelterPhone"> {props.shelterJSON.phone}</span>
+              <span className="shelterPhone"> {props.shelterJSON.phone == null ? "N/A" : props.shelterJSON.phone}</span>
            </span>
            <br/>
              <a href={urls.petfinderShelterURL(props.shelterJSON.id)}
