@@ -180,23 +180,26 @@ def search_dogs():
             return raise_error("The limit parameter must be greater than 0.")
         breeds_filters = request.args.getlist("breed")
         cities_filters = request.args.getlist("city")
-        order_by_field = request.args.get("orderby")
-        order_by_order = request.args.get("sort", "ASC").upper()
+        order_by_fields = request.args.getlist("orderby")
+        order_by_orders = request.args.getlist("sort")
         base_query = session.query(Dog)
         if len(breeds_filters) > 0:
             base_query = base_query.join(Breed).filter(Breed.breed.in_(breeds_filters))
         if len(cities_filters) > 0:
             base_query = base_query.filter(Dog.city.in_(cities_filters))
-        if order_by_field is not None:
-            if order_by_field not in Dog.sortable:
-                return raise_error("The orderby field should be one of {0}".format(",".join(Dog.sortable)))
-
-            if order_by_order == "ASC":
-                base_query = base_query.order_by(asc(getattr(Dog, order_by_field)))
-            elif order_by_order == "DESC":
-                base_query = base_query.order_by(desc(getattr(Dog, order_by_field)))
-            else:
-                return raise_error("The sort order should be 'ASC' or 'DESC'.")
+        if len(order_by_fields) > 0:
+            sorts = []
+            for idx, field in enumerate(order_by_fields):
+                if field not in Dog.sortable:
+                    return raise_error("The orderby field should be one of {0}.".format(",".join(Dog.sortable)))
+                order = order_by_orders[idx].upper() if idx < len(order_by_orders) else "ASC"
+                if order == "ASC":
+                    sorts.append(asc(getattr(Dog, field)))
+                elif order == "DESC":
+                    sorts.append(desc(getattr(Dog, field)))
+                else:
+                    return raise_error("The sort order should be 'ASC' or 'DESC'.")
+            base_query = base_query.order_by(*reversed(sorts))
 
         base_query = base_query.distinct()
         count = base_query.count()
@@ -359,21 +362,24 @@ def search_shelters():
         if limit <= 0:
             return raise_error("The limit parameter must be greater than 0.")
         cities_filters = request.args.getlist("city")
-        order_by_field = request.args.get("orderby")
-        order_by_order = request.args.get("sort", "ASC").upper()
+        order_by_fields = request.args.getlist("orderby")
+        order_by_orders = request.args.getlist("sort")
         base_query = session.query(Shelter)
         if len(cities_filters) > 0:
             base_query = base_query.filter(Shelter.city.in_(cities_filters))
-        if order_by_field is not None:
-            if order_by_field not in Shelter.sortable:
-                return raise_error("The orderby field should be one of {0}.".format(",".join(Shelter.sortable)))
-
-            if order_by_order == "ASC":
-                base_query = base_query.order_by(asc(getattr(Shelter, order_by_field)))
-            elif order_by_order == "DESC":
-                base_query = base_query.order_by(desc(getattr(Shelter, order_by_field)))
-            else:
-                return raise_error("The sort order should be 'ASC' or 'DESC'.")
+        if len(order_by_fields) > 0:
+            sorts = []
+            for idx, field in enumerate(order_by_fields):
+                if field not in Shelter.sortable:
+                    return raise_error("The orderby field should be one of {0}.".format(",".join(Shelter.sortable)))
+                order = order_by_orders[idx].upper() if idx < len(order_by_orders) else "ASC"
+                if order == "ASC":
+                    sorts.append(asc(getattr(Shelter, field)))
+                elif order == "DESC":
+                    sorts.append(desc(getattr(Shelter, field)))
+                else:
+                    return raise_error("The sort order should be 'ASC' or 'DESC'.")
+            base_query = base_query.order_by(*reversed(sorts))
 
         count = base_query.count()
         shelters = base_query.offset(start).limit(limit).all()
@@ -509,8 +515,8 @@ def search_parks():
             return raise_error("The limit parameter must be greater than 0.")
         cities_filters = request.args.getlist("city")
         rating_lower_bound = request.args.get("rating")
-        order_by_field = request.args.get("orderby")
-        order_by_order = request.args.get("sort", "ASC").upper()
+        order_by_fields = request.args.getlist("orderby")
+        order_by_orders = request.args.getlist("sort")
         base_query = session.query(Park)
         if rating_lower_bound is not None:
             try:
@@ -520,16 +526,19 @@ def search_parks():
             base_query = base_query.filter(Park.yelp_rating >= rating_lower_bound)
         if len(cities_filters) > 0:
             base_query = base_query.filter(Park.city.in_(cities_filters))
-        if order_by_field is not None:
-            if order_by_field not in Park.sortable:
-                return raise_error("The orderby field should be one of {0}.".format(",".join(Park.sortable)))
-
-            if order_by_order == "ASC":
-                base_query = base_query.order_by(asc(getattr(Park, order_by_field)))
-            elif order_by_order == "DESC":
-                base_query = base_query.order_by(desc(getattr(Park, order_by_field)))
-            else:
-                return raise_error("The sort order should be 'ASC' or 'DESC'.")
+        if len(order_by_fields) > 0:
+            sorts = []
+            for idx, field in enumerate(order_by_fields):
+                if field not in Park.sortable:
+                    return raise_error("The orderby field should be one of {0}.".format(",".join(Park.sortable)))
+                order = order_by_orders[idx].upper() if idx < len(order_by_orders) else "ASC"
+                if order == "ASC":
+                    sorts.append(asc(getattr(Park, field)))
+                elif order == "DESC":
+                    sorts.append(desc(getattr(Park, field)))
+                else:
+                    return raise_error("The sort order should be 'ASC' or 'DESC'.")
+            base_query = base_query.order_by(*reversed(sorts))
 
         count = base_query.count()
         parks = base_query.offset(start).limit(limit).all()
