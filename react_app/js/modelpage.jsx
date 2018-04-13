@@ -304,7 +304,8 @@ export default class ModelPage extends Component {
 
 	renderReset() {
 		return (
-			<Button onClick={this.handleReset}>Reset Filters</Button>
+			<Button className="btn"
+              onClick={this.handleReset}>Reset Filters</Button>
 		)
 	}
 
@@ -542,7 +543,7 @@ export default class ModelPage extends Component {
 			return (
 				<div>
 					{staticContent}
-					
+
 					<Container>
 						<h2>Parks</h2>
 							<Col md="12">

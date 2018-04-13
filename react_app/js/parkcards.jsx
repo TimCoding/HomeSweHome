@@ -16,9 +16,9 @@ const ParkCard = (props) => {
     }
   return (
     <div className="cards">
-      <Card>
+      <Card className="card">
         <CardImg className="cardImg" src={img} alt="Park image" />
-        <span className="hoverText">
+        <span id="hiddenText" className="hoverText">
         <CardBody>
           <CardTitle className="parkCardTitle">
               <Highlighter
@@ -41,7 +41,7 @@ const ParkCard = (props) => {
                 textToHighlight={props.parkData.address + " " + props.parkData.city + ", " + props.parkData.state + " " + props.parkData.zip}/>
             </span>
           </CardText>
-          <a className="btn btn-primary" href={urls.parkURL(props.parkData.id)}>Visit</a>
+          <a className="button btn btn-primary" href={urls.parkURL(props.parkData.id)}>Visit</a>
         </CardBody>
       </span>
       </Card>

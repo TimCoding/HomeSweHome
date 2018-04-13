@@ -18,19 +18,19 @@ const DogCard = (props) => {
     );
   })
 
- 
+
   return (
     <div className="cards">
       <Card>
         <CardImg className="cardImg"
                  src={props.dogData.image_urls.length > 0 ? props.dogData.image_urls[0] : "/static/img/homeswehomelogo.svg"}
                  alt="Dog image" />
-        <div className="hoverText">
+        <div id="hiddenText" className="hoverText">
           <CardBody>
-            <h4>
+            <h4 className="title">
                 <Highlighter className="dogCardName"
-                  searchWords={[props.query]}
-                  textToHighlight={props.dogData.name}/>
+                             searchWords={[props.query]}
+                             textToHighlight={props.dogData.name}/>
             </h4>
             <CardText>
               <b>Breed: </b>
@@ -44,7 +44,8 @@ const DogCard = (props) => {
               <b>Friendly: </b>
               <span className="dogCardFriendly">{props.dogData.friendly ? "Yes" : "No"}</span>
             </CardText>
-            <a className="btn btn-primary" href={urls.dogURL(props.dogData.id)}>Meet {props.dogData.name}</a>
+            <a className="button btn btn-primary"
+               href={urls.dogURL(props.dogData.id)}>Meet {props.dogData.name}</a>
           </CardBody>
         </div>
       </Card>
