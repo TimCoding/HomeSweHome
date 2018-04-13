@@ -3,6 +3,8 @@ import { ControlledCarousel } from './carousel.jsx'
 import { NavBar } from './navbar.jsx';
 
 
+import '../../server/static/styles/splash.css';
+
 const items = [
   {
     src: "/static/img/dog1.jpg",
@@ -24,7 +26,9 @@ export class Splash extends Component {
     return (
       <div>
         <NavBar/>
-        <ControlledCarousel size={"w-100 mx-auto"} items = {items}/>
+        <div className="splash-carousel">
+          <ControlledCarousel size={"w-100 mx-auto"} items = {items}/>
+        </div>
       </div>
     );
   }
