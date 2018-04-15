@@ -19,7 +19,7 @@ const ParkInfo = (props) => {
                {props.parkJSON.city}, {props.parkJSON.state} {props.parkJSON.zip}
             </span><br/>
             <span >
-              <b>Phone:</b> {props.parkJSON.phone}
+              <b>Phone:</b> {props.parkJSON.phone == "" ? "N/A" : props.parksJSON.phone}
             </span><br/>
             <span >
               <b>Yelp Rating:</b> <StarsRating rating={props.parkJSON.yelp_rating} />
