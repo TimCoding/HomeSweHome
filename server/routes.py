@@ -185,3 +185,8 @@ def about_data():
     }
 
     return jsonify(data)
+
+
+@app.route("/visualization/")
+def ckc_visualization():
+    return render_template("ckc_visualization.html")
