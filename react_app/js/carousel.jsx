@@ -7,8 +7,6 @@ import {
   CarouselCaption
 } from 'reactstrap';
 
-import '../../server/static/styles/splash_carousel.css';
-
 export class ControlledCarousel extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +18,7 @@ export class ControlledCarousel extends Component {
     this.onExited = this.onExited.bind(this);
     this.items = props.items;
     this.size = props.size;
+    this.style = props.style;
   }
 
   onExiting() {
@@ -57,14 +56,14 @@ export class ControlledCarousel extends Component {
           onExited={this.onExited}
           key={item.src}
         >
-          <img src={item.src} alt={item.altText} />
+          <img className={this.size} style={this.style} src={item.src} alt={item.altText} />
         </CarouselItem>
       );
     });
 
     return (
       <Carousel
-     
+        className="mx-auto"
         activeIndex={activeIndex}
         next={this.next}
         previous={this.previous}
