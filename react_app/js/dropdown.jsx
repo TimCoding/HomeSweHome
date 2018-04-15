@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Col } from 'reactstrap';
 
-export class Filter extends React.Component {
+export class Sort extends React.Component {
   constructor(props) {
     super(props);
 
@@ -33,4 +33,4 @@ export class Filter extends React.Component {
   }
 }
 
-window._Filter = Filter
+window._Sort = Sort
