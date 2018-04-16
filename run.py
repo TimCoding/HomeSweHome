@@ -3,6 +3,8 @@
 import os
 from server import app
 
+# FLASK_ENV should either be 'dev' or 'prod'
+# (default is 'dev')
 env = os.environ.get("FLASK_ENV", "dev")
 
 if __name__ == "__main__":

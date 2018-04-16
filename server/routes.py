@@ -1,10 +1,8 @@
 import json
-from collections import defaultdict
 from copy import deepcopy
 
-from flask import send_from_directory, render_template, jsonify, request
+from flask import render_template, jsonify, request
 import requests
-import random
 
 from server import app
 from server import api
@@ -39,10 +37,6 @@ def render_component(component_name, props=None):
     if props is None:
         return render_template("render_component.html", component_name=component_name)
     return render_template("render_component.html", component_name=component_name, props=json.dumps(props))
-
-@app.route("/test/")
-def test():
-    return render_component("Multiselect")
 
 
 @app.route("/paginationtest")
