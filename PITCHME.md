@@ -6,7 +6,7 @@ Canvas Group 8
 
 ### Introductions
 
-- @fa[fa-paw] Davis Robertson
+- @fa[fa-paw](Davis Robertson)
 - Timothy Ho
 - Rebekkah Koo
 - Emily Kwong
