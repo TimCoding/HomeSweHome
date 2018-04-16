@@ -11,8 +11,8 @@ import Highlighter from "react-highlight-words";
 export default class ModelPagination extends Component {
 	constructor(props) {
         super(props);
-				var amtPages = 4;
-                var paginator = new api.Paginator(amtPages, props.call, props.query);
+				var amtPages = 4; //Initializing value, not that important
+        var paginator = new api.Paginator(amtPages, props.call, props.query);
 				this.maxPages = 0;
 				this.paginatorAPI = paginator;
         this.state = {
@@ -21,15 +21,15 @@ export default class ModelPagination extends Component {
           startPage: 1,
           endPage: this.maxPages < 5 ? this.maxPages / amtPages : 5,
           max: this.maxPages,
-          ending: 0,
           type: props.type,
-          doneLoading: 0
+          doneLoading: 0 //Flag for spinner 
         };
         this.handleClick = this.handleClick.bind(this);
         this.goEnd = this.goEnd.bind(this);
       }
 
 		componentDidMount(){
+			//Must fetch first page to intialize API for pagination
 			this.paginatorAPI.fetchFirstPage()
 				.then((dataJSON) =>
 				{
@@ -39,7 +39,6 @@ export default class ModelPagination extends Component {
 						max: this.paginatorAPI.totalPages(),
 						startPage: 1,
                         endPage: this.maxPages > 5 ? 5 : this.maxPages,
-                        ending: this.paginatorAPI.totalPages(),
                         doneLoading: 1
                     })
 				}
@@ -48,14 +47,18 @@ export default class ModelPagination extends Component {
 					error: error.message
 				}));
         }
-        
+
+		//Function handles edge case of going to the very end of pagination
     goEnd(event) {
         this.paginatorAPI.fetchLastPage()
         .then((dataJSON) => {
+					 //Clear out what pages are currently being displayed
             this.setState({
                 todos: []
             })
-            var newEnd = this.state.max; 
+						//If pages greater than 5, display 4 previous pages before last page
+						//Otherwise display 1 - max pages
+            var newEnd = this.state.max;
             var newStart = newEnd - 4 > 1 ? newEnd - 4 : 1;
             this.setState({
                 todos: this.state.todos.concat(dataJSON),
@@ -63,13 +66,10 @@ export default class ModelPagination extends Component {
                 startPage: newStart,
                 endPage: newEnd
             })
-           // alert(this.state.endPage);
-        }) 
+        })
     }
 
     handleClick(event) {
-        // alert("YOU CLICK ON DIS: " + Number(event.target.id));
-        // alert("YOU WANT DIS: " + (this.state.max + 1));
         this.setState({
             doneLoading: 0,
             todos: []
@@ -80,12 +80,13 @@ export default class ModelPagination extends Component {
 			return;
 		}
         var page = Number(event.target.id);
-        var newStart = 0; 
+        var newStart = 0;
         var newEnd = 0;
+				//Handles arrow click for going back to the very first page
         if(Number(event.target.id) === 0){
             this.paginatorAPI.fetchFirstPage()
                 .then((dataJSON) => {
-                    newStart = 1; 
+                    newStart = 1;
                     newEnd = newStart + 4 > this.state.max ? this.state.max : newStart + 4;
                     this.setState({
                         todos: this.state.todos.concat(dataJSON),
@@ -93,33 +94,20 @@ export default class ModelPagination extends Component {
                         startPage: 1,
                         endPage: newEnd
                     })
-                }) 
-            
-        // }else if(Number(event.target.id) === (this.state.ending)){
-        //     this.paginatorAPI.fetchPage(this.state.max - 1)
-        //         .then((dataJSON) => {
-        //             newEnd = this.state.max; 
-        //             newStart = newEnd - 4 > 1 ? newEnd - 4 : 1;
-        //             this.setState({
-        //                 todos: this.state.todos.concat(dataJSON),
-        //                 doneLoading: 1,
-        //                 startPage: newStart,
-        //                 endPage: newEnd
-        //             })
-        //            // alert(this.state.endPage);
-        //         })
+                })
         }else{
+					//Handles normal case of clicking on numbered pages to navigate around
             this.paginatorAPI.current = page - 1;
-                    //alert("CURRENT newEND: " + newEnd);
                     this.paginatorAPI.fetchCurrentPage()
                         .then((dataJSON) =>
                         {
-
+													//Calculating new page numbers to display
                             var mid = (this.state.startPage + this.state.endPage) / 2;
                             var shift = page - Math.floor(mid);
                             newStart = this.state.startPage + shift;
                             newEnd = this.state.endPage + shift;
                             var max = this.state.max;
+														//In case algorithm causes starting page to be too low
                             if(newStart < 1){
                                 newStart = 1;
                                 newEnd = max
@@ -127,6 +115,7 @@ export default class ModelPagination extends Component {
                                     newEnd = this.maxPages > 5 ? 5 : this.maxPages;
                                 }
                             }
+														//In case algorithm causes ending page to be too high
                             if(newEnd > max){
                                 newStart = max - 4;
                                 if(newStart < 1){
@@ -135,7 +124,6 @@ export default class ModelPagination extends Component {
                                 newEnd = max;
                             }
                             this.setState({
-                                /*Rename todos to useful homeswehome related name*/
                                 todos: this.state.todos.concat(dataJSON),
                                 doneLoading:1,
                                 startPage: newStart,
@@ -155,7 +143,7 @@ export default class ModelPagination extends Component {
     const currentTodos = this.state.todos;
 
     const renderTodos = currentTodos.map(currentTodos => {
-                if(this.state.type == "dog"){
+            if(this.state.type == "dog"){
                     return (
 						<Col md="3">
 							<DogCard dogData={currentTodos} query={this.props.query}/>
