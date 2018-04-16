@@ -11,6 +11,7 @@ import './about.jsx'
 import './search.jsx'
 import './modelPagination.jsx'
 import './dropdown.jsx'
+import 'react-select/dist/react-select.css';
 
 
 // Only need to have this once, here. Uses closures

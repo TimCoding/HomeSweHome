@@ -13,7 +13,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {StarsRating} from './stars.jsx';
 import {Sort} from './dropdown.jsx';
 import Multiselect from 'react-select';
-import 'react-select/dist/react-select.css';
+
 
 export default class ModelPage extends Component {
   constructor(props) {
