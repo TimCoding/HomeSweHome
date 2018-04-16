@@ -3,8 +3,6 @@ import { ControlledCarousel } from './carousel.jsx'
 import { NavBar } from './navbar.jsx';
 
 
-import '../../server/static/styles/splash.css';
-
 const items = [
   {
     src: "/static/img/dog1.jpg",
