@@ -7,13 +7,22 @@ RepoName = HomeSweHome
 SHA      = 91aace2115ccb7b983ef3b2dfa7f77f266263572
 
 # Do not confuse with directories
-.PHONY: frontend backend build-frontend setup-backend
+.PHONY: frontend backend setup-backend setup-frontend build-frontend
 
-build-frontend:
-	@(cd react_app; npm run build)
+run: build-frontend setup-backend
+	@(python3 run.py)
+
+run-prod: build-frontend setup-backend
+	@(./runprod.sh)
 
 setup-backend:
 	@(python3 setup.py install)
+
+setup-frontend:
+	@(cd react_app; npm install)
+
+build-frontend: setup-frontend
+	@(cd react_app; npm run build)
 
 githubid:
 	@echo "${GithubID}"
