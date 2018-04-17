@@ -37,7 +37,7 @@ sha:
 # There should be the following commands written:
 
 # make github   - prints link to github repo
-githubs:
+github:
 	@echo "http://www.github.com/${GithubID}/${RepoName}"
 
 # make issues   - prints link to current phase's issues
