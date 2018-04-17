@@ -1,2 +1,2 @@
-theme : beige
+theme : white
 theme-override : server/static/styles/PITCHME.css
