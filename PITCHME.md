@@ -118,10 +118,6 @@ Canvas Group 10 - Calorie Killer Club
 
 +++
 
-- @fa[paw]() Their symlink may be broken
-
-+++
-
 - @fa[paw]() Since they have a lot of data to display, they should test on various devices to see how well that data is being shown
 
 +++
