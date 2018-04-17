@@ -6,11 +6,11 @@ Canvas Group 8
 
 ### Introductions
 
-- @fa[fa-paw](Davis Robertson)
-- Timothy Ho
+- @fa[heart](Davis Robertson)
+<!-- - Timothy Ho
 - Rebekkah Koo
 - Emily Kwong
-- Godfrey Macasero
+- Godfrey Macasero -->
 
 ---
 
