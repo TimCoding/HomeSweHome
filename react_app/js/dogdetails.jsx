@@ -163,7 +163,7 @@ export default class DogDetails extends Component {
 										<CardText>
 											<h5>Description:</h5>
 											<p className="description_content">{this.state.description} {this.state.readMore && this.state.size >= 150 ? "..." : ""}</p>
-											{this.state.desc2.split(" ").length > 150 ? <Button color="primary" onClick={this.readMore}>{this.state.readMore ? "Read More" : "Read Less"}</Button> : ''}
+											{this.state.desc2.split(" ").length > 150 ? <Button className="readmore" color="primary" onClick={this.readMore}>{this.state.readMore ? "Read More" : "Read Less"}</Button> : ''}
 											<h5>Information:</h5>
 											<Table size="sm">
 												<tbody>
