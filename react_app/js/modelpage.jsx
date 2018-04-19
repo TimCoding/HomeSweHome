@@ -390,7 +390,7 @@ export default class ModelPage extends Component {
         return (
           <div>
             {staticContent}
-            <Container>
+            <Container style={{minHeight: '100vh'}}>
               <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
             </Container>
           </div>
@@ -407,7 +407,7 @@ export default class ModelPage extends Component {
 
       if (!this.state.resultsLoading && this.state.results.length == 0) {
         dogList = (
-          <Col md="12">
+          <Col md="12"  style={{minHeight: '100vh'}}>
             <p> No Results </p>
           </Col>
         );
@@ -444,7 +444,7 @@ export default class ModelPage extends Component {
         return (
           <div>
             {staticContent}
-            <Container>
+            <Container  style={{minHeight: '100vh'}}>
 
               <h2>Dogs</h2>
               <Row>
@@ -502,7 +502,7 @@ export default class ModelPage extends Component {
           return (
             <div>
               {staticContent}
-              <Container>
+              <Container  style={{minHeight: '100vh'}}>
                 <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
               </Container>
             </div>
@@ -629,7 +629,7 @@ export default class ModelPage extends Component {
             return (
               <div>
                 {staticContent}
-                <Container>
+                <Container  style={{minHeight: '100vh'}}>
                   <h1 className="text-center" style={{fontSize: '6em'}}><PawSpinner /></h1>
                 </Container>
               </div>
