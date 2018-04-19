@@ -38,8 +38,8 @@ const ShelterCard = (props) => {
                 </span>
               </CardText>
               <CardText>
-                <span className="shelterAddress"><b>Address: </b>
-                {props.shelterData.address != null ? props.shelterData.address : props.shelterData.city +", "+ props.shelterData.state}
+                <span className="shelterAddress"><b>City: </b>
+                {props.shelterData.city +", "+ props.shelterData.state}
               </span>
             </CardText>
           </CardBody>
