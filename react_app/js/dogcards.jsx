@@ -21,39 +21,39 @@ const DogCard = (props) => {
 
   return (
     <div className="cards">
-      <Card>
-        <CardImg className="cardImg"
-          src={props.dogData.image_urls.length > 0 ? props.dogData.image_urls[0] : "/static/img/homeswehomelogo.svg"}
-          alt="Dog image" />
-        <div id="hiddenText" className="hoverText">
-          <CardBody>
-            <h4 className="title">
-              <Highlighter className="dogCardName"
-                searchWords={[props.query]}
-                textToHighlight={props.dogData.name}/>
-            </h4>
-            <CardText>
-              <b>Breed: </b>
-              <span className="dogCardBreed">{dogBreed}</span>
+      <a href={urls.dogURL(props.dogData.id)}>
+        <Card>
+          <CardImg className="cardImg"
+            src={props.dogData.image_urls.length > 0 ? props.dogData.image_urls[0] : "/static/img/homeswehomelogo.svg"}
+            alt="Dog image" />
+          <div id="hiddenText" className="hoverText">
+            <CardBody>
+              <h4 className="title">
+                <Highlighter className="dogCardName"
+                  searchWords={[props.query]}
+                  textToHighlight={props.dogData.name}/>
+              </h4>
+              <CardText>
+                <b>Breed: </b>
+                <span className="dogCardBreed">{dogBreed}</span>
+              </CardText>
+              <CardText>
+                <b>Housetrained: </b>
+                <span className="dogCardHouseTrained">{props.dogData.housetrained === true ? "Yes" : "No"}</span>
+              </CardText>
+              <CardText>
+                <b>Friendly: </b>
+                <span className="dogCardFriendly">{props.dogData.friendly ? "Yes" : "No"}</span>
+              </CardText>
+              <CardText>
+                <span><b>Address: </b>
+                {props.dogData.city +", "+ props.dogData.state}
+              </span>
             </CardText>
-            <CardText>
-              <b>Housetrained: </b>
-              <span className="dogCardHouseTrained">{props.dogData.housetrained === true ? "Yes" : "No"}</span>
-            </CardText>
-            <CardText>
-              <b>Friendly: </b>
-              <span className="dogCardFriendly">{props.dogData.friendly ? "Yes" : "No"}</span>
-            </CardText>
-            <CardText>
-              <span><b>Address: </b>
-              {props.dogData.city +", "+ props.dogData.state}
-            </span>
-          </CardText>
-          <a className="button btn btn-primary"
-            href={urls.dogURL(props.dogData.id)}>Meet {props.dogData.name}</a>
-        </CardBody>
-      </div>
-    </Card>
+          </CardBody>
+        </div>
+      </Card>
+    </a>
     <div hidden="true"> {/*This div is used for testing purposes*/}
       <p className="testQuery">{props.query}</p>
       <p className="testName">{props.dogData.name}</p>
