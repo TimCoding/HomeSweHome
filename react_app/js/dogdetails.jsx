@@ -21,7 +21,8 @@ export default class DogDetails extends Component {
 			desc: null,
 			desc2: null,
 			description: null,
-			readMore: true
+			readMore: true,
+			size: 0
 		}
 		this.readMore = this.readMore.bind(this);
 	}
@@ -44,9 +45,11 @@ export default class DogDetails extends Component {
 		api.fetchDog(this.props.dogID)
 		.then(dogJSON => this.setState({
 			dogJSON: dogJSON,
-			desc : dogJSON.description ? dogJSON.description.split(" ").slice(0, 150).join(" ") : "No description available",
-			desc2 : dogJSON.description ? dogJSON.description : "No description available",
-			description : dogJSON.description ? dogJSON.description.split(" ").slice(0, 150).join(" ") : "No description available"
+			//desc is shortened description, desc2 is full description, description is what gets displayed
+			desc : dogJSON.description ? dogJSON.description.split(" ").slice(0, 150).join(" ") : "",
+			desc2 : dogJSON.description ? dogJSON.description : "",
+			description : dogJSON.description ? dogJSON.description.split(" ").slice(0, 150).join(" ") : "No description available",
+			size : dogJSON.description ? dogJSON.description.split(" ").length : 0
 		})
 	)
 		.catch(error => this.setState({
@@ -159,7 +162,7 @@ export default class DogDetails extends Component {
 										</CardTitle>
 										<CardText>
 											<h5>Description:</h5>
-											<p className="description_content">{this.state.description} {this.state.readMore ? "..." : ""}</p>
+											<p className="description_content">{this.state.description} {this.state.readMore && this.state.size >= 150 ? "..." : ""}</p>
 											{this.state.desc2.split(" ").length > 150 ? <Button color="primary" onClick={this.readMore}>{this.state.readMore ? "Read More" : "Read Less"}</Button> : ''}
 											<h5>Information:</h5>
 											<Table size="sm">
