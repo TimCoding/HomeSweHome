@@ -8,6 +8,8 @@ from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.common.action_chains import ActionChains
 import unittest, time, re
 
+driver = None 
+
 class GUITest(unittest.TestCase):
     def setUp(self):
         '''
@@ -82,7 +84,9 @@ class GUITest(unittest.TestCase):
         # home
         driver.find_element_by_class_name("navbar-brand").click()
 
+    def test_search(self):
         # specific dog search test: Velcro
+        driver = self.driver
         driver.find_element_by_xpath("//*[@id='content']/div/div[1]/nav/form/input[1]").send_keys('velcro')
         driver.find_element_by_xpath("//*[@id='content']/div/div[1]/nav/form/input[2]").click()
         time.sleep(2)
@@ -90,7 +94,9 @@ class GUITest(unittest.TestCase):
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
         hover.click(element_to_hover_over).perform()
 
+    def test_filters(self):
         # dogs filter test: order by: z - a, cities: houston, breeds: pug, reset
+        driver = self.driver
         driver.find_element_by_link_text("Dogs").click()
         time.sleep(2)
         driver.find_element_by_xpath("//*[@id='content']/div/div[2]/div[1]/div[3]/div/button").click()
@@ -151,10 +157,12 @@ class GUITest(unittest.TestCase):
         time.sleep(2)
         driver.find_element_by_xpath(" //*[@id='content']/div/div[2]/div[1]/div[3]/button").click()
 
+    def test_pagination(self):
         # pagination test: search ad, click last page arrow, click 34, click 32, hover over 2nd dog,
         # click samantha
-        driver.find_element_by_xpath("//*[@id='content']/div/div[1]/div[1]/nav/form/input[1]").send_keys('aD')
-        driver.find_element_by_xpath("//*[@id='content']/div/div[1]/div[1]/nav/form/input[2]").click()
+        driver = self.driver
+        driver.find_element_by_xpath("//*[@id='content']/div/div[1]/nav/form/input[1]").send_keys('aD')
+        driver.find_element_by_xpath("//*[@id='content']/div/div[1]/nav/form/input[2]").click()
         time.sleep(3)
         driver.find_element_by_xpath("//*[@id='page-numbers']/li[7]/a").click()
         time.sleep(2)
