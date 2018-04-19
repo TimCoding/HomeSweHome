@@ -3,8 +3,8 @@
 
 GithubID = TimCoding
 RepoName = HomeSweHome
-# NEED TO UPDATE THIS BEFORE WE SUBMIT (last updated 4/19 at 5:00pm)
-SHA      = 52ad35ce59c3cfaf2fa5f82fdaa7726b3de80a21
+# NEED TO UPDATE THIS BEFORE WE SUBMIT (last updated 4/19 at 5:02pm)
+SHA      = b454d5700943ca5442badbc21faa0ddf4dae2735
 
 # Do not confuse with directories
 .PHONY: frontend backend setup-backend setup-frontend build-frontend
@@ -12,6 +12,7 @@ SHA      = 52ad35ce59c3cfaf2fa5f82fdaa7726b3de80a21
 run: build-frontend setup-backend
 	@(python3 run.py)
 
+# need to run with sudo
 run-prod: build-frontend setup-backend
 	@(./runprod.sh)
 
