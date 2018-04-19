@@ -44,9 +44,9 @@ export default class DogDetails extends Component {
 		api.fetchDog(this.props.dogID)
 		.then(dogJSON => this.setState({
 			dogJSON: dogJSON,
-			desc : dogJSON.description.split(" ").slice(0, 150).join(" "),
-			desc2 : dogJSON.description,
-			description : dogJSON.description.split(" ").slice(0, 150).join(" ")
+			desc : dogJSON.description ? dogJSON.description.split(" ").slice(0, 150).join(" ") : "No description available",
+			desc2 : dogJSON.description ? dogJSON.description : "No description available",
+			description : dogJSON.description ? dogJSON.description.split(" ").slice(0, 150).join(" ") : "No description available"
 		})
 	)
 		.catch(error => this.setState({
@@ -159,7 +159,7 @@ export default class DogDetails extends Component {
 										</CardTitle>
 										<CardText>
 											<h5>Description:</h5>
-											<p className="description_content">{this.state.description}</p>
+											<p className="description_content">{this.state.description} {this.state.readMore ? "..." : ""}</p>
 											{this.state.desc2.split(" ").length > 150 ? <Button color="primary" onClick={this.readMore}>{this.state.readMore ? "Read More" : "Read Less"}</Button> : ''}
 											<h5>Information:</h5>
 											<Table size="sm">
