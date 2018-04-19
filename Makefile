@@ -3,8 +3,8 @@
 
 GithubID = TimCoding
 RepoName = HomeSweHome
-# NEED TO UPDATE THIS BEFORE WE SUBMIT
-SHA      = 91aace2115ccb7b983ef3b2dfa7f77f266263572
+# NEED TO UPDATE THIS BEFORE WE SUBMIT (last updated 4/19 at 5:00pm)
+SHA      = 52ad35ce59c3cfaf2fa5f82fdaa7726b3de80a21
 
 # Do not confuse with directories
 .PHONY: frontend backend setup-backend setup-frontend build-frontend
