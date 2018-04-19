@@ -82,7 +82,7 @@ First download a Selenium driver for the browser of your choice.
 
 ```bash
 cd frontend
-# edit guitests.py to have the path to your Selenium driver
+# edit guitests.py to have the path to your Selenium driver in Chrome
 python3 guitests.py
 ```
 

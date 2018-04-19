@@ -20,9 +20,8 @@ class GUITest(unittest.TestCase):
         self.driver = webdriver.Chrome("C:\webdrivers\chromedriver.exe")
         # self.driver = webdriver.Chrome("/Users/rebekkahkoo/Downloads/chromedriver")
 
-        #self.driver = webdriver.Chrome("PATH_TO_CHROMEDRIVER")
-        # self.driver.get('http://homeswehome.me/')
-        self.driver.get('http://localhost:5000/')
+        self.driver.get('http://homeswehome.me/')
+        # self.driver.get('http://localhost:5000/')
 
     def test_links(self):
         driver = self.driver
