@@ -26,11 +26,11 @@ class GUITest(unittest.TestCase):
         driver = self.driver
         driver.find_element_by_link_text("Dogs").click()
         time.sleep(5)
-        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[2]/div[2]/div[1]/div/div/img")
+        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[2]/div[2]/div[1]/div/a/div/img")
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
-        hover.perform()
+        hover.click(element_to_hover_over).perform()
+
         # tic: details page, petfinder website, back, go to town of addison
-        driver.find_element_by_link_text("Meet Tic").click()
         time.sleep(2)
         driver.find_element_by_link_text("Visit this dog on PetFinder!").click()
         driver.back()
@@ -41,12 +41,11 @@ class GUITest(unittest.TestCase):
         driver.find_element_by_link_text("Visit this shelter on PetFinder!").click()
         driver.back()
         time.sleep(2)
-        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[6]/div/div[1]/div/div/img")
+        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[6]/div/div[1]/div/a/div/img")
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
-        hover.perform()
+        hover.click(element_to_hover_over).perform()
 
         #addison circle park: go to yelp page, back, go to parks model page
-        driver.find_element_by_link_text("Visit").click()
         time.sleep(2)
         driver.find_element_by_link_text("Visit this park on Yelp!").click()
         driver.back()
@@ -56,32 +55,29 @@ class GUITest(unittest.TestCase):
         time.sleep(3)
 
         #bosque park: go to town of addison visit
-        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[2]/div[2]/div[2]/div/div/img")
+        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[2]/div[2]/div[2]/div/a/div/img")
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
-        hover.perform()
-        driver.find_element_by_link_text("Visit").click()
+        hover.click(element_to_hover_over).perform()
         time.sleep(3)
 
         # drakie
-        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[5]/div/div[3]/div/div/img")
+        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[5]/div/div[3]/div/a/div/img")
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
-        hover.perform()
-        driver.find_element_by_link_text("Meet Drakie").click()
+        hover.click(element_to_hover_over).perform()
+        time.sleep(1)
         driver.find_element_by_link_text("Shelters").click()
         time.sleep(3)
 
         # town of addison
-        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[2]/div[2]/div[1]/div/div/img")
+        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[2]/div[2]/div[1]/div/a/div/img")
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
-        hover.perform()
-        driver.find_element_by_link_text("Visit").click()
+        hover.click(element_to_hover_over).perform()
         time.sleep(3)
 
         # cappucino
-        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[5]/div/div[4]/div/div/img")
+        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[5]/div/div[4]/div/a/div/img")
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
-        hover.perform()
-        driver.find_element_by_link_text("Meet Cappuccino").click()
+        hover.click(element_to_hover_over).perform()
 
         # home
         driver.find_element_by_class_name("navbar-brand").click()
@@ -90,10 +86,9 @@ class GUITest(unittest.TestCase):
         driver.find_element_by_xpath("//*[@id='content']/div/div[1]/nav/form/input[1]").send_keys('velcro')
         driver.find_element_by_xpath("//*[@id='content']/div/div[1]/nav/form/input[2]").click()
         time.sleep(2)
-        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[3]/div[2]/div/div/div/div/div[1]/img")
+        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[3]/div[2]/div/div/div/div/a/div/img")
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
-        hover.perform()
-        driver.find_element_by_link_text("Meet Velcro").click()
+        hover.click(element_to_hover_over).perform()
 
         # dogs filter test: order by: z - a, cities: houston, breeds: pug, reset
         driver.find_element_by_link_text("Dogs").click()
@@ -167,10 +162,9 @@ class GUITest(unittest.TestCase):
         time.sleep(2)
         driver.find_element_by_xpath("//*[@id='page-numbers']/li[2]/a").click()
         time.sleep(2)
-        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[3]/div[2]/div/div/div[2]/div/div[1]/img")
+        element_to_hover_over = driver.find_element_by_xpath("//*[@id='content']/div/div[3]/div[2]/div/div/div[2]/div/a/div/img")
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
-        hover.perform()
-        driver.find_element_by_link_text("Meet Samantha").click()
+        hover.click(element_to_hover_over).perform()
 
         # about page
         time.sleep(2)
