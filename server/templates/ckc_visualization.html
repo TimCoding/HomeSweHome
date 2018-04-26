@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<h1>{{data["name"]}}</h1>
 <body>
-	<h1>{{data["name"]}}</h1>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
@@ -120,31 +120,31 @@ function collide(node) {
 }
 
 </script>
-<table width="25%">
+<table width="20%">
   <tr style="font-weight:bold">
     <td>Color</td>
     <td>Macro</td>
     <td>Units</td>
   </tr>
   <tr>
-    <td>Red</td>
+    <td style="color:red">Red</td>
     <td>Fat</td>
-    <td>{{data["fat"]}}</td>
+    <td>{{data["fat"]}} g</td>
   </tr>
   <tr>
-    <td>Blue</td>
-    <td>Sodium</td>
-    <td>{{data["sodium"]}}</td>
-  </tr>
-  <tr>
-    <td>Green</td>
-    <td>Calories</td>
-    <td>{{data["calorie"]}}</td>
-  </tr>
-  <tr>
-    <td>Orange</td>
+    <td style="color:orange">Orange</td>
     <td>Protein</td>
-    <td>{{data["protein"]}}</td>
+    <td>{{data["protein"]}} g</td>
+  </tr>
+  <tr>
+    <td style="color:green">Green</td>
+    <td>Calories</td>
+    <td>{{data["calorie"]}} kCal</td>
+  </tr>
+  <tr>
+    <td style="color:blue">Blue</td>
+    <td>Sodium</td>
+    <td>{{data["sodium"]}} g</td>
   </tr>
  </table>
 </body>
