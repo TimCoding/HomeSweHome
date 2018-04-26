@@ -103,7 +103,7 @@ Canvas Group 10 - Calorie Killer Club
 
 +++
 
-- @fa[paw]() For pages with a small amount of data it might be better to do searching/filtering tasks on the front end 
+- @fa[paw]() Their usage of Travis showed us how to use continuous integration on a large project
 
 +++
 
