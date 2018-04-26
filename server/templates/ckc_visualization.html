@@ -1,53 +1,26 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <body>
-	<h1>{{name}}</h1>
-	<table>
-	  <tr>
-	    <th>Color</th>
-	    <th>Macro</th>
-	    <th>Units</th>
-	  </tr>
-	  <tr>
-	    <td>Red</td>
-	    <td>Fat</td>
-	    <td><p id="fat"></p></td>
-	  </tr>
-	  <tr>
-	    <td>Blue</td>
-	    <td>Sodium</td>
-	    <td><p id="sodium"></p></td>
-	  </tr>
-	  <tr>
-	    <td>Green</td>
-	    <td>Calories</td>
-	    <td><p id="calories"></p></td>
-	  </tr>
-	  <tr>
-	    <td>Orange</td>
-	    <td>Protein</td>
-	    <td><p id="protein"></p></td>
-	  </tr>
-	 </table>
+	<h1>{{data["name"]}}</h1>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
 var width = 1500,
-    height = 750;
+    height = 500;
 
 var data = {{data|safe}};
 
-var fatDiv = document.getElementById('fat');
-fatDiv.innerHTML += data["fat"] + ' g';
-
-var sodiumDiv = document.getElementById('sodium');
-sodiumDiv.innerHTML += data["sodium"] + ' g';
-
-var caloriesDiv = document.getElementById('calories');
-caloriesDiv.innerHTML += data["calorie"] + ' kCal';
-
-var proteinDiv = document.getElementById('protein');
-proteinDiv.innerHTML += data["protein"] + ' g';
+// var fatDiv = document.getElementById('fat');
+// fatDiv.innerHTML += data["fat"] + ' g';
+//
+// var sodiumDiv = document.getElementById('sodium');
+// sodiumDiv.innerHTML += data["sodium"] + ' g';
+//
+// var caloriesDiv = document.getElementById('calories');
+// caloriesDiv.innerHTML += data["calorie"] + ' kCal';
+//
+// var proteinDiv = document.getElementById('protein');
+// proteinDiv.innerHTML += data["protein"] + ' g';
 
 
 var bigList = [{radius: 10}];
@@ -86,7 +59,7 @@ root.radius = 0;
 root.fixed = true;
 
 var force = d3.layout.force()
-    .gravity(0.05)
+    .gravity(0.03)
     .charge(function(d, i) { return i ? 0 : -2000; })
     .nodes(bigList)
     .size([width, height]);
@@ -147,3 +120,31 @@ function collide(node) {
 }
 
 </script>
+<table width="25%">
+  <tr style="font-weight:bold">
+    <td>Color</td>
+    <td>Macro</td>
+    <td>Units</td>
+  </tr>
+  <tr>
+    <td>Red</td>
+    <td>Fat</td>
+    <td>{{data["fat"]}}</td>
+  </tr>
+  <tr>
+    <td>Blue</td>
+    <td>Sodium</td>
+    <td>{{data["sodium"]}}</td>
+  </tr>
+  <tr>
+    <td>Green</td>
+    <td>Calories</td>
+    <td>{{data["calorie"]}}</td>
+  </tr>
+  <tr>
+    <td>Orange</td>
+    <td>Protein</td>
+    <td>{{data["protein"]}}</td>
+  </tr>
+ </table>
+</body>
