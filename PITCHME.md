@@ -48,8 +48,7 @@ Canvas Group 8
 
 +++
 
-- @fa[paw]() Build custom react components
-    - Filter button checkboxes
+- @fa[paw]() How to create a visualization with D3.js
 +++
 
 - @fa[paw]() Set up a postgres database
@@ -110,7 +109,7 @@ Canvas Group 10 - Calorie Killer Club
 
 +++
 
-- @fa[paw]() We will learn what a met is..hopefully (putting what it actually meant here)
+- @fa[paw]() We learned that met stands for metabolic equivalent, a measure of energy cost of physical activities 
 
 ---
 
