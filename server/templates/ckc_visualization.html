@@ -2,6 +2,33 @@
 <meta charset="utf-8">
 <body>
 	<h1>{{name}}</h1>
+	<table>
+	  <tr>
+	    <th>Color</th>
+	    <th>Macro</th>
+	    <th>Units</th>
+	  </tr>
+	  <tr>
+	    <td>Red</td>
+	    <td>Fat</td>
+	    <td>{{data["fat"]}} g</td>
+	  </tr>
+	  <tr>
+	    <td>Blue</td>
+	    <td>Sodium</td>
+	    <td>{{data["sodium"]}}mg</td>
+	  </tr>
+	  <tr>
+	    <td>Green</td>
+	    <td>Calories</td>
+	    <td>{{data["calorie"]}} kCal</td>
+	  </tr>
+	  <tr>
+	    <td>Orange</td>
+	    <td>Protein</td>
+	    <td>{{data["protein"]}} g</td>
+	  </tr>
+	 </table>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
