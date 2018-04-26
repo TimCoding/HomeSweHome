@@ -61,7 +61,7 @@ Canvas Group 8
 ### What can we do better?
 +++
 
-- @fa[paw]() Organize our data better so that we don't need ternary operators in ternary operators in ternar...
+- @fa[paw]() If a library exists, learn it and use it.
 
 +++
 
