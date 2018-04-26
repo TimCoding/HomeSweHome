@@ -75,8 +75,6 @@ Canvas Group 8
 ---
 ### Other Critique
 
-Need to refine this section
-
 Canvas Group 10 - Calorie Killer Club
 ---
 ### What did they do well?
