@@ -3,8 +3,8 @@
 
 GithubID = TimCoding
 RepoName = HomeSweHome
-# NEED TO UPDATE THIS BEFORE WE SUBMIT (last updated 4/19 at 5:02pm)
-SHA      = b454d5700943ca5442badbc21faa0ddf4dae2735
+# NEED TO UPDATE THIS BEFORE WE SUBMIT (last updated 4/19 at 5:23pm)
+SHA      = 555101887ece2500a9d14a54b0c1203eebf21663
 
 # Do not confuse with directories
 .PHONY: frontend backend setup-backend setup-frontend build-frontend
@@ -64,6 +64,10 @@ frontend: build-frontend
 # make backend  - runs backend tests
 backend:
 	python3 -m unittest server_tests
+
+# make postman - runs postman tests
+postman:
+	newman run Postman.json
 
 # make website  - prints link to a website
 website:
