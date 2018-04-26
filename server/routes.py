@@ -187,7 +187,7 @@ def about_data():
 def ckc_visualization(index):
     food_file = os.path.join(PATH_TO_JSON, "foods.json")
     json_data = open(food_file).read()
-    food_json = json.loads(jsonj_data)
+    food_json = json.loads(json_data)
 
     food_data = food_json[index]
 
