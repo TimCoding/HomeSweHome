@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <body>
+	<h1>{{name}}</h1>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
@@ -8,6 +9,8 @@ var width = 1500,
     height = 1000;
 
 var data = {{data|safe}};
+
+
 
 var bigList = [{radius: 10}]; 
 

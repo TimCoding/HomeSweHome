@@ -189,15 +189,15 @@ def ckc_visualization(index):
     json_data = open(food_file).read()
     food_json = json.loads(json_data)
 
-    food_data = []
+    food_data = food_json[index]
     
-    for food in food_json:
-        food_dict = {
-            "calorie": food["calorie"],
-            "fat": food["fat"],
-            "protein": food["protein"],
-            "sodium": food["sodium"]
-        }
+    # for food in food_json:
+    #     food_dict = {
+    #         "calorie": food["calorie"],
+    #         "fat": food["fat"],
+    #         "protein": food["protein"],
+    #         "sodium": food["sodium"]
+    #     }
 
-        food_data.append(food_dict.copy())
-    return render_template("ckc_visualization.html", data=json.dumps(food_data[index]))
+    #     food_data.append(food_dict.copy())
+    return render_template("ckc_visualization.html", data=json.dumps(food_data), name=food_data["name"])
