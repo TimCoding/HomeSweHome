@@ -11,35 +11,46 @@
 	  <tr>
 	    <td>Red</td>
 	    <td>Fat</td>
-	    <td>{{data["fat"]}} g</td>
+	    <td><p id="fat"></p></td>
 	  </tr>
 	  <tr>
 	    <td>Blue</td>
 	    <td>Sodium</td>
-	    <td>{{data["sodium"]}}mg</td>
+	    <td><p id="sodium"></p></td>
 	  </tr>
 	  <tr>
 	    <td>Green</td>
 	    <td>Calories</td>
-	    <td>{{data["calorie"]}} kCal</td>
+	    <td><p id="calories"></p></td>
 	  </tr>
 	  <tr>
 	    <td>Orange</td>
 	    <td>Protein</td>
-	    <td>{{data["protein"]}} g</td>
+	    <td><p id="protein"></p></td>
 	  </tr>
 	 </table>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 
 var width = 1500,
-    height = 1000;
+    height = 750;
 
 var data = {{data|safe}};
 
+var fatDiv = document.getElementById('fat');
+fatDiv.innerHTML += data["fat"] + ' g';
+
+var sodiumDiv = document.getElementById('sodium');
+sodiumDiv.innerHTML += data["sodium"] + ' g';
+
+var caloriesDiv = document.getElementById('calories');
+caloriesDiv.innerHTML += data["calorie"] + ' kCal';
+
+var proteinDiv = document.getElementById('protein');
+proteinDiv.innerHTML += data["protein"] + ' g';
 
 
-var bigList = [{radius: 10}]; 
+var bigList = [{radius: 10}];
 
 bigList = bigList.concat(makeSodiumNodes(data["sodium"]));
 console.log(bigList);
@@ -49,8 +60,8 @@ bigList = bigList.concat(makeFatNodes(data["fat"]));
 
 
 function makeSodiumNodes(count) {
-    var nodes = d3.range(Math.ceil(count)).map(function() { return {radius: 10, id: 0};});  
-    return nodes;  
+    var nodes = d3.range(Math.ceil(count)).map(function() { return {radius: 10, id: 0};});
+    return nodes;
     // console.log(nodes);
 }
 
