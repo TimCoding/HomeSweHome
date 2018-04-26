@@ -48,8 +48,7 @@ Canvas Group 8
 
 +++
 
-- @fa[paw]() Build custom react components
-    - Filter button checkboxes
+- @fa[paw]() How to create a visualization with D3.js
 +++
 
 - @fa[paw]() Set up a postgres database
@@ -61,7 +60,7 @@ Canvas Group 8
 ### What can we do better?
 +++
 
-- @fa[paw]() Organize our data better so that we don't need ternary operators in ternary operators in ternar...
+- @fa[paw]() If a library exists, learn it and use it.
 
 +++
 
@@ -75,8 +74,6 @@ Canvas Group 8
 
 ---
 ### Other Critique
-
-Need to refine this section
 
 Canvas Group 10 - Calorie Killer Club
 ---
@@ -106,11 +103,11 @@ Canvas Group 10 - Calorie Killer Club
 
 +++
 
-- @fa[paw]() For pages with a small amount of data it might be better to do searching/filtering tasks on the front end 
+- @fa[paw]() Their usage of Travis showed us how to use continuous integration on a large project
 
 +++
 
-- @fa[paw]() We will learn what a met is..hopefully (putting what it actually meant here)
+- @fa[paw]() We learned that met stands for metabolic equivalent, a measure of energy cost of physical activities 
 
 ---
 
