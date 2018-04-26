@@ -172,11 +172,11 @@ Suggestions are less meaningful
 
 +++
 
-- @fa[paw]() It doesn't appear that they are using React or utilizing their own API
+- @fa[paw]() It doesn't seem like they are utilizing their own API
 
 Note:
-Any data changes on the website require entire reloads
-Again, functionality is often missing from the API because they aren't using it
+Functionality is often missing from the API because they aren't using it
+Changes require reloading the page, as data is sent with HTML
 
 ---
 
