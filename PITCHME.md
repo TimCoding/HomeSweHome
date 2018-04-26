@@ -1,5 +1,6 @@
 # HomeSweHome
 
+![Image](server/static/img/homeswehomelogo.png)
 Canvas Group 8
 
 ---
