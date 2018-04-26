@@ -183,4 +183,4 @@ Changes require reloading the page, as data is sent with HTML
 ## Visualization
 
 +++
-- [Visualization](http://homeswehome.me/visualization/0/)
+- [Visualization](http://homeswehome.me/visualization/0)
