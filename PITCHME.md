@@ -118,11 +118,13 @@ Canvas Group 10 - Calorie Killer Club
 
 +++
 
-- @fa[paw]() Since they have a lot of data to display, they should test on various devices to see how well that data is being shown
+- @fa[paw]() They can expose the relationship between models via the API
+- @fa[paw]() Difficult to make insights using API
 
 +++
 
-- @fa[paw]() Their testing could be more robust and cover more of their code
+- @fa[paw]() They can separate pagination of the models on the search page
+- @fa[paw]() Disrupts flow of navigation
 
 ---
 
@@ -130,15 +132,13 @@ Canvas Group 10 - Calorie Killer Club
 
 +++
 
-- @fa[paw]() How will they link up models to specific instances of other models?
+- @fa[paw]() Many of the model suggestions seem random
+- @fa[paw]() Results unexpectedly change upon refreshing the page
 
 +++
 
-- @fa[paw]() How will they handle the serving size for food items?
-
-+++
-
-- @fa[paw]() Why do their API endpoints perform a data dump instead of fulfilling a specific task such as searching? 
+- @fa[paw]() It doesn't appear that they are using React or utilizing their own API
+- @fa[paw]() Makes API quality suffer
 
 ---
 
