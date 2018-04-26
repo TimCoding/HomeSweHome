@@ -1,0 +1,156 @@
+[
+{
+    "aisle": "Savory Snacks",
+    "calorie": 387,
+    "fat": 2.8,
+    "id": 19816,
+    "img": "rice-cakes.jpg",
+    "name": "ricecake",
+    "protein": 8.2,
+    "servings": "100.0",
+    "sodium": 26
+},
+{
+    "aisle": "Frozen",
+    "calorie": 1,
+    "fat": 2,
+    "id": 19348,
+    "img": "chocolate-glaze.jpg",
+    "name": "Timothy",
+    "protein": 3,
+    "servings": "100.0",
+    "sodium": 4
+},
+{
+    "aisle": "Frozen",
+    "calorie": 350,
+    "fat": 8.9,
+    "id": 19348,
+    "img": "chocolate-glaze.jpg",
+    "name": "fudge ice cream topping",
+    "protein": 4.6,
+    "servings": "100.0",
+    "sodium": 346
+},
+{
+    "aisle": "Meat",
+    "calorie": 208,
+    "fat": 14.14,
+    "id": 23232,
+    "img": "ribeye-raw.jpg",
+    "name": "ribeye steaks",
+    "protein": 20.12,
+    "servings": "100.0",
+    "sodium": 52
+},
+{
+    "aisle": "Meat",
+    "calorie": 114,
+    "fat": 2.59,
+    "id": 1045062,
+    "img": "chicken-breasts.png",
+    "name": "boneless chicken breast halves",
+    "protein": 21.23,
+    "servings": "100.0",
+    "sodium": 116
+},
+{
+    "aisle": "Meat",
+    "calorie": 169,
+    "fat": 9.23,
+    "id": 17032,
+    "img": "lamb-rib-chops.jpg",
+    "name": "lamb rib chops",
+    "protein": 19.98,
+    "servings": "100.0",
+    "sodium": 72
+},
+{
+    "aisle": "Cheese",
+    "calorie": 321,
+    "fat": 25,
+    "id": 98973,
+    "img": "cheddar-cheese.jpg",
+    "name": "quesadilla queso cheese",
+    "protein": 25,
+    "servings": "100.0",
+    "sodium": 500
+},
+{
+    "aisle": "Frozen",
+    "calorie": 207.0,
+    "fat": 11.0,
+    "id": 19095,
+    "img": "vanilla-ice-cream.png",
+    "name": "ice cream",
+    "protein": 3.5,
+    "servings": "100.0",
+    "sodium": 80.0
+  },
+  {
+    "aisle": "Pasta and Rice",
+    "calorie": 162.0,
+    "fat": 0.77,
+    "id": 98853,
+    "img": "gnocchi-isolated.jpg",
+    "name": "potato gnocchi",
+    "protein": 3.93,
+    "servings": "100.0",
+    "sodium": 339.0
+  },
+  {
+    "aisle": "Bakery/Bread",
+    "calorie": 318.0,
+    "fat": 7.07,
+    "id": 98871,
+    "img": "sweet-buns.jpg",
+    "name": "hawaiian roll",
+    "protein": 10.6,
+    "servings": "100.0",
+    "sodium": 300.0
+  },
+  {
+    "aisle": "Pasta and Rice",
+    "calorie": 336.0,
+    "fat": 0.71,
+    "id": 20114,
+    "img": "soba-noodles.jpg",
+    "name": "soba noodles",
+    "protein": 14.38,
+    "servings": "100.0",
+    "sodium": 792.0
+  },
+  {
+    "aisle": "Dried Fruits",
+    "calorie": 243.0,
+    "fat": 0.32,
+    "id": 9011,
+    "img": "apple-dried.jpg",
+    "name": "dried apples",
+    "protein": 0.93,
+    "servings": "100.0",
+    "sodium": 87.0
+  },
+  {
+    "aisle": "Ethnic Foods",
+    "calorie": 282,
+    "fat": 14.28,
+    "id": 1022009,
+    "img": "chili-powder.jpg",
+    "name": "ancho chile powder",
+    "protein": 13.46,
+    "servings": "100.0",
+    "sodium": 1640
+  },
+  {
+    "aisle": "Seafood",
+    "calorie": 100,
+    "fat": 1.36,
+    "id": 10115152,
+    "img": "shrimp.jpg",
+    "name": "rock shrimp",
+    "protein": 20.42,
+    "servings": "100.0",
+    "sodium": 777
+  }
+]

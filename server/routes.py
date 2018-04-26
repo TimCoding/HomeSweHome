@@ -8,8 +8,10 @@ from server import app
 from server import api
 from server import database
 
-import os
+import os, sys
 
+PATH_TO_JSON = os.path.join(os.path.dirname(os.getcwd()), os.path.basename(os.getcwd()), "server/data")
+sys.path.insert(0, PATH_TO_JSON)
 
 about_location = os.path.join(os.path.dirname(__file__), "data/about_people.json")
 f = open(about_location, "r")
@@ -181,6 +183,21 @@ def about_data():
     return jsonify(data)
 
 
-@app.route("/visualization/")
-def ckc_visualization():
-    return render_template("ckc_visualization.html")
+@app.route("/visualization/<int:index>")
+def ckc_visualization(index):
+    food_file = os.path.join(PATH_TO_JSON, "foods.json")
+    json_data = open(food_file).read()
+    food_json = json.loads(json_data)
+
+    food_data = []
+    
+    for food in food_json:
+        food_dict = {
+            "calorie": food["calorie"],
+            "fat": food["fat"],
+            "protein": food["protein"],
+            "sodium": food["sodium"]
+        }
+
+        food_data.append(food_dict.copy())
+    return render_template("ckc_visualization.html", data=json.dumps(food_data[index]))

@@ -7,17 +7,47 @@
 var width = 1500,
     height = 1000;
 
-var nodes = d3.range(10).map(function() { return {radius: Math.random() * 12 + 4}; }),
-    root = nodes[0],
+var data = {{data|safe}};
+
+var bigList = [{radius: 10}]; 
+
+bigList = bigList.concat(makeSodiumNodes(data["sodium"]));
+console.log(bigList);
+bigList = bigList.concat(makeProteinNodes(data["protein"]));
+bigList = bigList.concat(makeCalorieNodes(data["calorie"]));
+bigList = bigList.concat(makeFatNodes(data["fat"]));
+
+
+function makeSodiumNodes(count) {
+    var nodes = d3.range(Math.ceil(count)).map(function() { return {radius: 10, id: 0};});  
+    return nodes;  
+    // console.log(nodes);
+}
+
+function makeProteinNodes(count) {
+    return d3.range(Math.ceil(count)).map(function() { return {radius: 10, id: 1};});
+}
+
+function makeCalorieNodes(count) {
+    return d3.range(Math.ceil(count)).map(function() { return {radius: 10, id: 2};});
+}
+
+function makeFatNodes(count) {
+    return d3.range(Math.ceil(count)).map(function() { return {radius: 10, id: 3};});
+}
+
+
+
+var root = bigList[0],
     color = d3.scale.category10();
 
 root.radius = 0;
 root.fixed = true;
 
 var force = d3.layout.force()
-    .gravity(0.02)
+    .gravity(0.05)
     .charge(function(d, i) { return i ? 0 : -2000; })
-    .nodes(nodes)
+    .nodes(bigList)
     .size([width, height]);
 
 force.start();
@@ -27,17 +57,17 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 svg.selectAll("circle")
-    .data(nodes.slice(1))
+    .data(bigList.slice(1))
   .enter().append("circle")
     .attr("r", function(d) { return d.radius; })
-    .style("fill", function(d, i) { return color(i % 3); });
+    .style("fill", function(d, i) {return color(d.id); });
 
 force.on("tick", function(e) {
-  var q = d3.geom.quadtree(nodes),
+  var q = d3.geom.quadtree(bigList),
       i = 0,
-      n = nodes.length;
+      n = bigList.length;
 
-  while (++i < n) q.visit(collide(nodes[i]));
+  while (++i < n) q.visit(collide(bigList[i]));
 
   svg.selectAll("circle")
       .attr("cx", function(d) { return d.x; })
