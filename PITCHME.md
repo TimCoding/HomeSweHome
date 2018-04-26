@@ -119,12 +119,12 @@ Canvas Group 10 - Calorie Killer Club
 +++
 
 - @fa[paw]() They can expose the relationship between models via the API
-    - difficult to make insights using API
+    * difficult to make insights using API
 
 +++
 
 - @fa[paw]() They can separate pagination of the models on the search page
-    - hard to keep track of where you are
+    * hard to keep track of where you are
 
 ---
 
@@ -133,7 +133,7 @@ Canvas Group 10 - Calorie Killer Club
 +++
 
 - @fa[paw]() Many of the model suggestions seem more or less random
-    - results change upon refreshing the page
+    * results change upon refreshing the page
 
 +++
 
