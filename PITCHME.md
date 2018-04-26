@@ -25,7 +25,27 @@ Canvas Group 8
 
 +++
 
+## Frontend Tests
+
+![Image](assets/frontend.png)
+
++++
+
+## Backend Tests
+
 ![Image](assets/backend.png)
+
++++
+
+## GUI Tests
+
+![Image](assets/gui.png)
+
++++
+
+## API Tests
+
+![Image](assets/postman.png)
 
 +++
 
