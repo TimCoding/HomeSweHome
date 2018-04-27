@@ -111,11 +111,11 @@ Canvas Group 10 - Calorie Killer Club
 
 +++
 
-- @fa[paw]() Nice splash page
+- @fa[paw]() Nice overall aesthetics
 
 +++
 
-- @fa[paw]() They have breadcrumb feature which is unique and innovative, strong 
+- @fa[paw]() They have breadcrumb feature which is unique and innovative
 
 +++
 
