@@ -60,15 +60,16 @@ Canvas Group 8
 
 +++
 
+- @fa[paw]() We were willing to dig through documentation and understand how all the libraries we were using worked
+
++++
+
 - @fa[paw]() We were not afraid to communicate about stories that we were falling behind on
 
 +++
 
 - @fa[paw]() We shared code equally and made changes to each other’s work to improve quality
 
-+++
-
-- @fa[paw]() We were willing to dig through documentation and understand how all the libraries we were using worked
 ---
 ### What did we learn?
 
