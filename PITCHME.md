@@ -47,8 +47,6 @@ Canvas Group 8
 
 ![Image](assets/postman.png)
 
-+++
-
 ---
 
 ### Self Critique
